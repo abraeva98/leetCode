@@ -1,0 +1,19 @@
+Given a string s, find the length of the longest substring without repeating characters.
+
+
+var lengthOfLongestSubstring = function(s) {
+    let maximum = 0;
+    let currentMax = 0;
+    let array = [];
+    let p = 0;
+    while (p < s.length) {
+        while (array.indexOf(s[p]) !== -1) {
+               array.shift();
+        }
+               array.push(s[p]);
+               currentMax = array.length;
+               p ++;
+        if (currentMax > maximum) maximum = currentMax
+        }
+    return maximum;
+};
