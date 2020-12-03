@@ -1,0 +1,21 @@
+Write a program to find the node at which the intersection of two singly linked lists begins.
+
+
+var getIntersectionNode = function(headA, headB) {
+    if (headA === null || headB === null) return null;
+    let pointerA = headA;
+    let pointerB = headB;
+    while (pointerA !== pointerB) {
+        if (pointerA !== null) {
+            pointerA = pointerA.next;
+        } else {
+            pointerA = headB;
+        }
+        if (pointerB !== null) {
+            pointerB = pointerB.next;
+        } else {
+            pointerB = headA
+        }
+    }
+    return pointerA;
+};
