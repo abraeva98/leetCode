@@ -1,0 +1,19 @@
+
+Given an integer array nums, find the contiguous subarray within 
+an array (containing at least one number) which has the largest product.
+Input: [2,3,-2,4]
+Output: 6
+Explanation: [2,3] has the largest product 6.
+
+const maxProduct = (nums) => {
+    let min = nums[0];
+    let max = nums[0];
+    let largest = nums[0];
+    for (let i = 1; i < nums.length; i ++) {
+        let temp = max;
+        max = Math.max(nums[i], Math.max(nums[i] * max, nums[i] * min));
+        min = Math.min(nums[i], Math.min(nums[i] * temp, nums[i] * min ));
+        largest = Math.max(max, largest)
+    }
+    return largest;
+};
