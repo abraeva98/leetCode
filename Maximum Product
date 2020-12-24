@@ -1,0 +1,9 @@
+Given an integer array nums, find three numbers whose product is maximum and return the maximum product.
+
+
+const maximumProduct = function(nums) {
+  nums.sort((a, b) => a - b);
+  let end = nums[nums.length - 1] * nums[nums.length - 2] * nums[nums.length - 3];
+  let start = nums[0] * nums[1] * nums[nums.length - 1];
+  return Math.max(end, start);
+};
