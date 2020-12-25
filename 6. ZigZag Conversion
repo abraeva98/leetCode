@@ -7,11 +7,11 @@ And then read line by line: "PAHNAPLSIIGYIR"
 
 Write the code that will take a string and make this conversion given a number of rows:
 
-var convert = function(s, numRows) {
+const convert = function(s, numRows) {
     if (numRows === 1 || s.length < numRows) {
         return s;
     }
-    let array = [];
+    const array = [];
     let currentRow = 0;
     let reverse = false;
     let result = '';
