@@ -7,7 +7,7 @@ We are given the root of a binary tree with unique values, and the values x and 
 Return true if and only if the nodes corresponding to the values x and y are cousins.
 
 
-var isCousins = function(root, x, y) {
+const isCousins = function(root, x, y) {
     let nodeX = findNode(root, x, 0, '');
     let nodeY = findNode(root, y, 0, '');
     if (nodeY[0] !== nodeX[0] || nodeY[1] === nodeX[1]) return false;
