@@ -13,3 +13,30 @@
 // queries are: a / c = ?, b / a = ?, a / e = ?, a / a = ?, x / x = ?
 // return: [6.0, 0.5, -1.0, 1.0, -1.0 ]
 
+var calcEquation = function(equations, values, queries) {
+    let graph = {};
+    let result = []
+    for (let i = 0; i < equations.length; i ++) {
+        let [first, second] = equations[i];
+        if (!graph[first]) {
+            graph[first] = [[second, values[i]]];
+        } else {
+            graph[first].push([second, values[i]]);
+        }
+        if (!graph[second]) {
+            graph[second] = [[first, 1 / values[i]]];
+        } else {
+            graph[second].push([first, 1 / values[i]]);
+        }
+    }
+    for (let i = 0; i < queries.length; i ++) {
+        let [dividend, divisor] = queries[i];
+        let answer = findConnectedValue(dividend, dividend, divisor, graph, 1, {});
+        if (answer !== false) {
+            result.push(answer)
+        } else {
+            result.push(-1)
+        }
+    }
+    return result;
+}
