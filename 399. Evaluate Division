@@ -40,3 +40,20 @@ var calcEquation = function(equations, values, queries) {
     }
     return result;
 }
+
+function findConnectedValue(start, current, dest, graph, answer, seen) {
+    if (!graph[start] || !graph[dest]) {
+            return -1;   
+        } 
+    if (start === dest) return 1;
+    if (current === dest) return answer;
+    let list = graph[current];
+    seen[current] = true;
+    for (let i = 0; i < list.length; i ++) {
+        if (!seen[list[i][0]]) {
+            let result = findConnectedValue(start, list[i][0], dest, graph, answer * list[i][1], seen);
+            if (result) return result;
+        }
+    }
+    return false;
+}
