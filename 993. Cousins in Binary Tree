@@ -1,0 +1,18 @@
+
+
+var isCousins = function(root, x, y) {
+    let nodeX = findNode(root, x, 0, '');
+    let nodeY = findNode(root, y, 0, '');
+    if (nodeY[0] !== nodeX[0] || nodeY[1] === nodeX[1]) return false;
+    return true;
+};
+
+function findNode(root, node, depth, parent) {
+    if (root === null) return 0;
+    if (root.left && root.left.val === node) parent = root;
+    if (root.right && root.right.val === node) parent = root;
+    if (root.val === node) return [depth, parent];
+    let leftSide = findNode(root.left, node, depth + 1, parent);
+    if (leftSide) return leftSide
+    else return findNode(root.right, node, depth + 1, parent)
+}
