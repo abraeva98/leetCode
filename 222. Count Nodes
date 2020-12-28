@@ -12,3 +12,22 @@ var countNodes = function(root) {
   if (!root) return 0;
   return countNodes(root.left) + countNodes(root.right) + 1;
 }
+
+// solution 2
+var countNodes = function(root) {
+  let leftNode = root;
+  let rightNode = root;
+  let leftHeight = 0;
+  let rightHeight = 0;
+  if (!root) return 0;
+  while (leftNode !== null) {
+      leftHeight ++;
+      leftNode = leftNode.left;
+  }
+  while (rightNode !== null) {
+      leftHeight ++;
+      rightNode = rightNode.right;
+  }
+  if (leftHeight === rightHeight) return Math.pow(2, leftHeight); 
+  return countNodes(root.left) + countNodes(root.right) + 1;
+}
