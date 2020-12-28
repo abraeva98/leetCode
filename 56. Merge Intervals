@@ -1,0 +1,13 @@
+var merge = function(intervals) {
+    intervals.sort((a, b) => a[0] - b[0])
+    let nonOverLappingIntervals = [];
+    for (let interval of intervals) {
+        if (nonOverLappingIntervals.length === 0 || 
+            nonOverLappingIntervals[nonOverLappingIntervals.length - 1][1] < interval[0]) {
+            nonOverLappingIntervals.push(interval)
+        } else {
+            nonOverLappingIntervals[nonOverLappingIntervals.length - 1][1] = Math.max(nonOverLappingIntervals[nonOverLappingIntervals.length - 1][1], interval[1])
+        }
+    }
+    return nonOverLappingIntervals;
+};
