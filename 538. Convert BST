@@ -1,0 +1,12 @@
+var convertBST = function(root) {
+    if (!root) return root;
+    let sum = 0;
+    function findSum(root) {
+    if (root.right) findSum(root.right)
+    sum += root.val;
+    root.val = sum;
+    if (root.left) findSum(root.left)
+    }
+    findSum(root);
+    return root;
+};
