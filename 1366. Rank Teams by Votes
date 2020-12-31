@@ -1,0 +1,20 @@
+var rankTeams = function(votes) {
+    let letters = {};
+    let n = votes[0].length;
+    votes.forEach(vote => {
+        for (let i = 0; i < n; i ++) {
+            if (!letters[vote[i]]) {
+                letters[vote[i]] = new Array(n).fill(0);
+            }
+            letters[vote[i]][i] ++;
+        }
+    })
+    let res = Object.keys(letters).sort((a, b) => {
+        for (let i = 0; i < n; i ++) {
+            if (letters[a][i] !== letters[b][i]) 
+                return letters[b][i] - letters[a][i];
+        }
+        return a > b ? 1 : -1;
+    })
+    return res.join('');
+};
