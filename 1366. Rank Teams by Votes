@@ -8,8 +8,7 @@ If two or more teams are still tied after considering all positions, we rank the
 Given an array of strings votes which is the votes of all voters in the ranking systems. Sort all teams according to the ranking system described above.
 
 Return a string of all teams sorted by the ranking system.
-
-var rankTeams = function(votes) {
+const rankTeams = function(votes) {
     let letters = {};
     let n = votes[0].length;
     votes.forEach(vote => {
