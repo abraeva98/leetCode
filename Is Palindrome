@@ -1,0 +1,11 @@
+var isPalindrome = function(x) {
+    let copy = x;
+    let reversed = 0; 
+    let current = 0; 
+    while (copy > 0) {
+        current = copy % 10;
+        reversed = reversed * 10 + current;
+        copy = Math.floor(copy / 10);
+    } 
+    return x === reversed;
+};
