@@ -2,7 +2,7 @@ Determine whether an integer is a palindrome. An integer is a palindrome when it
 
 Follow up: Could you solve it without converting the integer to a string?
 
-var isPalindrome = function(x) {
+const isPalindrome = function(x) {
     let copy = x;
     let reversed = 0; 
     let current = 0; 
