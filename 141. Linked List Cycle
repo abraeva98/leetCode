@@ -1,0 +1,12 @@
+var hasCycle = function(head) {
+    let node = head;
+    while (node !== null) {
+        if (node.val === 'visited') {
+            return true;
+        } else {
+            node.val = "visited";
+            node = node.next;
+        }
+    }
+    return false;
+};
