@@ -1,0 +1,26 @@
+
+var UndergroundSystem = function() {
+    this.startTime = {};
+    this.routes = {};
+};
+
+UndergroundSystem.prototype.checkIn = function(id, stationName, t) {
+    this.startTime[id] = {stationName, t}
+};
+
+UndergroundSystem.prototype.checkOut = function(id, stationName, t) {
+    let startStation = this.startTime[id].stationName;
+    let startTime = this.startTime[id].t;
+    let route = `${startStation}-${stationName}`;
+    if (route in this.routes) {
+        this.routes[route][0] += t - startTime;
+        this.routes[route][1] ++;
+    } else {
+        this.routes[route] = [t - startTime, 1]
+    }
+};
+
+UndergroundSystem.prototype.getAverageTime = function(startStation, endStation) {
+    let route = `${startStation}-${endStation}`
+    return this.routes[route][0] / this.routes[route][1]
+};
