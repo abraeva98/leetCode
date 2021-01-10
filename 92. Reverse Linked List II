@@ -1,0 +1,16 @@
+var reverseBetween = function(head, m, n) {
+   let dummy = new ListNode(0, head);
+   let curr = dummy;
+   let prev = null;
+   for (let i = 0; i < m; i ++) {
+       prev = curr;
+       curr = curr.next;
+   }
+   for (let i = 0; i < n - m; i ++) {
+       let next = curr.next;
+       curr.next = next.next;
+       next.next = prev.next;
+       prev.next = next;
+   }
+    return dummy.next;
+};
