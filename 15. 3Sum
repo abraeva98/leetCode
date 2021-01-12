@@ -1,0 +1,27 @@
+var threeSum = function(nums) {
+    if (nums.length === 0 || nums.length === 1) return [];
+    let triplets = [];
+    let uniqueValues = new Set();
+    nums = nums.sort((a, b) => a - b);
+    for (let i = 0; i < nums.length - 2; i ++) {
+        let p2 = i + 1;
+        let p3 = nums.length - 1;
+        while (p2 < p3) {
+            let sum = nums[i] + nums[p2] + nums[p3];
+            if (sum === 0) {
+            let uniqueSet = `${nums[i]}-${nums[p2]}-${nums[p3]}`
+            if (!uniqueValues.has(uniqueSet)) {
+                uniqueValues.add(uniqueSet);
+                triplets.push([nums[i], nums[p2], nums[p3]]);
+            }
+            p2 ++;
+            p3 --;
+        } else if (sum < 0) {
+            p2 ++;
+        } else if (sum > 0) {
+            p3 --;
+        }
+        }
+    }
+    return triplets;
+};
