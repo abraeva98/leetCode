@@ -1,0 +1,11 @@
+var buildTree = function(preorder, inorder) {
+    function helper(start, end) {
+        if (start > end) return null;
+        let middleIndex = inorder.indexOf(preorder.shift());
+        let node = new TreeNode(inorder[middleIndex]);
+        node.left = helper(start, middleIndex - 1);
+        node.right = helper(middleIndex + 1, end);
+        return node;
+    }
+    return helper(0, inorder.length - 1)
+};
