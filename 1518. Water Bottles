@@ -1,0 +1,11 @@
+var numWaterBottles = function(numBottles, numExchange) {
+    let total = numBottles;
+    let remainder = 0;  
+    while (numExchange <= numBottles) {
+        remainder = numBottles % numExchange;
+        numBottles = Math.floor(numBottles / numExchange);
+        total += numBottles;  
+        numBottles += remainder;
+    }
+    return total;
+};
