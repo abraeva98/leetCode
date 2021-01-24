@@ -1,0 +1,22 @@
+var decodeString = function(str) {
+  let currStr = '';
+  let currNum = 0;
+  let stack = [];
+  for (const char of str) {
+      if (char === "[") {
+          stack.push(currStr);
+          stack.push(currNum);
+          currStr = '';
+          currNum = 0;
+      } else if (char === ']') {
+          let num = stack.pop();
+          let prev = stack.pop();
+          currStr = prev + currStr.repeat(num);
+      } else if (!isNaN(Number(char))) {
+          currNum = currNum * 10 + Number(char);
+      } else {
+          currStr += char;
+      }
+  }
+  return currStr;
+};
