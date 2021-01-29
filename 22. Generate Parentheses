@@ -1,0 +1,16 @@
+var generateParenthesis = function(n) {
+    let final = [];
+    function backTrack(result, currStr, open, close) {
+        if (currStr.length === n * 2) {
+            result.push(currStr);
+        } 
+        if (open < n) {
+            backTrack(result, currStr + '(', open + 1, close);
+          } 
+        if (close < open) {
+            backTrack(result, currStr + ')', open, close + 1);
+          }
+        }
+    backTrack(final, '', 0, 0);
+    return final;
+};
