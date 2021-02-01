@@ -1,6 +1,6 @@
 Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
 
-var generateParenthesis = function(n) {
+const generateParenthesis = function(n) {
     let final = [];
     function backTrack(result, currStr, open, close) {
         if (currStr.length === n * 2) {
