@@ -1,3 +1,5 @@
+Given a string S of lowercase letters, a duplicate removal consists of choosing two adjacent and equal letters, and removing them.
+
 var removeDuplicates = function(s) {
     s = s.split('');
     for (let i = 0; i < s.length; i ++) {
