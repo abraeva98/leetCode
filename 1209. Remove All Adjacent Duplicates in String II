@@ -1,3 +1,8 @@
+Given a string s, a k duplicate removal consists of choosing 
+k adjacent and equal letters from s and removing them causing 
+the left and the right side of the deleted substring to 
+concatenate together.
+
 var removeDuplicates = function(s, k) {
     s = s.split('')
     let stack = [];
