@@ -1,0 +1,18 @@
+function solution(N) {
+    let number = N.toString();
+    for (let i = 0; i < number.length; i ++) {
+        if (number >= 0) {
+            if (number[i] < 5) {
+                let num = number.split('');
+                num.splice(i, 0, '5');
+                return parseInt(num.join(''));
+            }
+        } else {
+            if (number[i] > 5) {
+                let num = number.split('');
+                num.splice(i, 0, '5');
+                return parseInt(num.join(''));
+            }
+        }
+    }
+}
