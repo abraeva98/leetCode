@@ -1,0 +1,28 @@
+var BrowserHistory = function(homepage) {
+    this.browserHistory = [homepage];
+    this.current = 0;
+};
+
+BrowserHistory.prototype.visit = function(url) {
+    this.browserHistory.splice(this.current + 1);
+    this.browserHistory.push(url);
+    this.current = this.browserHistory.length - 1;
+};
+
+BrowserHistory.prototype.back = function(steps) {
+    if (this.current - steps > 0) {
+        this.current -= steps;
+    } else {
+        this.current = 0;
+    }
+    return this.browserHistory[this.current];
+};
+
+BrowserHistory.prototype.forward = function(steps) {
+    if (steps + this.current > this.browserHistory.length - 1) {
+        this.current = this.browserHistory.length - 1;
+    } else {
+        this.current += steps;
+    }
+    return this.browserHistory[this.current];
+};
