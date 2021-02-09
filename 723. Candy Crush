@@ -1,0 +1,53 @@
+var candyCrush = function(board) {
+
+    /*
+        1) check rows
+        2) check column
+        3) drop
+        4) repeat 
+    */
+    
+    let toDo = false;
+    
+    for (let i = 0; i < board.length; i ++) {
+        for (let j = 0; j < board[i].length - 2; j ++) {
+            let curr = Math.abs(board[i][j]);
+            if (curr !== 0 && curr === Math.abs(board[i][j + 1]) 
+                && Math.abs(board[i][j + 1]) === Math.abs(board[i][j + 2])) {
+                toDo = true;
+                if (board[i][j] > 0) board[i][j] *= -1;
+                if (board[i][j + 1] > 0) board[i][j + 1] *= -1;
+                if (board[i][j + 2] > 0) board[i][j + 2] *= -1;
+            }
+        }
+    }
+    
+    for (let j = 0; j < board[0].length; j ++) {
+        for (let i = 0; i < board.length - 2; i ++) {
+            let curr = Math.abs(board[i][j]);
+            if (curr !== 0 && curr === Math.abs(board[i + 1][j]) 
+                && Math.abs(board[i + 1][j]) === Math.abs(board[i + 2][j])) {
+                toDo = true;
+                if (board[i][j] > 0) board[i][j] *= -1;
+                if (board[i + 1][j] > 0) board[i + 1][j] *= -1;
+                if (board[i + 2][j] > 0) board[i + 2][j] *= -1;
+            }
+        }
+    }
+
+    for (let j = board[0].length - 1; j >= 0; j --) {
+        let p1 = board.length - 1;
+        for (let i = board.length - 1; i >= 0; i --) {
+            if (board[i][j] > 0) {
+                board[p1][j] = board[i][j];
+                p1 --;
+            } 
+        }
+        while (p1 >= 0) {
+            board[p1][j] = 0;
+            p1 --;
+        }
+    }
+
+    return toDo ? candyCrush(board) : board;
+}
