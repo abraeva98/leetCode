@@ -1,0 +1,12 @@
+var twoCitySchedCost = function(costs) {
+
+    costs.sort((a, b) => (a[0] - a[1]) - (b[0] - b[1]));
+    
+    const total = costs.reduce((acc, cost, index) => {
+        if (index < costs.length / 2) acc += cost[0];
+        else acc += cost[1];
+        return acc;
+    }, 0)
+    
+    return total;
+};
