@@ -1,0 +1,28 @@
+var flatten = function(head) {
+    /* 1) iterate through the linked list
+       2) check if current node has a child
+       3) save next node in temp
+       4) when we hit null, set next of it to be equal to temp
+    */
+
+    let current = head;
+
+    while (current !== null) {
+        if (current.child) {
+            let temp = current.next;
+            current.next = flatten(current.child);
+            current.next.prev = current;
+            current.child = null;
+            while (current.next !== null) {
+                current = current.next;
+            }
+            current.next = temp;
+            if (temp !== null) {
+                temp.prev = current;
+            }
+            
+        } 
+        current = current.next;
+    }
+    return head;
+};
