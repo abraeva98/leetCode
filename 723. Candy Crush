@@ -1,4 +1,4 @@
-var candyCrush = function(board) {
+const candyCrush = function(board) {
 
     /*
         1) check rows
