@@ -1,0 +1,27 @@
+var maxScore = function(cardPoints, k) {
+    /* 
+        let's take k num from the end
+        count the sum before k 
+        subtract the first num from the end subarray with
+        first number from the start subarray
+    */
+    let leftSubArray = 0;
+    let currMaxSubArray = 0;
+    const length = cardPoints.length - 1;
+    for (let i = length; i > length - k; i --) {
+        currMaxSubArray += cardPoints[i];
+    }
+
+    let maxSum = currMaxSubArray;
+    let right = cardPoints.length - k;
+    let left = 0;
+
+    while (left < k) {
+        currMaxSubArray += cardPoints[left];
+        currMaxSubArray -= cardPoints[right];
+        maxSum = Math.max(currMaxSubArray, maxSum);
+        left ++;
+        right ++;
+    }
+    return maxSum;
+};
