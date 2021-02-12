@@ -10,7 +10,6 @@ var allPathsSourceTarget = function(graph) {
     while (queue.length !== 0) {
         let path = queue.pop()
         let lastNode = path[path.length - 1];
-        
         if (lastNode === target) {
             result.push(path);
         } else {
@@ -24,6 +23,28 @@ var allPathsSourceTarget = function(graph) {
         }
     }
     
+    return result;
+};
+
+// DFS recursion
+
+var allPathsSourceTarget = function(graph) {
+
+    let result = [];
+    let target = graph.length - 1;
     
+    function backTrack(currNode, path) {
+        if (currNode === target) {
+            result.push(path)
+        } else {
+            for (let neighbor of graph[currNode]) {
+                let newArr = path.slice();
+                newArr.push(neighbor)
+                backTrack(neighbor, newArr)
+            }
+        }
+    }
+    
+    backTrack(0, [0])
     return result;
 };
