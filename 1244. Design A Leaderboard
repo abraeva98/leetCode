@@ -1,0 +1,19 @@
+var Leaderboard = function() {
+    this.leaderBoard = {};
+};
+
+Leaderboard.prototype.addScore = function(playerId, score) {
+    if (this.leaderBoard[playerId]) this.leaderBoard[playerId] += score;
+    else this.leaderBoard[playerId] = score;
+};
+
+Leaderboard.prototype.top = function(K) {
+    let scores = Object.values(this.leaderBoard);
+    scores.sort((a, b) => b - a);
+    scores.splice(K);
+    return scores.reduce((acc, score) => acc + score)
+};
+
+Leaderboard.prototype.reset = function(playerId) {
+    this.leaderBoard[playerId] = 0;
+};
