@@ -1,0 +1,47 @@
+var numIslands = function(grid) {
+    /*
+        1) create a copy of the grid 'visited' with false values in each row
+        2) iterate through the grid and check current value is a '1' or '0'
+        3) if it is '0' or visited we skip
+        4) if it '1' call helper function
+        5) helper funciton will check all the neighbors of the current el
+        6) return a number of islands
+    */
+    let isVisited = grid.map(row => row.map(el => el = false));
+    let numOfIslands = 0;
+    for (let row = 0; row < grid.length; row ++) {
+        for (let column = 0; column < grid[row].length; column ++) {
+            if (isVisited[row][column] || grid[row][column] === '0') continue;
+            numOfIslands ++;
+            checkNeighbors(grid, row, column, isVisited);
+        }
+    }
+    return numOfIslands;
+};
+ /* need to check all the neighbor row + 1, row - 1, column + 1, column - 1
+    mark as visited and if any of these elements are '1' we need to add them to the stack       and check its neighbors. And if it is '0' we skip
+ */
+
+function checkNeighbors(grid, i, j, isVisited) {
+    let stack = [[i, j]];
+
+    while (stack.length !== 0) {
+        let [row, column] = stack.pop();
+        
+        if (isVisited[row][column]) continue;
+        isVisited[row][column] = true;
+        if (grid[row][column] === '0') continue;
+        
+        let neighbors = helperFunc(grid, row, column, isVisited, []);
+        for (let neighbor of neighbors) stack.push(neighbor);
+    }
+}
+
+// check if is not visited and if it is inside the borders
+function helperFunc(grid, row, column, isVisited, neighbors) {
+    if (row < grid.length - 1 && !isVisited[row + 1][column]) neighbors.push([row + 1, column]);
+    if (row - 1 >= 0 && !isVisited[row - 1][column]) neighbors.push([row - 1, column]);
+    if (column < grid[0].length - 1 && !isVisited[row][column + 1]) neighbors.push([row, column + 1]);
+    if (column - 1 >= 0 && !isVisited[row][column - 1]) neighbors.push([row, column - 1]);
+    return neighbors;
+}
