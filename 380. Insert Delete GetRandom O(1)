@@ -1,3 +1,41 @@
+// 1
+var RandomizedSet = function() {
+    this.hashMap = {};
+    this.nums = [];
+};
+
+RandomizedSet.prototype.insert = function(val) {
+    if (this.hashMap[val] !== undefined) {
+        return false;
+    } else {
+        this.nums.push(val);
+        this.hashMap[val] = this.nums.length - 1;
+        return true;
+    }
+};
+
+RandomizedSet.prototype.remove = function(val) {
+     if (this.hashMap[val] === undefined) {
+         return false;
+     } else {
+         let index = this.hashMap[val];
+         let lastIdx = this.nums.length - 1;
+         this.hashMap[this.nums[lastIdx]] = index;
+         this.nums[index] = this.nums[lastIdx];
+         this.nums.pop();
+         delete this.hashMap[val];
+         return true;
+     }
+};
+
+RandomizedSet.prototype.getRandom = function() {
+    const random = Math.floor(Math.random() * this.nums.length);
+    return this.nums[random];
+};
+
+
+
+// 2
 var RandomizedSet = function() {
     this.set = new Set();
 };
