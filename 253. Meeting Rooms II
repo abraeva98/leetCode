@@ -1,3 +1,5 @@
+// time O(NlogN), space O(N)
+
 var minMeetingRooms = function(intervals) {
     /* 
         sort the input array by start times in the ascending order
@@ -26,4 +28,36 @@ var minMeetingRooms = function(intervals) {
 
 function findMinEndTime(rooms) {
     return rooms.sort((a, b) => a[1] - b[1])[0];
+}
+
+// solution 2
+
+var minMeetingRooms = function(intervals) {
+    let start = [];
+    let end = [];
+    
+    for (let interval of intervals) {
+        start.push(interval[0]);
+        end.push(interval[1]);
+    }
+    
+    start.sort((a, b) => a - b);
+    end.sort((a, b) => a - b);
+    
+    let p1 = 0;
+    let p2 = 0;
+    let rooms = 0;
+    let max = 0;
+    
+    while (p1 < start.length) {
+        if (start[p1] < end[p2]) {
+            p1 ++;
+            rooms ++;
+        } else {
+            p2 ++;
+            rooms --;
+        }
+        max = Math.max(rooms, max);
+    }
+    return max;
 }
