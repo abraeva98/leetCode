@@ -1,0 +1,29 @@
+var minMeetingRooms = function(intervals) {
+    /* 
+        sort the input array by start times in the ascending order
+        create an array of rooms, each time check the smallest end time in         
+        the rooms array. If the smallest end time is lesser than current 
+        start time than update end time to the current element's end time.
+        If the smallest end time is greater than current 
+        start time than add another room for the current inverval.
+    */
+    
+    intervals.sort((a, b) => a[0] - b[0]);
+    let rooms = [intervals[0]];
+
+    for (let i = 1; i < intervals.length; i ++) {
+        let startTime = intervals[i][0];
+        let minEndTime = findMinEndTime(rooms);
+
+        if (minEndTime[1] <= startTime) {
+            minEndTime[1] = intervals[i][1];
+        } else {
+            rooms.push(intervals[i])
+        }
+    }
+    return rooms.length;
+};
+
+function findMinEndTime(rooms) {
+    return rooms.sort((a, b) => a[1] - b[1])[0];
+}
