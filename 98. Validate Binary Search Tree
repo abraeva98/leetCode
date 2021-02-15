@@ -1,0 +1,13 @@
+var isValidBST = function(root, low = null, high = null) {
+    /* We need to check if the given nodes children 
+       are meeting the condition. If there are
+       we will call the function recursively on them.
+    */
+    if (root === null) return true;
+    if (low !== null && root.val <= low ||
+       high !== null && root.val >= high) {
+       return false;
+    }
+        
+    return isValidBST(root.left, low, root.val) && isValidBST(root.right, root.val, high);
+};
