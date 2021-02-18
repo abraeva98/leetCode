@@ -1,0 +1,18 @@
+var isAnagram = function(s, t) {
+    let hashMap = {};
+    for (let letter of s) {
+        if (hashMap[letter] === undefined) {
+            hashMap[letter] = 1;
+        } else {
+            hashMap[letter] ++;
+        }
+    }
+    for (let letter of t) {
+        if (hashMap[letter] < 0) return false;
+        hashMap[letter] --;
+    }
+    for (let letter in hashMap) {
+        if (hashMap[letter] !== 0) return false;
+    }
+    return true;
+};
