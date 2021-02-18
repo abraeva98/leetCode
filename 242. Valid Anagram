@@ -1,4 +1,5 @@
 var isAnagram = function(s, t) {
+    if (s.length !== t.length) return false;
     let hashMap = {};
     for (let letter of s) {
         if (hashMap[letter] === undefined) {
@@ -8,11 +9,8 @@ var isAnagram = function(s, t) {
         }
     }
     for (let letter of t) {
-        if (hashMap[letter] < 0) return false;
+        if (!hashMap[letter]) return false;
         hashMap[letter] --;
-    }
-    for (let letter in hashMap) {
-        if (hashMap[letter] !== 0) return false;
     }
     return true;
 };
