@@ -1,0 +1,35 @@
+var addTwoNumbers = function(l1, l2) {
+    let node1 = reverse(l1);
+    let node2 = reverse(l2)
+    
+    let joinedList = new ListNode();
+    let currNode = joinedList;
+    let remainder = 0;
+    while (node1 || node2) {
+        let num1 = node1 ? node1.val : 0;
+        let num2 = node2 ? node2.val : 0;
+        let sum = num1 + num2 + remainder;
+        currNode.next = new ListNode(sum % 10);
+        remainder = Math.floor(sum / 10);
+        
+        if (node1) node1 = node1.next;
+        if (node2) node2 = node2.next;
+        
+        currNode = currNode.next;
+    }
+    if (remainder > 0) currNode.next = new ListNode(remainder);
+    return reverse(joinedList.next);
+};
+
+
+function reverse(head) {
+    let node = head;
+    let prev = null;
+    while (node !== null) {
+        let temp = node.next;
+        node.next = prev;
+        prev = node;
+        node = temp;
+    }
+    return prev;
+}
