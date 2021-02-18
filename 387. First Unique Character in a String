@@ -1,0 +1,23 @@
+var firstUniqChar = function(s) {
+    /*
+        1) create a hashMap where we will store each letter
+        2) iterate through the string and increment the value
+        3) iterate through the string again and check if hashMap
+        is equal to 1. If it is we return the index
+        4) if all letters are repeating in the string, return -1
+    */
+    let hashMap = {}
+    for (let i = 0; i < s.length; i ++) {
+        let letter = s[i];
+        if (hashMap[letter] === undefined) {
+            hashMap[letter]  = 1;
+        } else {
+            hashMap[letter] ++;
+        }
+    }
+    for (let i = 0; i < s.length; i ++) {
+        let letter = s[i];
+        if (hashMap[letter] === 1) return i;
+    }
+    return -1;
+};
