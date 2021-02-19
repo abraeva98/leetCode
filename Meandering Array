@@ -1,0 +1,17 @@
+function sort(array) {
+  array.sort((a, b) => a - b);
+  let meandering = [];
+  let left = 0;
+  let right = array.length - 1;
+  while (left <= right) {
+    if (left === right) {
+      meandering.push(array[right]);
+      break;
+    }
+    meandering.push(array[right]);
+    meandering.push(array[left]);
+    right --;
+    left ++;
+  }
+  return meandering;
+}
