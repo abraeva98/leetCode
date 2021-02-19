@@ -1,0 +1,20 @@
+var connect = function(root) {
+    /* 
+        iterate through the tree using BFS (queue),
+        check if queue has elements in it if it does,
+        set the next element in queue as a next pointer
+        of current node
+    */
+    if (root === null) return root;
+    let queue = [root];
+    while (queue.length > 0) {
+        let n = queue.length;
+        for (let i = 0; i < n; i ++) {
+            let node = queue.shift();
+            currentNode.next = i === n - 1 ? null : queue[0];
+            if (node.left) queue.push(node.left);
+            if (node.right) queue.push(node.right);
+        }     
+    }
+    return root;
+};
