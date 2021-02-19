@@ -1,0 +1,25 @@
+var MinStack = function() {
+    this.minStack = [];
+};
+
+MinStack.prototype.push = function(x) {
+    if (this.minStack.length === 0) {
+        this.minStack.push([x, x]);
+        return;
+    }
+    let topElement = this.minStack[this.minStack.length - 1];
+    let smallest = topElement[0] < x ? topElement[0] : x;
+    this.minStack.push([smallest, x]);
+};
+
+MinStack.prototype.pop = function() {
+    this.minStack.pop();
+};
+
+MinStack.prototype.top = function() {
+    return this.minStack[this.minStack.length - 1][1];
+};
+
+MinStack.prototype.getMin = function() {
+    return this.minStack[this.minStack.length - 1][0];
+};
