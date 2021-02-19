@@ -1,0 +1,26 @@
+/*
+  1) iterate through the word dictionary and check the first part of the string (from 0 idx to current word length)
+  2) if the are the same, check if memo has its value, if it doesn't run recursive call on the rest of the string to check if this combination work
+  3) if at some point recursive call returns false, we will start where we left and this time iterate through the next word in the dictionary
+*/
+
+var wordBreak = function(s, wordDict, memo = {}) {
+    if (s.length === 0) return true;
+    for (let i = 0; i < wordDict.length; i ++) {
+        let currWordInDict = wordDict[i];
+        let segment = s.slice(0, currWordInDict.length);
+        if (currWordInDict === segment) {
+            let newStr = s.slice(currWordInDict.length);
+            let isFound;
+            if (memo[newStr] === undefined) {
+                isFound = wordBreak(newStr, wordDict, memo);
+                memo[newStr] = isFound;
+            } else {
+                isFound = memo[newStr];
+            }
+            if (isFound) return true;
+        } 
+
+    }
+    return false;
+};
