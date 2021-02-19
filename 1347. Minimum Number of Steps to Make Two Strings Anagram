@@ -1,0 +1,19 @@
+var minSteps = function(s, t) {
+    /*  create a hashMap for s iterate throgh t 
+        and check how many letters are missing
+    */
+    let hashMap = {};
+    for (let letter of s) {
+        if (hashMap[letter]) hashMap[letter] ++;
+        else hashMap[letter] = 1;
+    }
+    let changes = 0;
+    for (let letter of t) {
+        if (hashMap[letter]) {
+            hashMap[letter] --;
+        } else {
+            changes ++;
+        }
+    }
+    return changes;
+};
