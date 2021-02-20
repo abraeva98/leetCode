@@ -1,0 +1,22 @@
+var missingElement = function(nums, k) {
+    /*
+        We will need a counter variable which will be equal
+        to the first number in nums. We will check if the next number
+        in nums is equal to the counter + 1, if it is not we will
+        increment the counter until they are equal or
+        until we reached k
+    */
+    let counter = nums[0] + 1;
+    let missingNum = 0;
+    let index = 1;
+    while (missingNum < k) {
+        if (nums[index] !== counter) {
+            missingNum ++;
+            counter ++;
+        } else {
+            index ++;
+            counter ++;
+        }
+    }
+    return counter - 1;
+};
