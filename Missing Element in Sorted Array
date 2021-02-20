@@ -1,3 +1,12 @@
+Given an integer array nums which is sorted in ascending order and all of 
+its elements are unique and given also an integer k, return the kth missing 
+number starting from the leftmost number of the array.
+
+Input: nums = [4,7,9,10], k = 3
+Output: 8
+Explanation: The missing numbers are [5,6,8,...], hence the third missing number is 8.
+
+
 var missingElement = function(nums, k) {
     /*
         Binary search O(logN), we will take advantage from
