@@ -1,5 +1,15 @@
-// O(N) - time, space
+// O(N) - time, O(1) - space
+var connect = function(root) {
+    if (root === null || root.left === null) return root;
+    root.left.next = root.right;
+    root.right.next = root.next ? root.next.left : null;
+    connect(root.left);
+    connect(root.right);
+    return root;
+};
 
+
+// O(N) - time, space
 var connect = function(root) {
     if (root === null) return null;
     let queue = [root];
