@@ -1,5 +1,20 @@
 // O(N) - time, O(1) - space
 var connect = function(root) {
+    let head = root;
+    while (head !== null) {
+        let node = head;
+        while (node !== null && node.left !== null) {
+            node.left.next = node.right;
+            node.right.next = node.next ? node.next.left : null;
+            node = node.next;
+        }
+        head = head.left;
+    }
+    return root;
+};
+
+// O(N) - time, O(1) - space
+var connect = function(root) {
     if (root === null || root.left === null) return root;
     root.left.next = root.right;
     root.right.next = root.next ? root.next.left : null;
