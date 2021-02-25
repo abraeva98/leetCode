@@ -1,7 +1,7 @@
 
 // BFS queue
 
-var allPathsSourceTarget = function(graph) {
+const allPathsSourceTarget = function(graph) {
     
     let result = [];
     let queue = [[0]];
