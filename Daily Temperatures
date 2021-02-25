@@ -1,3 +1,37 @@
+// O(N^2) - time, O(N) - space
+var dailyTemperatures = function(T) {
+    /*
+        we will use a stack of indeses for this problem, 
+        we will iterate from end of the array and 
+        compare each element in the array to the first element 
+        in the stack, we will delete the first element in the 
+        stack if it lesser than the current element. If we didn't 
+        find the larger element in the stack we will add 0 to
+        the output array. If we found the grater index, we will 
+        add the difference to the output
+    */
+    const n = T.length;
+    let result = new Array(n);
+    result[n - 1] = 0;
+    let stack = [n - 1];
+    for (let i = n - 2; i >= 0; i --) {
+        let currentElement = T[i];
+        let lastSeen = T[stack[0]];
+        if (lastSeen > currentElement) {
+            result[i] = 1;
+            stack.unshift(i);
+        } else {
+            while (T[stack[0]] <= currentElement) {
+                stack.shift();
+            }
+            if (stack.length === 0) result[i] = 0;
+            else result[i] = stack[0] - i;
+            stack.unshift(i);
+        }
+    }
+    return result;
+};
+
 // O(N^2) time, O(1) space
 var dailyTemperatures = function(T) {
     for (let i = 0; i < T.length; i ++) {
