@@ -1,0 +1,16 @@
+// O(N^2) time, O(1) space
+var dailyTemperatures = function(T) {
+    for (let i = 0; i < T.length; i ++) {
+        let noWarmerDays = true;
+        for (let j = i + 1; j < T.length; j ++) {
+            if (T[i] < T[j]) {
+                T[i] = j - i;
+                noWarmerDays = false;
+                break;
+            }
+        }  
+        if (noWarmerDays) T[i] = 0;
+    }
+    T[T.length - 1] = 0;
+    return T;
+};
