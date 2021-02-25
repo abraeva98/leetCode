@@ -1,4 +1,4 @@
-// O(N^2) - time, O(N) - space
+// O(N) - time, O(N) - space
 var dailyTemperatures = function(T) {
     /*
         we will use a stack of indeses for this problem, 
@@ -16,18 +16,12 @@ var dailyTemperatures = function(T) {
     let stack = [n - 1];
     for (let i = n - 2; i >= 0; i --) {
         let currentElement = T[i];
-        let lastSeen = T[stack[0]];
-        if (lastSeen > currentElement) {
-            result[i] = 1;
-            stack.unshift(i);
-        } else {
-            while (T[stack[0]] <= currentElement) {
-                stack.shift();
-            }
-            if (stack.length === 0) result[i] = 0;
-            else result[i] = stack[0] - i;
-            stack.unshift(i);
+        while (T[stack[0]] <= currentElement) {
+              stack.shift();
         }
+        if (stack.length === 0) result[i] = 0;
+        else result[i] = stack[0] - i;
+        stack.unshift(i);
     }
     return result;
 };
