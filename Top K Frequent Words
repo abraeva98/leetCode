@@ -1,0 +1,32 @@
+// O(NlogN) - time, O(N) - space
+
+var topKFrequent = function(words, k) {
+    /* 
+        create a hashTable where we can store each
+        word and how many times it repeats,
+        iterate through the hashTable and find k greatest
+        numbers and sort them in alphabetic order
+    */
+    let hashMap = {};
+    for (let i = 0; i < words.length; i ++) {
+        if (hashMap[words[i]] === undefined) {
+            hashMap[words[i]] = 1;
+        } else {
+            hashMap[words[i]] ++;
+        }
+    }
+    let mostFrequent = Object.keys(hashMap).sort((a, b) => {
+        if (hashMap[a] > hashMap[b]) {
+            return -1;
+        } else if (hashMap[a] < hashMap[b]) {
+            return 1;
+        } else {
+            if (a < b) {
+                return -1;
+            } else {
+                return 1;
+            }
+        }
+    })
+    return mostFrequent.slice(0, k);
+};
