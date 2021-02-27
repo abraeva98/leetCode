@@ -1,0 +1,52 @@
+var validTicTacToe = function(board) {
+    /* 
+        1) the board is not valid if
+            a) X is more than 1 step ahead  
+            b) if O presented more times than X
+            c) if we continue playing the game even after we done
+    */
+    
+    let difference = getDifference(board);
+    let winner = getWinner(board);
+
+    if (difference < 0 || difference > 1) return false;
+
+    if (winner === 'O' && difference !== 0) {
+        return false;
+    } 
+    
+    if (winner === 'X' && difference !== 1) {
+        return false;
+    }
+    
+    return true;
+};
+
+function getWinner(board) {
+    for (let i = 0; i < board.length; i ++) {
+        if (board[i][0] === board[i][1] && board[i][1] === board[i][2]) {
+            return board[i][0] === ' ' ? false : board[i][0];
+        } else if (board[0][i] === board[1][i] && board[2][i] === board[1][i]) {
+            return board[0][i] === ' ' ? false : board[0][i];
+        }
+    }
+    if (board[0][0] === board[1][1] && board[1][1] === board[2][2]) {
+        return board[0][0] === ' ' ? false : board[0][0];
+    }
+    if (board[2][0] === board[1][1] && board[1][1] === board[0][2]) {
+        return board[2][0] === ' ' ? false : board[2][0];;
+    }
+    return false;
+}
+
+function getDifference(board) {
+    let X = 0;
+    let O = 0;
+    for (let i = 0; i < board.length; i ++) {
+        for (let j = 0; j < board[0].length; j ++) {
+            if (board[i][j] === 'X') X ++;
+            if (board[i][j] === 'O') O ++;
+        }
+    }
+    return X - O;
+}
