@@ -1,3 +1,5 @@
+// O(nm) - time n - number of rows, m - number of columns, O(1) - space
+
 var islandPerimeter = function(grid) {
     /* 
         initialize perimiter of the land
