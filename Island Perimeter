@@ -1,0 +1,33 @@
+var islandPerimeter = function(grid) {
+    /* 
+        initialize perimiter of the land
+        we add one to it if 
+        1) it is the border
+        2) it is surrounded by water
+        I will iterate through the grid if it is 0
+        I will just skip it, if it is 1 I will check the
+        neighbors and borders
+    */
+    let perimiter = 0;
+    for (let row = 0; row < grid.length; row ++) {
+        for (let col = 0; col < grid[0].length; col ++) {
+            if (grid[row][col] === 0) continue;
+            perimiter += checkNeighborsAndBorders(grid, row, col);
+        }
+    }
+    return perimiter;
+};
+
+function checkNeighborsAndBorders(grid, row, col) {
+    let count = 0;
+    if (row === 0) count ++;
+    if (row === grid.length - 1) count ++;
+    if (col === 0) count ++;
+    if (col === grid[0].length - 1) count ++;
+    if (row - 1 >= 0 && grid[row - 1][col] === 0) count ++;
+    if (row < grid.length - 1 && grid[row + 1][col] === 0) count ++;
+    if (col - 1 >= 0 && grid[row][col - 1] === 0) count ++;
+    if (col < grid[0].length - 1 && grid[row][col + 1] === 0) 
+        count ++;
+    return count;
+}
