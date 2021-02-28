@@ -1,0 +1,30 @@
+A binary tree is given such that each node contains an additional random pointer which could point to any node in the tree or null.
+
+Return a deep copy of the tree.
+
+The tree is represented in the same input/output way as normal binary trees where each node is represented as a pair of [val, random_index] where:
+
+val: an integer representing Node.val
+random_index: the index of the node (in the input) where the random pointer points to, or null if it does not point to any node.
+You will be given the tree in class Node and you should return the cloned tree in class NodeCopy. NodeCopy class is just a clone of Node class with the same attributes and constructors.
+
+// O(N) - time, O(N) - space
+
+var copyRandomBinaryTree = function(root) {
+    let hashMap = new Map();
+
+    function traverse(node) {
+        if (node === null) return null;
+        if (hashMap.has(node)) return hashMap.get(node);
+        
+        let copy = new NodeCopy(node.val);
+        hashMap.set(node, copy);
+        copy.left = traverse(node.left);
+        copy.right = traverse(node.right);
+        copy.random = traverse(node.random);
+        
+        return copy;
+    }
+    
+    return traverse(root)
+};
