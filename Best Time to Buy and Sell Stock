@@ -1,0 +1,19 @@
+O(N) - time, O(1) - space
+
+var maxProfit = function(prices) {
+    /*
+        we need to interate through array
+        we need to keep track of lowest number so far and the greatest number
+    */
+    let smallest = prices[0];
+    let profit = 0;
+    for (let i = 1; i < prices.length; i ++) {
+        let currPrice = prices[i];
+        if (currPrice < smallest) {
+            smallest = currPrice;
+        } else {
+            profit = Math.max(profit, currPrice - smallest);
+        }
+    }
+    return profit;
+};
