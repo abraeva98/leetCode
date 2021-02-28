@@ -1,0 +1,26 @@
+// O(N^2) - time, O(N^2 - 1) - space
+
+var countAndSay = function(n) {
+    if (n === 1) return '1';
+
+    let result = '1';
+    
+    for (let i = 2; i <= n; i++) {
+        result = helper(result);
+    }
+    return result;
+};
+
+function helper(result) {
+    let count = 1;
+    let final = '';
+    for (let i = 0; i < result.length; i ++) {
+        if (result[i] !== result[i + 1] || i === result.length - 1) {
+            final += count + result[i];
+            count = 1;
+        } else {
+            count ++;
+        }
+    }
+    return final;
+}
