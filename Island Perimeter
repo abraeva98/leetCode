@@ -1,5 +1,23 @@
 // O(nm) - time n - number of rows, m - number of columns, O(1) - space
+var islandPerimeter = function(grid) {
+    let perimiter = 0;
+    for (let row = 0; row < grid.length; row ++) {
+        for (let col = 0; col < grid[0].length; col ++) {
+            if (grid[row][col] === 0) continue;
+            perimiter += checkNeighborsAndBorders(grid, row, col);
+        }
+    }
+    return perimiter;
+};
 
+function checkNeighborsAndBorders(grid, row, col) {
+    let count = 4;
+    if (row > 0 && grid[row - 1][col] === 1) count -=2;
+    if (col > 0 && grid[row][col - 1] === 1) count -=2;
+    return count;
+}
+
+// O(nm) - time n - number of rows, m - number of columns, O(1) - space
 var islandPerimeter = function(grid) {
     /* 
         initialize perimiter of the land
