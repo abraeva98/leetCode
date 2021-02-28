@@ -1,0 +1,18 @@
+var maxDepth = function(s) {
+    /*
+        keep track of opening parentheses,
+        if we found closing parentheses - decrease the count
+        check if current amount is larger than max
+    */
+    let currMax = 0;
+    let max = 0;
+    for (let i = 0; i < s.length; i ++) {
+        if (s[i] === '(') {
+            currMax ++;
+            max = Math.max(currMax, max);
+        } else if (s[i] === ')') {
+            currMax --;
+        }
+    }
+    return max;
+};
