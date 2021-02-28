@@ -1,0 +1,19 @@
+// O(N) - time, O(1) - space
+
+var moveZeroes = function(nums) {
+    /* 
+        we will need a pointer for zeros
+        and we need regular iteration such as for loop
+        when we hit the non zero value we will switch it with zeros index
+    */
+    let pointer = 0;
+    for (let i = 0; i < nums.length; i ++) {
+        if (nums[i] !== 0) {
+            let temp = nums[pointer];
+            nums[pointer] = nums[i];
+            nums[i] = temp;
+            pointer ++;
+        }
+    }
+    return nums;
+};
