@@ -1,4 +1,4 @@
-// O(N) - space, O(N) - time
+// O(NlogN) - space, O(N) - time
 
 var verticalOrder = function(root) {
     if (root === null) return [];
