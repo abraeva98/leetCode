@@ -6,6 +6,9 @@ var verticalOrder = function(root) {
     let hashMap = {};
     let queue = [[root, 0]];
     
+    let min = 0;
+    let max = 0;
+    
     while (queue.length > 0) {
         let [node, column] = queue.shift();
         
@@ -16,19 +19,15 @@ var verticalOrder = function(root) {
         }
         
         if (node.left) {
+            min = Math.min(min, column - 1);
             queue.push([node.left, column - 1]);
         }
         if (node.right) {
+            max = Math.max(max, column + 1);
             queue.push([node.right, column + 1]);
         }
     }
-    
-    let min = Infinity;
-    let max = -Infinity;
-    for (let key in hashMap) {
-        min = Math.min(min, key);
-        max = Math.max(max, key);
-    }
+
     let result = [];
     for (let key = min; key <= max; key ++) {
         result.push(hashMap[key]);
