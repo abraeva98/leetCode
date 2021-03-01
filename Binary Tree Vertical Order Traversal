@@ -1,0 +1,30 @@
+// O(N) - space, O(N) - time
+
+var verticalOrder = function(root) {
+    if (root === null) return [];
+    
+    let hashMap = {};
+    let queue = [[root, 0]];
+
+    while (queue.length > 0) {
+        let [node, column] = queue.shift();
+        
+        if (hashMap[column] === undefined) {
+            hashMap[column] = [node.val];
+        } else {
+            hashMap[column].push(node.val);
+        }
+        
+        if (node.left) {
+            queue.push([node.left, column - 1]);
+        }
+        if (node.right) {
+            queue.push([node.right, column + 1]);
+        }
+    }
+    let sortedKeys = Object.keys(hashMap).sort((a, b) => a - b);
+    return sortedKeys.reduce((acc, key) => {
+        acc.push(hashMap[key]);
+        return acc;
+    }, []);
+};
