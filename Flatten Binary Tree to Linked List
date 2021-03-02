@@ -5,6 +5,30 @@ var flatten = function(root) {
         traverse the tree and right child in the stack 
         and left will become a right child, we iterate through the stack
     */
+    
+    let prev = null;
+    
+    function helper(node) {
+        if (node === null) return null;
+        helper(node.right);
+        helper(node.left);
+        
+        if (prev) {
+            node.right = prev;
+            node.left = null;
+        }
+        prev = node;
+    }
+    helper(root)
+};
+
+O(N) - time, space
+var flatten = function(root) {
+    /*
+        DFS preorder traversal with stack (first in last out)
+        traverse the tree and right child in the stack 
+        and left will become a right child, we iterate through the stack
+    */
     if (root === null) return [];
     if (root.left === null && root.right === null) return root;
     
