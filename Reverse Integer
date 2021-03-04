@@ -4,6 +4,29 @@ Note:
 Assume we are dealing with an environment that could only store integers within the 32-bit signed integer range: [−231,  231 − 1]. 
 For the purpose of this problem, assume that your function returns 0 when the reversed integer overflows.
 
+
+O(log(x)) - time, O(1) - space
+
+var reverse = function(x) {
+   /* 
+        find the last integer in number by finding the modulo
+        of 10, check if new number plus last integer if within the limits
+        if it is not return 0
+   */
+    let reverseInteger = 0;
+    let isNegative = x > 0 ? false : true;
+    let max = Math.pow(2, 31) - 1;
+    if (isNegative) x *= -1;
+    while (x > 0) {
+        let lastNum = x % 10;
+        x = Math.floor(x / 10);
+        reverseInteger = reverseInteger * 10 + lastNum;
+        if (reverseInteger > max) return 0;
+    }
+    return isNegative ? reverseInteger * -1 : reverseInteger;
+};
+
+
 const reverse = function(x) {
    let isNegative = false;
    if (x < 0) isNegative = true;
