@@ -1,0 +1,25 @@
+// O(numRows^2) - time, space
+
+var generate = function(numRows) {
+    /*
+        given a triangle where each row is equal to 
+        number of column in the current row
+        1) create a multidimensional array at end 1 to each array
+        2) iterate through the array and check if index and index - 1 exist 
+        3) if there are - sum them and insert at current index
+        4) if the are not - contunie
+    */
+    let triangle = [];
+    for (let i = 0; i < numRows; i ++) {
+        triangle.push(new Array(i + 1).fill(1))
+    }
+    
+    let row = 2;
+    for (let i = 2; i < numRows; i ++) {
+        for (let j = 1; j < triangle[i].length - 1; j ++) {
+            let sum = triangle[i - 1][j] + triangle[i - 1][j - 1];
+            triangle[i][j] = sum;
+        }
+    }
+    return triangle;
+};
