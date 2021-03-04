@@ -1,0 +1,32 @@
+// Quick select, O(N) in the average, O(N^2) in the worst - time, O(1) - time
+
+var findKthLargest = function(nums, k) {
+    sort(0, nums.length - 1);
+    return nums[nums.length - k];
+    
+function sort(start, end) {
+    if (start >= end) return;
+    let pivot = start;
+    let left = start + 1;
+    let right = end;
+    while (left <= right) {
+        if (nums[left] >= nums[pivot] && nums[right] <= nums[pivot]) swap(left, right);
+        if (nums[left] <= nums[pivot]) left ++;
+        if (nums[right] >= nums[pivot]) right --;
+    }
+    swap(right, pivot);
+    if (right === nums.length - k) {
+        nums[right];
+    } else if (right > nums.length - k) {
+        sort(start, right - 1);
+    } else {
+        sort(right + 1, end)
+    }
+}
+
+function swap(i, j) {
+    let temp = nums[j];
+    nums[j] = nums[i];
+    nums[i] = temp;
+}
+};
