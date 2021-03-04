@@ -1,0 +1,27 @@
+O(N) - time, space
+
+var copyRandomList = function(head) {
+    /*
+        1) create a hashMap where we will be storing
+        each node, so we won't lose connection
+        to pointers
+        2) iterate through linked list again and fill in the 
+        random and next pointer
+        3) return node with key head
+    */
+    let node = head;
+    let hashMap = new Map();
+    
+    while (node !== null) {
+        hashMap.set(node, new Node(node.val));
+        node = node.next;
+    }
+    
+    node = head;
+    while (node !== null) {
+        hashMap.get(node).next = hashMap.get(node.next) || null;
+        hashMap.get(node).random = hashMap.get(node.random) || null;
+        node = node.next;
+    }
+    return hashMap.get(head);
+};
