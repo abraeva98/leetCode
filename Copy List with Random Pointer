@@ -1,6 +1,26 @@
 O(N) - time, space
 
 var copyRandomList = function(head) {
+    let hashMap = new Map();
+    
+    function makeCopy(node) {
+        if (node === null) return null;
+        if (hashMap.has(node)) {
+            return hashMap.get(node);
+        }
+        let copyNode = new Node(node.val)
+        hashMap.set(node, copyNode);
+        
+        copyNode.next = makeCopy(node.next);
+        copyNode.random = makeCopy(node.random);
+        
+        return copyNode;
+    }
+    
+    return makeCopy(head);
+};
+
+var copyRandomList = function(head) {
     /*
         1) create a hashMap where we will be storing
         each node, so we won't lose connection
