@@ -1,0 +1,37 @@
+// O(N) - time, space
+
+var spiralOrder = function(matrix) {
+    /*
+        create while loop row is at last and col is at last index
+        create 4 loops inside it for each side and change 
+        range with each iteration
+        after each loop is done, we will push the result to result array
+    */
+    let rowStart = 0;
+    let rowEnd = matrix.length - 1;
+    let colStart = 0;
+    let colEnd = matrix[0].length -1;
+    let result = [];
+    
+    while (rowStart <= rowEnd && colStart <= colEnd) {
+        for (let i = colStart; i <= colEnd; i ++) {
+            result.push(matrix[rowStart][i]);
+        }
+        for (let i = rowStart + 1; i <= rowEnd; i ++) {
+            result.push(matrix[i][colEnd]);
+        }
+        if (rowStart < rowEnd && colStart < colEnd) {
+            for (let i = colEnd - 1; i > colStart; i --) {
+            result.push(matrix[rowEnd][i]);
+        }
+        for (let i = rowEnd; i > rowStart; i --) {
+             result.push(matrix[i][colStart]);
+        }
+        }
+        rowStart ++;
+        rowEnd --;
+        colStart ++;
+        colEnd --;
+    }
+    return result;
+};
