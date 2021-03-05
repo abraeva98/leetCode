@@ -1,0 +1,22 @@
+// O(n * m) - time, O(n * m) - space
+
+var uniquePaths = function(m, n) {
+    /*
+        create a grid and fullfil each el with 1,
+        1 is how many ways to get to this el,
+        create a gri,
+        create a nested for loop starting with row 1 column 1,
+        and check how many ways to get to this position by
+        adding left and right positions
+        we will return the last element in this grid
+    */
+    let columns = new Array(n).fill(1);
+    let grid = new Array(m).fill(columns);
+    
+    for (let row = 1; row < m; row ++) {
+        for (let col = 1; col < n; col ++) {
+            grid[row][col] = grid[row - 1][col] + grid[row][col - 1];
+        }
+    }
+    return grid[m - 1][n -1];
+};
