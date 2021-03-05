@@ -1,0 +1,29 @@
+O(N) - time, space
+
+var subarraySum = function(nums, k) {
+    /* 
+        create a hashMap that stores sums untill the current index
+        as a key and number of times it repeats as value,
+        on each index we will check if the sum is equal to k
+        and if there is a number in hashMap that is equal to
+        current sum - k, meaning if there is a subarray that
+        starting but not including difference to the current index
+        that is equal to k
+    */
+    let hashMap = {};
+    let count = 0;
+    let sum = 0;
+    for (let i = 0; i < nums.length; i ++) {
+        sum += nums[i];
+        if (sum === k) count ++;
+        let difference = sum - k;
+        if (hashMap[difference]) count += hashMap[difference];
+        if (hashMap[sum]) {
+            hashMap[sum] ++;
+        } else {
+            hashMap[sum] = 1;
+        }
+    }
+    
+    return count;
+};
