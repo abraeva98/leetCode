@@ -1,0 +1,18 @@
+// O(N) - time, space
+
+var kthSmallest = function(root, k) {
+    /*
+        the smallest element in BST is the leftmost element, 
+        we will use recursion and each element, the smallest being one
+    */
+    let arr = [];
+    function DFS(root) {
+        if (root === null) return;
+        DFS(root.left);
+        arr.push(root.val);
+        if (arr.length === k) return;
+        DFS(root.right);
+    }
+    DFS(root)
+    return arr[k - 1];
+};
