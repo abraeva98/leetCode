@@ -1,0 +1,19 @@
+// O(NlogN) - time, O(N) - space
+
+var frequencySort = function(s) {
+    let hashMap = new Map();
+    for (let char of s) {
+        if (hashMap.has(char)) {
+            hashMap.set(char, hashMap.get(char) + 1);
+        } else {
+            hashMap.set(char, 1);
+        }
+    }
+
+    return [...hashMap].sort((a, b) => b[1] - a[1]).reduce((acc, el) => {
+        for (let i = 0; i < el[1]; i ++) {
+            acc.push(el[0])
+        }
+        return acc;
+    }, []).join('')
+};
