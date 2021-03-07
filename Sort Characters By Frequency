@@ -1,3 +1,40 @@
+O(N) - time, space
+
+var frequencySort = function(s) {
+    if (s.length === 0 || s.length === 1) return s;
+    let hashMap = new Map();
+    let max = -Infinity;
+    for (let char of s) {
+        if (hashMap.has(char)) {
+            hashMap.set(char, hashMap.get(char) + 1);
+        } else {
+            hashMap.set(char, 1);
+        }
+        max = Math.max(max, hashMap.get(char));
+    }
+    
+    let bucket = new Array(max + 1);
+    for (let [key, val] of hashMap) {
+        if (bucket[val]) {
+            bucket[val].push(key);
+        } else {
+            bucket[val] = [key];
+        }
+    }
+
+    let result = [];
+    for (let i = bucket.length - 1; i >= 1; i --) {
+        if (bucket[i]) {
+        for (let k = 0; k < bucket[i].length; k ++) {
+           for (let j = 0; j < i; j ++) {
+            result.push(bucket[i][k]);
+         } 
+        }
+      }
+    }
+    return result.join('')
+};
+
 // O(NlogN) - time, O(N) - space
 
 var frequencySort = function(s) {
