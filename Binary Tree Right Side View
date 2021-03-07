@@ -1,0 +1,23 @@
+// O(N) - time, space
+
+var rightSideView = function(root) {
+    /*
+        implement BFS using queue(first in, first out),
+        if there is not next node than add current
+        node to the answer
+    */
+    let rightSideView = [];
+    if (root === null) return [];
+    let queue = [root];
+    while (queue.length > 0) {
+        let children = [];
+        while (queue.length > 0) {
+            let node = queue.shift();
+            if (queue.length === 0) rightSideView.push(node.val);
+            if (node.left) children.push(node.left);
+            if (node.right) children.push(node.right);
+        }
+        queue = children;
+    }
+    return rightSideView;
+};
