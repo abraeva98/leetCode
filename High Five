@@ -1,0 +1,28 @@
+// O(NlogN) - time, O(N) - space
+
+var highFive = function(items) {
+    /*
+        store id and scores of students in hashMap,
+        iterate though each student in hashMap,
+        sort scores and get 5 top, divide it by 5,
+        add is and average to the result
+    */
+    let result = [];
+    let students = new Map();
+    for (let item of items) {
+        let [id, score] = item;
+        if (students.has(id)) {
+            students.set(id, [...students.get(id), score]);
+        } else {
+            students.set(id, [score]);
+        }
+    }
+    
+    for (let [key, val] of students) {
+        let topScores = val.sort((a, b) => b - a).slice(0, 5);
+        let sum = topScores.reduce((acc, score) => acc + score);
+        let average = Math.floor(sum / 5)
+        result.push([key, average])
+    }
+    return result.sort((a, b) => a[0] - b[0]);
+};
