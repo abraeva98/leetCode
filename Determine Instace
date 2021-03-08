@@ -1,0 +1,24 @@
+// O(N) - time, space
+
+function determineInstace(nums) {
+  let hashMap = new Map();
+  
+  for (let num of nums) {
+    if (hashMap.has(num)) {
+      hashMap.set(num, hashMap.get(num) + 1);
+    } else {
+      hashMap.set(num, 1);
+    }
+  }
+  
+  let result = new Array(nums.length);
+  for (let i = 0; i < nums.length; i ++) {
+    if (hashMap.get(nums[i]) > 1) {
+      result[i] = true;
+      hashMap.set(nums[i], hashMap.get(nums[i]) - 1)
+    } else {
+      result[i] = false;
+    }
+  }
+  return result;
+}
