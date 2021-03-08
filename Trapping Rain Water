@@ -1,0 +1,28 @@
+// O(N) - time, space
+
+var trap = function(height) {
+    /*
+        create two arrays one for max from the left and
+        one for max from the right, iterate through height 
+        and choose the smallest of them, decrement the current
+        height
+    */
+    let maxRight = new Array(height.length);
+    maxRight[0] = height[0];
+    for (let i = 1; i < height.length; i ++) {
+        maxRight[i] = Math.max(maxRight[i - 1], height[i]);
+    }
+    
+    let maxLeft = new Array(height.length);
+    maxLeft[maxLeft.length - 1] = height[height.length - 1];
+    for (let i = height.length - 2; i >= 0; i --) {
+        maxLeft[i] = Math.max(maxLeft[i + 1], height[i]);
+    }
+    let water = 0;
+    for (let i = 0; i < height.length; i ++) {
+        let min = Math.min(maxRight[i], maxLeft[i]);
+        water = water + min - height[i];
+    }
+    
+    return water;
+};
