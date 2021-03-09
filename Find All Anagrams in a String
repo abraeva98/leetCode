@@ -1,0 +1,36 @@
+// O(S + P) - time, O(1) - space
+
+var findAnagrams = function(s, p) {
+    let anagram = new Array(26).fill(0);
+    let codeAtA = 'a'.charCodeAt(0);
+    let result = [];
+    
+    for (let i = 0; i < p.length; i ++) {
+        let index = p.charCodeAt(i) - codeAtA;
+        anagram[index] ++;
+    }
+    
+    let substring = new Array(26).fill(0);
+    
+    for (let i = 0; i < s.length; i ++) {
+        let index = s.charCodeAt(i) - codeAtA;
+        substring[index] ++;
+        
+        if (i >= p.length) {
+            let leftIdx = s.charCodeAt(i - p.length) - codeAtA;
+            substring[leftIdx] --;
+        } 
+        if (i >= p.length - 1) {
+            if (equals(substring, anagram)) result.push(i - p.length + 1);
+        }
+    }
+    
+    return result;
+};
+
+function equals(arr1, arr2) {
+    for (let i = 0; i < arr1.length; i ++) {
+        if (arr1[i] !== arr2[i]) return false;
+    }
+    return true;
+}
