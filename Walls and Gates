@@ -12,14 +12,10 @@ var wallsAndGates = function(rooms) {
     
     function findShortestPath(row, col, counter) {
         if (row < 0 || col < 0 || row > rooms.length - 1 || col > rooms[row].length - 1 ||
-           rooms[row][col] === -1) {
+           rooms[row][col] < counter) {
             return;
         }
-        if (rooms[row][col] === 0 && counter !== 0) return;
-        if (rooms[row][col] < counter) return;
-        if (rooms[row][col] > counter) {
-            rooms[row][col] = counter;
-        }
+        rooms[row][col] = counter;
         
         findShortestPath(row + 1, col, counter + 1);
         findShortestPath(row - 1, col, counter + 1);
