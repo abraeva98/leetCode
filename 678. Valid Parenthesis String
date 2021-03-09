@@ -1,0 +1,35 @@
+// O(N) - space, time
+
+var checkValidString = function(s) {
+    let openStack = [];
+    let starStack = [];
+
+    for (let i = 0; i < s.length; i ++) {
+        let el = s[i];
+        
+        if (el === '(') {
+            openStack.push(i);
+        } else if (el === ')') {
+            if (openStack.length > 0) {
+                openStack.pop()
+            } else if (starStack.length > 0) {
+                starStack.pop();
+            } else {
+                return false;
+            }
+        } else {
+            starStack.push(i);
+        }
+    }
+    
+    let i = starStack.length - 1;
+    let j = openStack.length - 1;
+    
+    while (openStack[j] < starStack[i]) {
+        openStack.pop();
+        starStack.pop();
+        i --;
+        j --;
+    }
+    return openStack.length === 0;
+};
