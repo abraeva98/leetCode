@@ -1,0 +1,27 @@
+// O(N) - time, O(1) - space
+Given a string that contains a balanced number of open and close parentheses, 
+return an array that contains all of the substrings at the most deeply nested level of parentheses. 
+Eg: `((a)(((bc)))((((d)((f))))))’ —> ['f']
+
+
+function deepestSubstring(str) {
+  let counter = 0;
+  let maxCounter = 0;
+  let subStr= '';
+  
+  for (let i = 0; i < str.length; i ++) {
+    if (str[i] === '(') {
+      counter ++;
+      
+      if (counter > maxCounter) {
+        subStr = '';
+        maxCounter = counter;
+      }
+    } else if (str[i] === ')') {
+      counter --;
+    } else if (counter >= maxCounter) {
+      subStr += str[i];
+    }
+  }
+  return subStr;
+}
