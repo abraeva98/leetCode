@@ -1,0 +1,29 @@
+// (m*n) - time, space, we visit each node only once
+
+var wallsAndGates = function(rooms) {
+    for (let row = 0; row < rooms.length; row ++) {
+        for (let col = 0; col < rooms[0].length; col ++) {
+            let room = rooms[row][col];
+            if (room === 0) {
+                findShortestPath(row, col, 0);
+            }
+        }
+    }
+    
+    function findShortestPath(row, col, counter) {
+        if (row < 0 || col < 0 || row > rooms.length - 1 || col > rooms[row].length - 1 ||
+           rooms[row][col] === -1) {
+            return;
+        }
+        if (rooms[row][col] === 0 && counter !== 0) return;
+        if (rooms[row][col] < counter) return;
+        if (rooms[row][col] > counter) {
+            rooms[row][col] = counter;
+        }
+        
+        findShortestPath(row + 1, col, counter + 1);
+        findShortestPath(row - 1, col, counter + 1);
+        findShortestPath(row, col + 1, counter + 1);
+        findShortestPath(row, col - 1, counter + 1);
+    }
+};
