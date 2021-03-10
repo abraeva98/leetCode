@@ -1,0 +1,19 @@
+O(N) - space, time
+
+var largestBSTSubtree = function(root) {
+  let res = largestBST(root);
+  // [min, max, largestBST]
+};
+
+const largestBST = (node) => {
+  if (node === null) {
+      return [Infinity, -Infinity, 0];
+  }
+  let left = largestBST(node.left);
+  let right = largestBST(node.right);
+  if (node.val > left[1] && node.val < right[0]) {
+      return [Math.min(node.val, left[0]), Math.max(node.val, right[1]), left[2] + right[2] + 1];
+  } else {
+      return [-Infinity, Infinity, Math.max(left[2], right[2])];
+  }
+};
