@@ -1,0 +1,20 @@
+// O(N) - time, space
+
+var levelOrder = function(root) {
+    if (!root) return [];
+    let levelTraversal = [];
+    let queue = [root];
+    while (queue.length > 0) {
+        let currLevel = [];
+        let children = [];
+        while(queue.length > 0) {
+            let node = queue.shift();
+            currLevel.push(node.val);
+            if (node.left) children.push(node.left);
+            if (node.right) children.push(node.right);
+        }
+        queue = children;
+        levelTraversal.push(currLevel);
+    }
+    return levelTraversal;
+};
