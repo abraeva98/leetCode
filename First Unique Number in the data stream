@@ -1,0 +1,36 @@
+O(N) - time, space
+
+var FirstUnique = function(nums) {
+    this.hashMap = new Map();
+    this.uniqueSet = new Set();
+    for (let num of nums) {
+        if (this.hashMap.has(num)) {
+            this.hashMap.set(num, this.hashMap.get(num) + 1);
+            this.uniqueSet.delete(num);
+        } else {
+            this.hashMap.set(num, 1);
+            this.uniqueSet.add(num);
+        }
+    }
+};
+
+FirstUnique.prototype.showFirstUnique = function() {
+    // return first num in set
+    if (!!this.uniqueSet.size) {
+        return this.uniqueSet.values().next().value;
+    } else {
+        return -1;
+    }
+};
+
+FirstUnique.prototype.add = function(value) {
+    // if we have the val in hashMap, we won't add to set, if the val in the set delete from it
+    // otherwise we will add it to the set and hashMap
+    if (this.hashMap.has(value)) {
+        this.hashMap.get(value, this.hashMap.get(value) + 1);
+        this.uniqueSet.delete(value);
+    } else {
+        this.hashMap.set(value, 1);
+        this.uniqueSet.add(value);
+    }
+};
