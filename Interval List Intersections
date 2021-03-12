@@ -1,0 +1,26 @@
+O(M+N) - space, time, where M,N are the lengths of A and B respectively.
+
+var intervalIntersection = function(firstList, secondList) {
+    /* 
+        1) create 2 pointer, starting with 0, onlu increment the one
+        with the smallest start num
+        2) create a helper function that will check if this intervals
+        have intersection, if they don't continue
+        3) if the are return the largest of the beginning and
+        the smallest of the end and push it to the result array
+    */
+    
+    let p1 = 0, p2 = 0;
+    let intersections = [];
+    while (p1 < firstList.length && p2 < secondList.length) {
+        let maxStart = Math.max(firstList[p1][0], secondList[p2][0]);
+        let minEnd = Math.min(firstList[p1][1], secondList[p2][1]);
+        if (maxStart <= minEnd) intersections.push([maxStart, minEnd]);
+        if (firstList[p1][1] > secondList[p2][1]) {
+            p2 ++;
+        } else {
+            p1 ++;
+        }
+    }
+    return intersections;
+};
