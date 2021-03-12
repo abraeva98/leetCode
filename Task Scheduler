@@ -1,0 +1,16 @@
+O(N) - time, O(1) - space
+
+var leastInterval = function(tasks, n) {
+    let frequency = new Array(26).fill(0);
+    let codeAtA = 'A'.charCodeAt(0);
+    for (let task of tasks) {
+        frequency[task.charCodeAt(0) - codeAtA] += 1;
+    }
+    frequency.sort((a, b) => b - a);
+    let mostFrequent = frequency[0] - 1;
+    let maxTime = mostFrequent * n;
+    for (let i = 1; i < 26; i ++) {
+        maxTime -= Math.min(mostFrequent, frequency[i]);
+    }
+    return maxTime <= 0 ? tasks.length : tasks.length + maxTime;
+};
