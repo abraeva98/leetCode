@@ -1,0 +1,27 @@
+// O(log(max(tx,ty))), O(1)
+
+var reachingPoints = function(sx, sy, tx, ty) {
+    /*
+         create a while loop and work backwards, 
+         decrementing target points till the are less than
+         starting points, we will decrement from the largest of two
+         we will use modulo operator to speed up the process 
+    */
+        while (tx >= sx && ty >= sy) {
+            if (tx === sx && ty === sy) return true;
+            if (ty > tx) {
+                ty %= tx;
+            } else {
+                tx %= ty;
+            }
+            if (tx === sx) {
+                if ((ty - sy) % sx === 0) return true;
+                else return false;
+            }
+            if (ty === sy) {
+                if ((tx - sx) % sy === 0) return true;
+                else return false;
+            }
+        }
+        return false;
+};
