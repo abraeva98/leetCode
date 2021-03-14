@@ -1,0 +1,26 @@
+// O(N) - space, time
+
+var shortestSubarray = function(A, K) {
+   /*
+    create sum array and starting point array
+   */
+    let sums = [0];
+    A.forEach((a, idx) => sums.push(sums[idx] + a));
+    
+    let B = [], res = A.length + 1;
+    
+    for (let j = 0; j < sums.length; j ++) {
+        
+        while (B.length > 0 && sums[j] <= sums[B[B.length - 1]]) {
+            B.pop();
+        }
+        
+        while (B.length > 0 && sums[j] - sums[B[0]] >= K) {
+            res = Math.min(res, j - B.shift());
+        }
+        
+        B.push(j)
+    }
+    
+    return res < A.length + 1 ? res : - 1;
+};
