@@ -1,0 +1,22 @@
+// O(N) - time, O(1) - space
+
+var isRobotBounded = function(instructions) {
+    // 1 north, 2 east, 3 south, 4 west
+   let directions = [[0, 1], [1, 0], [0, -1], [-1, 0]];
+    // idx points on the direction where to go, x and y are positions
+   let x = 0, y = 0, idx = 0
+   for (let instruction of instructions) {
+       /* there are total of 4 possible moves,
+          right is always one step plus and left is 3 steps plus
+       */
+       if (instruction === 'L') {
+           idx = (idx + 3) % 4;
+       } else if (instruction === 'R') {
+           idx = (idx + 1) % 4;
+       } else {
+          x += directions[idx][0];
+          y += directions[idx][1];
+       }
+   }
+    return x === 0 && y === 0 || idx !== 0;
+};
