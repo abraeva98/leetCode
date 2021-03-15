@@ -1,0 +1,26 @@
+// O(N^2) - time, O(1) - space
+
+var countSubstrings = function(s) {
+    /*
+        we are gonna use expand around center approach,
+        we will iterate s from 0 index and check if curr
+        index and index, index and index + 1 are palindroms,
+        if they are we increment the count and decrement the left pointer
+        and increment the right pointer
+    */
+    let count = 0;
+    for (let i = 0; i < s.length; i ++) {
+        count += expand(i, i, 0);
+        count += expand(i, i + 1, 0);
+    }
+    function expand(left, right, len) {
+        while (left >= 0 && right < s.length) {
+          if (s[left] !== s[right]) break;
+          left --;
+          right ++; 
+          len ++;
+        }
+        return len;
+    }
+    return count;
+};
