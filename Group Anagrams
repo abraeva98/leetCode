@@ -1,3 +1,31 @@
+// Time Complexity: O(n*k) where n is the size of input array and k is the maximum length of string in input array
+// Space Complexity: O(n)
+
+var groupAnagrams = function(strs) {
+    /*
+        count how much each string weight,
+        and group it by the count.
+        iterate through the array, iterating through each letter,
+        create a hashMap to store all counts, return the values
+    */
+    let hashMap = {};
+    for (let str of strs) {
+        let count = new Array(26).fill(0);
+        for (let letter of str) {
+            count[letter.charCodeAt(0) - 97] ++;
+        }
+        let key = count.join('#');
+        if (hashMap[key]) {
+            hashMap[key].push(str);
+        } else {
+            hashMap[key] = [str];
+        }
+    }
+    return Object.values(hashMap)
+};
+
+
+
 Time Complexity: O(NKlog K), where N is the length of strs, and K is the maximum length of a string in strs. The outer loop has complexity O(N) as we iterate through each string. Then, we sort each string in O(Klog K) time.
 
 Space Complexity: O(NK), the total information content stored in ans.
