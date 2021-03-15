@@ -1,0 +1,27 @@
+// O(N) - time, space
+
+const lastSubstring = (s) => {
+  /*
+    create a helper function with all max letter indexes by iterating 
+    through s and comparing each letter, iterate throgh max letter array
+    and find the greatest substring
+  */
+    let maxLetterArray = [];
+    let maxLetter = '';
+    for (let i = 0; i < s.length; i ++) {
+        if (s[i] > maxLetter) {
+           maxLetterArray = [i];
+           maxLetter = s[i]
+        } else if (s[i] === maxLetter) {
+            maxLetterArray.push(i);
+        }
+    }
+    let maxSubstr = '';
+    for (let i of maxLetterArray) {
+        let substr = s.slice(i);
+        if (maxSubstr < substr) {
+            maxSubstr = substr;
+        }
+    }
+    return maxSubstr;
+}
