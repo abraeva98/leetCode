@@ -1,0 +1,23 @@
+Time Complexity: O(NKlog K), where N is the length of strs, and K is the maximum length of a string in strs. The outer loop has complexity O(N) as we iterate through each string. Then, we sort each string in O(Klog K) time.
+
+Space Complexity: O(NK), the total information content stored in ans.
+
+var groupAnagrams = function(strs) {
+    /*
+        1) create a hashMap, iterate through the string,
+        sort each string, see if the sorted version of
+        the string is in hashMap and if it is add the current
+        string, else create a new key value pair
+        2) get the values from the hashMap
+    */
+    let hashMap = {};
+    for (let str of strs) {
+        let copy = str.split('').sort().join('');
+        if (hashMap[copy]) {
+            hashMap[copy].push(str);
+        } else {
+            hashMap[copy] = [str];
+        }
+    }
+    return Object.values(hashMap);
+};
