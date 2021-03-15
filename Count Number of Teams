@@ -1,3 +1,30 @@
+// O(N^2) - time, O(1) - space
+6
+var numTeams = function(rating) {
+    /*
+        at any given idx find how many nums to the left and to the 
+        right are larger and lesser than curr. Curr will be j, find i and k.
+    */
+    let teams = 0;
+    for (let k = 1; k < rating.length - 1; k ++) {
+        let leftLesser = 0;
+        let rightGreater = 0;
+
+        let leftGreater = 0;
+        let rightLesser = 0;
+        for (let i = k - 1; i >= 0; i --) {
+            if (rating[k] > rating[i]) leftLesser ++;
+            if (rating[k] < rating[i]) leftGreater ++;
+        }
+        for (let j = k + 1; j < rating.length; j ++) {
+            if (rating[k] < rating[j]) rightGreater ++;
+            if (rating[k] > rating[j]) rightLesser ++;
+        }
+        teams += leftLesser * rightGreater + leftGreater * rightLesser;
+    }
+    return teams;
+};
+
 // O(N^3) - time, O(1) - space
 
 var numTeams = function(rating) {
