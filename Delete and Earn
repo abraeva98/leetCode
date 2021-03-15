@@ -1,0 +1,22 @@
+O(NlogN) - time, O(N) - space
+
+var deleteAndEarn = function(nums) {
+    /*
+        create a dp array, which will store up to the
+        greatest num in the array, on each idex we will
+        store the frequency of given num,
+        we iterate through dp and check which one is greater: curr + prev - 1 or 
+        prev, return the last elem
+    */
+    nums.sort((a, b) => b - a);
+    let dp = new Array(nums[0] + 1).fill(0);
+    
+    for (let i = 0; i < nums.length; i ++) {
+        dp[nums[i]] += nums[i];
+    }
+    
+    for (let i = 2; i < dp.length; i ++) {
+        dp[i] = Math.max(dp[i] + dp[i - 2], dp[i - 1]);
+    }
+    return dp[dp.length - 1];
+};
