@@ -1,0 +1,10 @@
+// O(NlogN) - time, O(1) - space
+
+var heightChecker = function(heights) {
+   let sorted = heights.slice().sort((a, b) => a - b);
+   let changes = 0;
+   for (let i = 0; i < sorted.length; i ++) {
+       if (heights[i] !== sorted[i]) changes ++;
+   }
+    return changes;
+};
