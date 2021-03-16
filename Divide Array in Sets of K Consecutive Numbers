@@ -1,0 +1,31 @@
+var isPossibleDivide = function(nums, k) {
+    /*
+        create a map to store all elements and its frequency in it,
+        keep track of min value, create a function to get min value,
+        iterate through map untill it's empty, if min val is not in the arr,
+        return false
+    */
+    let map = new Map();
+    let min = Infinity;
+    for (let num of nums) {
+        map.set(num, (map.get(num) || 0) + 1);
+        min = Math.min(min, num);
+    }
+    
+    while (map.size > 0) {
+        for (let i = 0; i < k; i ++) {
+            if (!map.has(min + i)) return false;
+            if (map.get(min + i) === 1) map.delete(min + i);
+            else map.set(min + i, map.get(min + i) - 1);
+        }
+        if (map.size > 0) min = findMin(map, Infinity);
+    }
+    return true;
+};
+
+function findMin(map, min) {
+    for (let [key] of map) {
+        min = Math.min(key, min);
+    }
+    return min;
+}
