@@ -1,0 +1,24 @@
+// O(N) - time, space
+
+var productExceptSelf = function(nums) {
+    /*
+        create two arrays product of left and
+        right, iterate through nums[i] and
+        multiple values at the index of two array
+    */
+    let n = nums.length;
+    let leftProduct = new Array(n);
+    let rightProduct = new Array(n);
+    leftProduct[0] = 1;
+    rightProduct[n - 1] = 1;
+    for (let i = 1; i < n; i ++) {
+        leftProduct[i] = leftProduct[i - 1] * nums[i - 1];
+    }
+    for (let i = n - 2; i >= 0; i --) {
+        rightProduct[i] = rightProduct[i + 1] * nums[i + 1];
+    }
+    for (let i = 0; i < nums.length; i ++) {
+        nums[i] = leftProduct[i] * rightProduct[i];
+    }
+    return nums;
+};
