@@ -1,0 +1,36 @@
+Time: O(4 * 3^k), where k <= 25 is the number of cells that have gold.
+Because the first cell has up to 4 choices, the (k-1) remain cells 
+have up to 3 choices. And we make k different gold cells as first cell. So k * 4*3^(k-1) = 4 * 3^k
+
+Space: O(K) - dfs stack
+
+var getMaximumGold = function(grid) {
+    let maxGold = 0;
+    for (let i = 0; i < grid.length; i ++) {
+        for (let j = 0; j < grid[i].length; j ++) {
+            if (grid[i][j] !== 0) {
+                let currMax = helper(i, j, 0);
+                maxGold = Math.max(currMax, maxGold);
+            }
+        }
+    }
+    
+    function helper(i, j, gold) {
+        if (i < 0 || i >= grid.length || j < 0 || j >= grid[0].length || grid[i][j] === 0) return gold;
+        
+        let newGold = gold + grid[i][j];
+        let temp = grid[i][j];
+        grid[i][j] = 0;
+        
+        let up = helper(i - 1, j, newGold);
+        let down = helper(i + 1, j, newGold);
+        let left = helper(i, j - 1, newGold);
+        let right = helper(i, j + 1, newGold);
+        
+        grid[i][j] = temp;
+        
+        return Math.max(up, down, left, right);;
+    }
+    
+    return maxGold;
+};
