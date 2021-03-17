@@ -1,0 +1,29 @@
+// O(N) - time, space
+
+var oddEvenList = function(head) {
+    /*
+        1) iterate through the linklist and
+        2) reassign the next val to the next next and save next val in a 
+        new linkedlist
+        3) when we finished iterating, merge two linklist
+    */
+    if (!head) return head;
+    let evenList = new ListNode();
+    let even = evenList;
+    let node = head;
+    while (node !== null && node.next !== null) {
+        if (node.next !== null && node.next.next === null) {
+            even.next = node.next;
+            node.next = null;
+            even = even.next;
+        } else {
+            let temp = node.next;
+            node.next = node.next.next;
+            even.next = new ListNode(temp.val);
+            even = even.next;
+            node = node.next;
+        }
+    }
+    node.next = evenList.next;
+    return head;
+};
