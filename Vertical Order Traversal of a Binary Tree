@@ -1,0 +1,28 @@
+var verticalTraversal = function(root) {
+    /*
+         each node will have their x and y values,
+         create a hash map to store node at their x, y
+         call function recursively on right and left children
+         incrementing y, incrementing x for right child and 
+         decrementing for left child
+    */
+    if (!root) root;
+    let nodes = [];
+    DFS(root, 0, 0);
+    
+    nodes.sort((a, b) => a[0] - b[0] || a[1] - b[1] || a[2] - b[2]);
+
+    let map = new Map();
+    for (let [x, y, val] of nodes) {
+        if (!map.has(x)) map.set(x, []);
+        map.get(x).push(val);
+    }
+    return [...map.values()]
+};
+
+function DFS(node, x, y) {
+    if (node === null) return;
+    nodes.push([x, y, node.val]);
+    DFS(node.left, x - 1, y + 1);
+    DFS(node.right, x + 1, y + 1);
+}
