@@ -1,0 +1,25 @@
+// O(NM) - time, space
+
+var maxAreaOfIsland = function(grid) {
+    let max = 0;
+    for (let i = 0; i < grid.length; i ++) {
+        for (let j = 0; j < grid[i].length; j ++) {
+            let islands = helper(i, j, grid);
+            max = Math.max(max, islands)
+        }
+    }
+    return max;
+};
+
+function helper(i, j, grid) {
+    if (i < 0 || i >= grid.length || j < 0 || j >= grid[0].length || grid[i][j] === 0) {
+        return 0;
+    }
+    grid[i][j] = 0;
+    let up = helper(i + 1, j, grid);
+    let down = helper(i - 1, j, grid);
+    let left = helper(i, j - 1, grid);
+    let right = helper(i, j + 1, grid);
+    
+    return 1 + up + down + left + right;
+}
