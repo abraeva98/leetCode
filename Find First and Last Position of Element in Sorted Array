@@ -1,0 +1,42 @@
+// O(logN) - time, O(1) - space
+
+var searchRange = function(nums, target) {
+    /*
+        find the middle index, we don't look for target
+        we look for start and end indexes, we will have separate
+        checks for start and end, start - 1 and end + 1 should not
+        be equal to target 
+    */
+    let position = [-1, -1];
+    let n = nums.length - 1;
+    let left = 0;
+    let right = n;
+    while (left <= right) {
+        let middle = Math.floor((left + right) / 2);
+        if (left === right && nums[middle] !== target) break;
+        if (nums[middle] === target && target !== nums[middle + 1]) {
+            position[1] = middle;
+            break;
+        }
+        if (nums[middle] > target) {
+            right = middle;
+        } else {
+            left = middle + 1;
+        }
+    }
+    
+    left = 0, right = n
+    while (left <= right) {
+        let middle = Math.floor((left + right) / 2);
+        if (left === right && nums[middle] !== target) break;
+        if (nums[middle] === target && target !== nums[middle - 1]) {
+            position[0] = middle;
+            break;
+        } else if (nums[middle] < target) {
+            left = middle + 1;
+        } else {
+            right = middle;
+        }
+    }
+    return position;
+};
