@@ -1,0 +1,17 @@
+// O(N) - time, space
+
+var diameterOfBinaryTree = function(root) {
+    if (root === null) return null;
+    let diameter = 0;
+    
+    function helper(node) {
+        if (!node) return 0;
+        let left = helper(node.left);
+        let right = helper(node.right);
+        diameter = Math.max(diameter, left + right);
+        return Math.max(left, right) + 1;
+    }
+    
+    helper(root);
+    return diameter;
+}
