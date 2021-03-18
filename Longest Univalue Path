@@ -2,21 +2,22 @@
 
 var longestUnivaluePath = function(root) {
     if (!root) return root;
-    if (!root.left && !root.right) return 0;
     let max = 0;
-    function DFS(curr, node, counter) {
-        if (node === null) return 0;
-        if (curr !== node) return counter;
-        let left, right;
-        if (node.left && node.left.val === node.val) {
-            left = DFS(node, node.left, counter + 1);
-        } else if (node.right && node.right.val === node.val) {
-            right = DFS(node, node.right, counter + 1);
+    function DFS(node) {
+        if (!node) return;
+        let left = DFS(node.left);
+        let right = DFS(node.right);
+        let leftSide = 0, rightSide = 0;
+        if (node.left !== null && node.left.val === node.val) {
+            leftSide = left + 1;
         }
-        let sum = left + right || 0;
-        max = Math.max(sum, max);
-        return sum;
+        if (node.right !== null && node.right.val === node.val) {
+            rightSide = right + 1;
+        }
+        max = Math.max(leftSide + rightSide, max);
+        return Math.max(leftSide, rightSide)
+        
     }
-    DFS(root, root, 0);
+    DFS(root);
     return max;
 };
