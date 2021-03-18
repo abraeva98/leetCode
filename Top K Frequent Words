@@ -7,6 +7,26 @@ var topKFrequent = function(words, k) {
         iterate through the hashTable and find k greatest
         numbers and sort them in alphabetic order
     */
+    let map = new Map();
+    for (let i = 0; i < words.length; i ++) {
+        map.set(words[i], (map.get(words[i]) || 0) + 1);
+    }
+    let mostFrequent = [...map.keys()].sort((a, b) => {
+        let n = map.get(b) - map.get(a);
+        if (n !== 0) return n;
+        return a > b ? 1 : -1
+    });
+
+    return mostFrequent.slice(0, k);
+};
+
+var topKFrequent = function(words, k) {
+    /* 
+        create a hashTable where we can store each
+        word and how many times it repeats,
+        iterate through the hashTable and find k greatest
+        numbers and sort them in alphabetic order
+    */
     let hashMap = {};
     for (let i = 0; i < words.length; i ++) {
         if (hashMap[words[i]] === undefined) {
