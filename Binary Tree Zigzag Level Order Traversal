@@ -1,0 +1,33 @@
+O(N) - time, space
+
+var zigzagLevelOrder = function(root) {
+    /*
+        BST using an array(queue and stack),
+        we will have variable that will changing on each level and
+        depending this variable we will be traversing either from the end or 
+        from the start of the array
+    */
+    if (!root) return [];
+    let queue = [root];
+    let result = [];
+    let goLeft = true;
+    while (queue.length > 0) {
+        let levelRes = [];
+        let children = [];
+        while (queue.length > 0) {
+        let node = queue.shift();
+        levelRes.push(node.val);
+        if (goLeft) {
+            if (node.left) children.push(node.left);
+            if (node.right) children.push(node.right);
+        } else {
+            if (node.right) children.push(node.right);
+            if (node.left) children.push(node.left);
+         }
+        }
+        queue = children.reverse();
+        result.push(levelRes);
+        goLeft = !goLeft;
+    }
+    return result;
+};
