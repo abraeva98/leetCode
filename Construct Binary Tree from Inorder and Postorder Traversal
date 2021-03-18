@@ -1,0 +1,26 @@
+// O(N) - time, space
+
+var buildTree = function(inorder, postorder) {
+    /*  
+        let's build a hashmap for inorder traversal,
+        we will need it to see if current node has children,
+        traverse the postorder array starting from the end,
+        check if curr node has children or doesn't have
+    */
+    let map = new Map();
+    for (let i = 0; i < inorder.length; i ++) {
+        map.set(inorder[i], i);
+    }
+
+    let n = postorder.length - 1;
+    function helper(left, right) {
+        if (left > right) return null;
+        let val = postorder.pop();
+        let root = new TreeNode(val);
+        let idx = map.get(val);
+        root.right = helper(idx + 1, right);
+        root.left = helper(left, idx - 1);
+        return root;
+    }
+    return helper(0, n);
+};
