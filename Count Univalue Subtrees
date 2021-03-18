@@ -1,0 +1,30 @@
+// O(N) - time, O(H) - space
+
+var countUnivalSubtrees = function(root) {
+    /*
+        create a global count, increment only if
+        1) node doesn't have children or all children are the same,
+           do dfs traversal inorder
+        2) if it is uni val return true if it is not return false
+        3) if node has children they both have to return true
+    */
+    if (!root) return root;
+    let counter = 0;
+    function helper(root) {
+        if (!root) return true;
+        let left = helper(root.left);
+        let right = helper(root.right);
+        
+        if (!left || !right) return false;
+        
+        if (root.left && root.left.val !== root.val ||
+           root.right && root.right.val !== root.val) {
+            return false;
+        }
+        
+        counter ++;
+        return true;
+    }
+    helper(root)
+    return counter;
+};
