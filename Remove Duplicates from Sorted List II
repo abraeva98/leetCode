@@ -1,0 +1,22 @@
+// O(N) - time, O(1) - space
+
+var deleteDuplicates = function(head) {
+    if (!head || !head.next) return head;
+    let node = head;
+    let dummy = new ListNode();
+    dummy.next = head;
+    let prev = dummy;
+    
+    while (node) {
+        if (node.next && node.val === node.next.val) {
+             while (node.next && node.val === node.next.val) {
+                node = node.next;
+            }
+            prev.next = node.next;
+        } else {
+            prev = prev.next;
+        }
+        node = node.next;
+    }
+    return dummy.next;
+};
