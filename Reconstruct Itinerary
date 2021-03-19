@@ -1,0 +1,35 @@
+Time Complexity: O(E^d) where E is the number of total flights and d is the maximum number of flights from an airport.
+Space: O(E + V) V - n of airports, E - n of flights
+
+var findItinerary = function(tickets) {
+    /*
+        create a hashmap that will store each 
+        depature city as a key and its arrival cities 
+        as values, sort the arrival cities by lexical order.
+        start iterating from JFK get the first city on the 
+        arrival list and call function recursively on the first
+        city and delete it from val array
+    */
+    let map = new Map();
+    for (let [city1, city2] of tickets) {
+        if (!map.has(city1)) {
+            map.set(city1, []);
+        }
+        map.get(city1).push(city2);
+        let sorted = map.get(city1).sort();
+        map.set(city1, sorted)
+    }
+    let itinerary = [];
+    
+    function helper(departureCity) {
+        let arrivalCities = map.get(departureCity);
+        while (arrivalCities && arrivalCities.length > 0) {
+            let city = arrivalCities.shift();
+            helper(city);
+        }
+        itinerary.push(departureCity);
+    }
+    
+    helper('JFK');
+    return itinerary.reverse();
+};
