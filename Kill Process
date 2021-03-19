@@ -1,0 +1,31 @@
+// O(N) - time, space
+
+var killProcess = function(pid, ppid, kill) {
+    /*
+        1) create a hashmap with key parent and
+        val children
+        2) start by finding the node to delete, 
+        go through all its children and check if they have
+        children, return all ancestors
+    */
+    let map = new Map();
+    for (let i = 0; i < ppid.length; i ++) {
+        let parent = ppid[i];
+        let child = pid[i];
+        if (!map.has(parent)) map.set(parent, []);
+        map.get(parent).push(child);
+    }
+    
+    let deleted = [];
+    function deleteAll(node) {
+        deleted.push(node);
+        let children = map.get(node);
+        if (!children) return;
+        for (let child of children) {
+            deleteAll(child);
+        }
+    }
+    
+    deleteAll(kill);
+    return deleted;
+};
