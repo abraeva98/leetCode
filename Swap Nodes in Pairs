@@ -1,0 +1,30 @@
+// O(N) - space, O(1) - time
+var swapPairs = function(head) {
+    /*
+        iterate through linkedlist, we will be
+        stepping two steps at the time,
+        create a temp variable where I will be
+        storing next pointer of the next and, 
+        reassing next pointer to point at current node,
+        current node should point at temp,
+        move two steps ahead
+    */
+    // let node = head;
+    let dummy = new ListNode(-1);
+    dummy.next = head;
+    
+    let prev = dummy;
+
+    while (head && head.next) {
+        let n1 = head;
+        let n2 = head.next;
+        
+        prev.next = n2;
+        n1.next = n2.next;
+        n2.next = n1;
+        
+        prev = n1;
+        head = n1.next;
+    }
+    return dummy.next;
+};
