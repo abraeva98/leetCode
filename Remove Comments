@@ -1,0 +1,38 @@
+var removeComments = function(source) {
+    // O(N) - time, space N - length of source code
+    
+    /*
+        iterae through each line
+        1) check if it is a slash star -> you know that
+        you need to ignore all lines untill you encounter start slash
+        2) if it is two slashes than ingnore the whole line
+        3) else it must be a string so add it 
+        4) after going through each line add string to the result
+    */
+    let result = [];
+    let skipLines = false;
+    let string = '';
+    source.forEach(line => {
+        for (let i = 0; i < line.length; i ++) {
+            if (!skipLines) {
+                if (line[i] + line[i + 1] === '//') break;
+                if (line[i] + line[i + 1] === '/*') {
+                    skipLines = true;
+                    i ++;
+                } else {
+                    string += line[i];
+                }
+            } else {
+                if (line[i] + line[i + 1] === '*/') {
+                    skipLines = false;
+                    i ++;
+                }
+            }
+        }
+        if (string && !skipLines) {
+            result.push(string);
+            string = '';
+        }
+    })
+    return result;
+};
