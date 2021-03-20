@@ -1,4 +1,16 @@
 // O(N) - time, O(1) - space
+
+var missingNumber = function(nums) {
+    let max = nums.length;
+    let expected = 0;
+    let actual = 0;
+    for (let i = 0; i < max; i ++) {
+        expected += i + 1;
+        actual += nums[i];
+    }
+    return expected - actual;
+};
+
 var missingNumber = function(nums) {
     /*
         calculate the sum of all nums, 
