@@ -1,0 +1,12 @@
+// O(N) - time, O(1) - space
+
+var judgeCircle = function(moves) {
+    let position = [0, 0]
+    for (let move of moves) {
+        if (move === 'U') position[1] ++;
+        if (move === 'D') position[1] --;
+        if (move === 'L') position[0] --;
+        if (move === 'R') position[0] ++;
+    }
+    return position[0] === 0 && position[1] === 0;
+};
