@@ -1,0 +1,18 @@
+// O(N) - time, space
+
+var missingNumber = function(nums) {
+    /*
+        create a hashmap with all the values for the
+        fast access, the largest num is length of array,
+        itearte through 0 to largest and check if we have
+        its val in hashmap
+    */
+    let set = new Set();
+    for (let num of nums) {
+        set.add(num);
+    }
+    
+    for (let i = 0; i <= nums.length; i ++) {
+        if (!set.has(i)) return i;
+    }
+};
