@@ -1,3 +1,21 @@
+// O(N) - time, O(1) - space
+var missingNumber = function(nums) {
+    /*
+        calculate the sum of all nums, 
+        iterate through sum and decrement each val,
+        we will have the missing num
+    */
+    let max = nums.length;
+    let sum = 0;
+    for (let i = 1; i <= max; i ++) {
+        sum += i;
+    }
+    for (let num of nums) {
+        sum -= num;
+    }
+    return sum;
+};
+
 // O(N) - time, space
 
 var missingNumber = function(nums) {
