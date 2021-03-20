@@ -1,0 +1,44 @@
+// O(N^2) - time, O(N) - space
+
+function findCircleNum(M) {
+    /*
+        create a hashmap with all the connections of the city,
+        iterate throught he elements in a hashamp and if we have 
+        only one connection, we increment the count of provinces
+        and we have more than one will be iterating through each of them
+        and shifting the values, so we wouldn't check the same city twice
+    */
+    let map = new Map();
+    for (let i = 0; i < M.length; i ++) {
+        for (let j = 0; j < M[i].length; j ++) {
+            if (M[i][j] === 1) {
+                if (!map.has(i)) {
+                    map.set(i, []);
+                }
+                if (i !== j) map.get(i).push(j);
+            }
+        }
+    }
+    let provinces = 0;
+    
+    function helper(city) {
+        let neighbors = map.get(city);
+        if (!neighbors) return;
+        while (neighbors.length > 0) {
+            let neighbor = neighbors.shift();
+            helper(neighbor);
+        }
+        map.delete(city)
+    }
+    
+    for (let [city, neighbors] of map) {
+        if (neighbors.length === 0) {
+            provinces ++;
+        } else {
+            provinces ++;
+            helper(city);
+        }
+    }
+    
+    return provinces;
+}
