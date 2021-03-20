@@ -1,4 +1,4 @@
-// O(N) - time, space
+// O(N + M) - time, space
 
 var findMedianSortedArrays = function(nums1, nums2) {
    /*
