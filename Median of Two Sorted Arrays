@@ -1,0 +1,32 @@
+// O(N) - time, space
+
+var findMedianSortedArrays = function(nums1, nums2) {
+   /*
+        create two pointers for each array and create a new
+        array and push the lowest val to it, increment the pointer
+        of the lowest
+        divide sorted array in two and get the modulo of it
+   */
+    let sorted = [];
+    let p1 = 0;
+    let p2 = 0;
+    while (p1 < nums1.length || p2 < nums2.length) {
+        let first = p1 < nums1.length ? nums1[p1] : Infinity;
+        let second = p2 < nums2.length ? nums2[p2] : Infinity;
+        if (first < second) {
+            sorted.push(first);
+            p1 ++;
+        } else {
+            sorted.push(second);
+            p2 ++;
+        }
+    }
+    
+    let median = sorted.length % 2;
+    let middle = Math.floor(sorted.length / 2);
+    if (median === 0) {
+        return (sorted[middle] + sorted[middle - 1]) / 2;
+    } else {
+        return sorted[middle];
+    }
+};
