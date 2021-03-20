@@ -2,6 +2,34 @@
 
 function findCircleNum(M) {
     /*
+        create a visited set and add cities to it if don't have them in
+        the set, check its neighbors and if we have it in the set, skip it,
+        increment the counter whenever you encounter non-visited city
+    */
+    let set = new Set();
+    let provinces = 0;
+    for (let i = 0; i < M.length; i ++) {
+        if (!set.has(i)) {
+            provinces ++;
+            DFS(i);
+        }
+    }
+    
+    function DFS(i) {
+        for (let j = 0; j < M.length; j ++) {
+            if (M[i][j] === 1 && !set.has(j)) {
+                set.add(j);
+                DFS(j);
+            }
+        }
+    }
+    
+    return provinces;
+}
+
+
+function findCircleNum(M) {
+    /*
         create a hashmap with all the connections of the city,
         iterate throught he elements in a hashamp and if we have 
         only one connection, we increment the count of provinces
