@@ -1,0 +1,20 @@
+// O(N) - time, space
+
+var numDecodings = function(s) {
+    /*
+        create dp array and check base cases, how many ways to create a s[0] ?
+        how many ways to create s[1], iterate though the dp and check two
+        substring at the time, length 1 and length 2, if they are valid 
+        increment the dp at current index
+    */
+    let dp = new Array(s.length + 1).fill(0);
+    dp[0] = 1;
+    dp[1] = s[0] === '0' ? 0 : 1;
+    for (let i = 2; i <= s.length; i ++) {
+        let firstSubstr = s.substring(i - 1, i);
+        let secondSubstr = s.substring(i - 2, i);
+        if (firstSubstr >= 1) dp[i] += dp[i - 1];
+        if (secondSubstr >= 10 && secondSubstr <= 26) dp[i] += dp[i - 2];
+    }
+    return dp[dp.length - 1];
+}
