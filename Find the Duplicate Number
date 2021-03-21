@@ -1,0 +1,16 @@
+// O(N) - time, space
+
+var findDuplicate = function(nums) {
+    /*
+        create a hashmap, count each num,
+        iterate through hashmap and return 
+        num that occurred more than once
+    */
+    let map = new Map();
+    for (let num of nums) {
+        map.set(num, map.get(num) + 1 || 1);
+    }
+    for (let [key, val] of map) {
+        if (val > 1) return key;
+    }
+};
