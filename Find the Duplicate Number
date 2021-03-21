@@ -1,3 +1,25 @@
+// O(N) - time, O(1) - space
+
+var findDuplicate = function(nums) {
+    /*
+        create two pointers slow and fast, 
+        slow goes one step at a time
+        and fast moves two steps at a time
+    */
+    let slow = nums[0];
+    let fast = nums[nums[0]];
+    while (slow !== fast) {
+        slow = nums[slow];
+        fast = nums[nums[fast]];
+    }
+    fast = 0;
+    while (slow !== fast) {
+        slow = nums[slow];
+        fast = nums[fast];
+    }
+    return slow;
+};
+
 // O(N) - time, space
 
 var findDuplicate = function(nums) {
