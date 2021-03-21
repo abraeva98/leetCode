@@ -1,3 +1,26 @@
+// O(N) - time, O(1) - space
+
+var numDecodings = function(s) {
+    if (s[0] === '0') return 0;
+    let oneBack = 1;
+    let twoBack = 1;
+    for (let i = 2; i <= s.length; i ++) {
+        let firstSubstr = s.substring(i - 1, i);
+        let secondSubstr = s.substring(i - 2, i);
+        let current = 0;
+        if (firstSubstr >= 1) {
+            current += oneBack;
+        }
+        if (secondSubstr >= 10 && secondSubstr <= 26) {
+            current += twoBack;
+        }
+        twoBack = oneBack;
+        oneBack = current;
+    }
+    return oneBack;
+}
+
+
 // O(N) - time, space
 
 var numDecodings = function(s) {
