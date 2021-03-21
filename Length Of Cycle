@@ -1,0 +1,24 @@
+// O(N) - time, space
+
+/*
+  create a set of visited node,
+  iterate the array until size of set is equal to array length,
+  if node is not visited increment the counter,
+  if it is visited return the counter
+*/
+
+function lengthOfCycle(array, startIdx) {
+    let visited = new Set();
+    let len = 0;
+    let nextIdx = startIdx;
+    while (visited.size <= array.length) {
+        if (visited.has(array[nextIdx])) {
+           return len;
+        } else {
+           len ++;
+           visited.add(array[nextIdx]);
+           nextIdx = array[nextIdx];
+        }
+    }
+  return -1;
+}
