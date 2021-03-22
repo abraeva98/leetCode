@@ -12,6 +12,31 @@ var findMin = function(nums) {
     let left = 0;
     let right = nums.length - 1;
     if (nums[0] < nums[right]) return nums[0];
+    
+    while (nums[left] > nums[right]) {
+        let middle = Math.floor((left + right) / 2);
+        if (nums[middle] < nums[right]) {
+            right = middle;
+        } else {
+            left = middle + 1;
+        }
+    }
+    return nums[left];
+};
+
+
+var findMin = function(nums) {
+    /*
+        use binary search to solve the problem in 
+        O(logN), create two pointers left and right, 
+        calculate the middle pointer on each iteration.
+        compare left and right, choose whatever is smaller,
+        reapeat till left and right are greter than pivot
+    */
+    if (nums.length === 1) return nums[0];
+    let left = 0;
+    let right = nums.length - 1;
+    if (nums[0] < nums[right]) return nums[0];
     while (left < right) {
         let middle = Math.floor((left + right) / 2);
         if (nums[middle] > nums[middle + 1]) {
