@@ -4,6 +4,23 @@ var findDuplicates = function(nums) {
     /*
         the promt gives us a hint that all numbers are
         from 1 to n, so each number can be pointing to the next
+        index - 1, iterate through the array and mark next num
+        as visited by making it negative. if we found a negative number,
+        it means that we visited it before, so add this number to the result
+    */
+    let duplicates = new Set();
+    for (let i = 0; i < nums.length; i ++) {
+        let idx = Math.abs(nums[i]) - 1;
+        if (nums[idx] < 0) duplicates.add(Math.abs(nums[i]));
+        nums[idx] *= -1;
+    }
+    return [...duplicates]
+};
+
+var findDuplicates = function(nums) {
+    /*
+        the promt gives us a hint that all numbers are
+        from 1 to n, so each number can be pointing to the next
         index - 1, iterate through the array and mark each num
         as visited by making it negative. if we found a negative number,
         it means that we visited it before, so add this number to the result
