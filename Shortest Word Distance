@@ -1,0 +1,18 @@
+// O(N) - time, O(1) - space
+
+var shortestDistance = function(wordsDict, word1, word2) {
+    let idx1 = -1;
+    let idx2 = -1;
+    let min = Infinity;
+    for (let i = 0; i < wordsDict.length; i ++) {
+        if (wordsDict[i] === word1) {
+            idx1 = i;
+        } else if (wordsDict[i] === word2) {
+            idx2 = i;
+        } 
+        if (idx1 > -1 && idx2 > -1) {
+            min = Math.min(Math.abs(idx2 - idx1), min)
+        }
+    }
+    return min;
+};
