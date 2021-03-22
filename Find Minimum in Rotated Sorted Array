@@ -5,6 +5,35 @@ var findMin = function(nums) {
         use binary search to solve the problem in 
         O(logN), create two pointers left and right, 
         calculate the middle pointer on each iteration.
+        compare left and right, choose the unsorted subarray,
+        if element to the left is greater than middle - we
+        found it
+    */
+    if (nums.length === 1) return nums[0];
+    if (nums.length === 0) return 0;
+    let left = 0;
+    let right = nums.length - 1;
+    while (left < right) {
+        let middle = left + Math.floor((right - left) / 2);
+        console.log(middle)
+        if (middle > 0 && nums[middle - 1] > nums[middle]) {
+            return nums[middle];
+        }
+        if (nums[right] < nums[middle]) {
+            left = middle + 1;
+        } else {
+            right = middle - 1;
+        }
+    } 
+    return nums[left];
+};
+
+
+var findMin = function(nums) {
+    /*
+        use binary search to solve the problem in 
+        O(logN), create two pointers left and right, 
+        calculate the middle pointer on each iteration.
         compare left and right, choose whatever is smaller,
         reapeat till left and right are greter than pivot
     */
