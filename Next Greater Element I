@@ -1,0 +1,28 @@
+// O(N*M) - time, O(M) - space
+
+var nextGreaterElement = function(nums1, nums2) {
+    /*
+        create a hashmap with indexes of nums2,
+        iterate through nums1 and check the position of
+        the num in nums2, iterate starting from that position,
+        if a greater num is found return it, otherwise return -1
+    */
+    let map = new Map();
+    for (let i = 0; i < nums2.length; i ++) {
+        map.set(nums2[i], i + 1);
+    } 
+    for (let i = 0; i < nums1.length; i ++) {
+        let idx = map.get(nums1[i]);
+        let greater = -1;
+        while (idx < nums2.length) {
+            if (nums2[idx] > nums1[i]) {
+                greater = nums2[idx];
+                break;
+            } else {
+                idx ++;
+            }
+        }
+        nums1[i] = greater;
+    }
+    return nums1;
+};
