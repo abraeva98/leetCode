@@ -1,0 +1,42 @@
+Given a positive integer n, find the smallest integer which has exactly the same digits existing in the integer n and is greater in value than n. If no such positive integer exists, return -1.
+
+Note that the returned integer should fit in 32-bit integer, if there is a valid answer but it does not fit in 32-bit integer, return -1.
+
+// O(N) - time, space
+
+function nextGreaterElement(n) {
+    /*
+        1) create a variable pivot that will be equal to -1,
+        iterate from the end of the string and find the point
+        where i - 1 is lesser than i, reassign pivot to i - 1
+        2) if pivot is still equal to i - 1, than the string is
+        the last permutaion and we don't have the next one
+        3) iterate from the end again and find the first number that
+        is larger than our pivot
+        4) swap the numbers
+        5) reverse from the pivot + 1
+    */
+    let pivot = -1;
+    n = n.toString().split('');
+    for (let i = n.length - 1; i >= 1; i --) {
+        if (n[i - 1] < n[i]) {
+           pivot = i - 1;
+           break;
+        } 
+    }
+    if (pivot === -1) return -1;
+
+    for (let i = n.length - 1; i >= 0; i --) {
+        if (n[i] > n[pivot]) {
+            let temp = n[i];
+            n[i] = n[pivot];
+            n[pivot] = temp;
+            break;
+        }
+    }
+
+    let firstPart = n.slice(0, pivot + 1);
+    let secondPart = n.slice(pivot + 1).reverse();
+    let nextPermutation = Number(firstPart.concat(secondPart).join(''));
+    return nextPermutation > 2 ** 31 - 1 ? - 1 : nextPermutation;
+}
