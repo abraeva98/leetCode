@@ -1,0 +1,20 @@
+// O(N) - time, O(1) - space
+
+var findDuplicates = function(nums) {
+    /*
+        the promt gives us a hint that all numbers are
+        from 1 to n, so each number can be pointing to the next
+        index - 1, iterate through the array and mark each num
+        as visited by making it negative. if we found a negative number,
+        it means that we visited it before, so add this number to the result
+    */
+    if (nums.length === 1) return [];
+    let duplicates = new Set();
+    nums.unshift(0)
+    for (let i = 0; i < nums.length; i ++) {
+        const idx = Math.abs(nums[i]);
+        if (nums[idx] < 0) duplicates.add(Math.abs(idx));
+        nums[idx] *= -1;
+    }
+    return [...duplicates];
+};
