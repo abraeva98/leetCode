@@ -1,3 +1,55 @@
+// O(log(min(m,n))) - time, O(1) - space
+
+var findMedianSortedArrays = function(nums1, nums2) {
+    /*
+        1) check the length of the nums1, iterate through the
+        smallest one
+        2) sum up num1 and num2 length and divide by two, so we know
+        how many elements we should have on both sides
+        3) create two pointers high nums1.length-1 and low 0,
+        iterate while low is lesser than high
+        4) check the position for nums1, which is the median idx of 
+        nums1
+        5) check the position for nums2, which is el + 1 - nums2
+        6) compare the elements on each for position, take care of edge cases
+        when we are at the first or last el
+        7) if we didn't find what we looked for increment low
+        8) if it's even get the smallest of the right and greatest of the left and divide by 2
+        3) if it's odd get the max from left
+
+    */
+    if (nums1.length > nums2.length) return findMedianSortedArrays(nums2, nums1);
+    let high = nums1.length;
+    let low = 0;
+    let partsLen = Math.floor((nums1.length + nums2.length) / 2);
+    
+    let len1 = nums1.length;
+    let len2 = nums2.length;
+    
+    while (low <= high) {
+        let position1 = Math.floor((low + high) / 2);
+        let position2 = Math.floor((len1 + len2 + 1) / 2) - position1;
+        
+        let leftSide1 = position1 > 0 ? nums1[position1 - 1] : -Infinity;
+        let leftSide2 = position2 > 0 ? nums2[position2 - 1] : -Infinity;
+        let rightSide1 = position1 < len1 ? nums1[position1] : Infinity;
+        let rightSide2 = position2 < len2 ? nums2[position2] : Infinity;
+        
+        if (leftSide1 <= rightSide2 && leftSide2 <= rightSide1) {
+            if ((len1 + len2) % 2 === 0) {
+                return (Math.max(leftSide1, leftSide2) + Math.min(rightSide1, rightSide2)) / 2;
+            } else {
+                return Math.max(leftSide1, leftSide2);
+            }
+        } 
+      if (leftSide1 > rightSide2) {
+          high = position1 - 1;
+      } else {
+          low = position1 + 1;
+      }
+    }
+};
+
 // O(N + M) - time, space
 
 var findMedianSortedArrays = function(nums1, nums2) {
