@@ -1,0 +1,11 @@
+// O(N) - time, space
+
+var minCostClimbingStairs = function(costs) {
+  let dp = new Array(costs.length);
+  dp[0] = costs[0];
+  dp[1] = costs[1];
+  for (let i = 2; i < dp.length; i ++) {
+    dp[i] = costs[i] + Math.min(dp[i - 2], dp[i - 1]);
+  }
+  return Math.min(dp[dp.length - 1], dp[dp.length - 2]);
+};
