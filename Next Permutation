@@ -1,0 +1,39 @@
+// O(N) - time, O(1) - space
+
+var nextPermutation = function(nums) {
+    /*
+        if nums is sorted in descending order, 
+        reverse and return it, otherwise 
+        iterate through the end of the nums array and
+        compare two numbers at the time, if i is greater
+        than i - 1, we found a num to switch,
+        iterate from the end again and find num that is lesser
+        than pivot, reverse the array starting from pivot + 1
+    */
+    let pivot = -1;
+    for (let i = nums.length - 1; i >= 1; i --) {
+        if (nums[i] > nums[i - 1]) {
+            pivot = i - 1;
+            break;
+        }
+    }
+    
+    if (pivot === -1) return nums.reverse();
+    for (let i = nums.length - 1; i > pivot; i --) {
+        if (nums[pivot] < nums[i]) {
+            swap(i, pivot, nums);
+            break;
+        }
+    }
+    let left = pivot + 1, right = nums.length - 1;
+    while (left < right) {
+        swap(left, right, nums);
+        left ++;
+        right --;
+    }
+    return 
+};
+
+function swap(i, j, nums) {
+    [nums[i], nums[j]] = [nums[j], nums[i]];
+}
