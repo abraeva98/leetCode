@@ -1,0 +1,14 @@
+var isPowerOfThree = function(n) {
+    /*
+        create a loop and start by multipling 3 by 3
+        if its less than n then multiply again if it is 
+        greater return false we missed
+    */
+    if (n === 1) return true;
+    function recurse(num) {
+        if (3 ** num > n) return false;
+        if (3 ** num === n) return true;
+        return recurse(num + 1);
+    }
+    return recurse(1);
+};
