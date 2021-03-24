@@ -1,3 +1,51 @@
+// O(N) - time, space
+
+var MedianFinder = function() {
+    this.nums = [];
+};
+
+MedianFinder.prototype.size = function(num) {
+    return this.nums.length;
+}
+
+MedianFinder.prototype.addNum = function(num) {
+    if (this.size() === 0) {
+        this.nums.push(num);
+    } else {
+        let idx = search(this.nums, num);
+        this.nums.splice(idx, 0, num)
+    }
+};
+
+MedianFinder.prototype.findMedian = function() {
+    if (this.size() === 0) return 0;
+    let isSizeEven = this.size() % 2 === 0;
+    let mid = isSizeEven ? (this.size() / 2) : ((this.size() - 1) / 2);
+    return isSizeEven ? (this.nums[mid] + this.nums[mid - 1]) / 2 : this.nums[mid];
+};
+
+function search(arr, num) {
+    let start = 0;
+    let end = arr.length - 1;
+    
+    if (num < arr[0]) return 0;
+    
+    if (num > arr[end]) return end + 1;
+
+    let ans = -1; 
+    
+    while (start <= end) {
+        const mid = Math.floor((end - start) / 2) + start;
+        if (arr[mid] <= num) {
+            start = mid + 1;
+            ans = mid;
+        } else {
+            end = mid - 1;
+        }
+    }
+    
+    return ans + 1;
+}
 
 // O(NlogN) - time, space
 var MedianFinder = function() {
