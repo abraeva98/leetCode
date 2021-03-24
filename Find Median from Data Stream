@@ -1,0 +1,19 @@
+
+// O(NlogN) - time, space
+var MedianFinder = function() {
+    this.stream = [];
+};
+
+MedianFinder.prototype.addNum = function(num) {
+    this.stream.push(num);
+};
+
+MedianFinder.prototype.findMedian = function() {
+    this.stream.sort((a, b) => a - b);
+    let idx = Math.floor(this.stream.length / 2);
+    if (this.stream.length % 2 === 0) {
+        return (this.stream[idx] + this.stream[idx - 1]) / 2;
+    } else {
+        return this.stream[idx];
+    }
+};
