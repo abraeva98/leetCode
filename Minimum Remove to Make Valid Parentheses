@@ -1,0 +1,56 @@
+// O(N) - time, space
+
+var minRemoveToMakeValid = function(s) {
+    let stack = [];
+    let remove = new Set();
+    for (let i = 0; i < s.length; i ++) {
+        if (s[i] === '(') {
+            stack.push(i);
+        } else if (s[i] === ')') {
+            if (stack.length === 0) remove.add(i);
+            else stack.pop();
+        }
+    }
+    for (let el of stack) remove.add(el);
+    let res = [];
+    for (let i = 0; i < s.length; i ++) {
+        if (!remove.has(i)) res.push(s[i])
+    }
+    return res.join('')
+};
+
+var minRemoveToMakeValid = function(s) {
+    /*  
+        create two arrays with closing and 
+        opening parentheses' indexes,
+        iterate through both arrays
+        and check if index of opening paretheses is
+        smaller than closing, if it is pop both values,
+        increment the pointers, if there are not
+        add closing index, if one of the arrays are not empty,
+        then add to result
+    */
+    let opening = [];
+    let closing = [];
+    for (let i = 0; i < s.length; i ++) {
+        if (s[i] === ')') closing.push(i);
+        else if (s[i] === '(') opening.push(i);
+    }
+    let toDelete = [];
+    let p1 = 0, p2 = 0
+    while (opening.length > 0 && closing.length > 0) {
+        let open =  opening.shift();
+        let close = closing.shift();
+        if (open > close) {
+            toDelete.push(close);
+            opening.unshift(open)
+        }
+    }
+    if (opening.length > 0) toDelete.push(...opening);
+    if (closing.length > 0) toDelete.push(...closing);
+    let res = '';
+    for (let i = 0; i < s.length; i ++) {
+        if (toDelete.indexOf(i) === -1) res += s[i]
+    }
+    return res;
+};
