@@ -1,4 +1,12 @@
 var isPowerOfThree = function(n) {
+    if (n === 0) return false;
+    while (n % 3 == 0) {
+        n /= 3;
+    }
+    return n === 1;
+};
+
+var isPowerOfThree = function(n) {
     /*
         create a loop and start by multipling 3 by 3
         if its less than n then multiply again if it is 
