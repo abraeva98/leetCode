@@ -1,0 +1,23 @@
+// O(NM) - time, O(N) - space
+
+var coinChange = function(coins, amount) {
+    /*
+        create a dp from 0 to amount,
+        iterate through coins and of each coin
+        iterate through 0 to amount - 1,
+        change dp on each index if the index is 
+        greater or equal to coin, because from smaller coin
+        you can't make larger num
+    */
+    let dp = new Array(amount + 1).fill(Infinity);
+    let n = dp.length;
+    dp[0] = 0;
+    for (let coin of coins) {
+        for (let num = 0; num < n; num ++) {
+            if (num >= coin) {
+                dp[num] = Math.min(dp[num], dp[num - coin] + 1);
+            }
+        }
+    }
+    return dp[n - 1] === Infinity ? -1 : dp[n - 1];
+};
