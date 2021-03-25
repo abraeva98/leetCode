@@ -1,0 +1,18 @@
+// O(N) - time, space
+
+var diStringMatch = function(S) {
+    let low = 0;
+    let high = S.length;
+    let ans = [];
+    for (let s of S) {
+        if (s === 'I') {
+            ans.push(low);
+            low ++;
+        } else if (s === 'D') {
+            ans.push(high);
+            high --;
+        }
+    }
+    ans.push(low);
+    return ans;
+};
