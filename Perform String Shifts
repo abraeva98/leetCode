@@ -1,0 +1,17 @@
+var stringShift = function(s, shift) {
+    s = s.split('')
+    for (let [dir, amount] of shift) {
+        if (dir === 0) {
+            while (amount > 0) {
+                s.push(s.shift());
+                amount --;
+            }
+        } else if (dir === 1) {
+            while (amount > 0) {
+                s.unshift(s.pop());
+                amount --;
+            }
+        }
+    }
+    return s.join('')
+};
