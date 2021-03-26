@@ -3,7 +3,7 @@ such that a + b + c = 0? Find all unique triplets in the array which gives the s
 
 Notice that the solution set must not contain duplicate triplets.
 
-var threeSum = function(nums) {
+const threeSum = function(nums) {
     if (nums.length === 0 || nums.length === 1) return [];
     let triplets = [];
     let uniqueValues = new Set();
