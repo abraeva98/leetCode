@@ -1,0 +1,14 @@
+// O(N) - time, space
+
+var shuffle = function(nums, n) {
+    let p1 = 0;
+    let p2 = n;
+    let array = [];
+    while (p2 < nums.length) {
+        array.push(nums[p1]);
+        array.push(nums[p2]);
+        p1 ++;
+        p2 ++;
+    }
+    return array;
+};
