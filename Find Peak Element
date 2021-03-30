@@ -1,0 +1,23 @@
+// O(log2(N)) - time, O(1) - space
+
+var findPeakElement = function(nums) {
+    /*
+        use divide and conquer method,
+        initialize two pointers left and right,
+        check until left is lesser than right,
+        always check the middle element and compare to its neighbors,
+        if any of this neighbors are greater, explore their side,
+        if they are both lesser return the index
+    */
+    let left = 0;
+    let right = nums.length - 1;
+    while (left < right) {
+        let middle = Math.floor((right - left) / 2) + left;
+        if (nums[middle] < nums[middle + 1]) {
+            left = middle + 1;
+        } else {
+            right = middle
+        }
+    }
+    return left;
+ };
