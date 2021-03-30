@@ -1,0 +1,27 @@
+// O(N^2) - time, space
+
+var longestPalindromeSubseq = function(s) {
+    /*
+        create a two dimensional dp array, 
+        fill it up with zeros, iterate through it
+        and comapre the s and reversed string, if values
+        are the same take the one that is located diagonally 
+        and add 1 to it for the curr, if they are not the 
+        same choose the greatest neighbor,
+        return the last element
+    */
+    let n = s.length;
+    let dp = new Array(n + 1).fill(0).map(() => new Array(n + 1).fill(0));
+    
+    let reversed = s.split('').reverse().join('');
+    for (let i = 1; i <= n; i ++) {
+        for (let j = 1; j <= n; j ++) {
+            if (s[i - 1] === reversed[j - 1]) {
+                dp[i][j] = dp[i - 1][j - 1] + 1;
+            } else {
+                dp[i][j] = Math.max(dp[i][j - 1], dp[i - 1][j]);
+            }
+        }
+    }
+    return dp[n][n];
+};
