@@ -1,0 +1,29 @@
+// O(NM) - time, space
+
+var minDistance = function(word1, word2) {
+    /*
+        create dp and compare substrings,
+        fill up the dp with min ways to create
+        a substring
+    */
+    let dp = [];
+    for (let i = 0; i < word1.length + 1; i ++) {
+        let row = [];
+        for (let j = 0; j < word2.length + 1; j ++) {
+            row.push(j);
+        }
+        row[0] = i;
+        dp.push(row);
+    }
+
+    for (let i = 1; i <= word1.length; i ++) {
+        for (let j = 1; j <= word2.length; j ++) {
+            if (word1[i - 1] === word2[j - 1]) {
+                dp[i][j] = dp[i - 1][j - 1];
+            } else {
+                dp[i][j] = 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
+            }
+        }
+    }
+    return dp[word1.length][word2.length];
+};
