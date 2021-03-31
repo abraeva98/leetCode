@@ -1,3 +1,29 @@
+// O(NM) - time, O(N) - space
+var canPartition = function(nums) {
+    /*
+        find the sum of all elements, if it's an odd number return false,
+        it is impossible to create two equal subset sum,
+        build a 2d array with row as num and col as num from 0 to sum / 2,
+        on each iteration check if the you can generate the sum using curr 
+        num and previous numbers, return the last el of the 2d array
+    */
+    let sum = nums.reduce((acc, num) => acc + num, 0);
+    if (sum % 2 === 1) return false;
+    let half = sum / 2;
+    let dp = new Array(half + 1).fill(false);
+    dp[0] = true;
+    
+    for (let num of nums) {
+        for (let j = half; j > 0; j --) {
+            if (num <= j) {
+                dp[j] = dp[j] || dp[j - num];
+            }
+        }
+    }
+    return dp[half];
+};
+
+
 // O(NM) - time, space
 
 var canPartition = function(nums) {
