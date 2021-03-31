@@ -1,0 +1,46 @@
+// O(N*M) - time, O(1) - space
+
+var setZeroes = function(matrix) {
+    /*
+        iterate through the matrix when we find
+        0 check the neighbors and if it is zero explore
+        its neighbors and mark all values to be 0 as stars '*',
+        if a val is not a star and is not zero make it a star,
+        we will have 4 potential direction we can go,
+        using recursion iterate through the neighbors and
+        change its values
+    */
+    for (let i = 0; i < matrix.length; i ++) {
+        for (let j = 0; j < matrix[0].length; j ++) {
+            if (matrix[i][j] === 0) {
+                changeToStar(matrix, i, j);
+            }
+        }
+    }
+    for (let i = 0; i < matrix.length; i ++) {
+        for (let j = 0; j < matrix[0].length; j ++) {
+            if (matrix[i][j] === Infinity) {
+                matrix[i][j] = 0;
+            }
+        }
+    }
+};
+
+function changeToStar(matrix, row, col) {
+    for (let i = row; i >= 0; i --) {
+        if (matrix[i][col] === 0) continue;
+        matrix[i][col] = Infinity;
+    }
+    for (let i = row; i < matrix.length; i ++) {
+        if (matrix[i][col] === 0) continue;
+        matrix[i][col] = Infinity;
+    }
+    for (let i = col; i >= 0; i --) {
+        if (matrix[row][i] === 0) continue;
+        matrix[row][i] = Infinity;
+    }
+    for (let i = col; i < matrix[row].length; i ++) {
+        if (matrix[row][i] === 0) continue;
+        matrix[row][i] = Infinity;
+    }
+}
