@@ -2,6 +2,52 @@
 
 var setZeroes = function(matrix) {
     /*
+        1) iterate over the matrix, if the val is zero than mark [i,0] to be 0 and
+        [0,j] to be 0 it will be our reference in the future
+        2) iterate over the matrix again but this time starting from i = 1 and j = 1,
+        we do this, so we won't lose reference to the col and rows that have to be
+        change to 0
+        3) we have one more edge case, we need to check if the first row and col
+        were initially 0 before we set them up to be, if so change the whole row or col
+        to 0
+    */
+    let n = matrix.length;
+    let c = matrix[0].length;
+    let firstCol = false;
+    
+    for (let i = 0; i < n; i ++) {
+        if (matrix[i][0] === 0) firstCol = true;
+        for (let j = 1; j < c; j ++) {
+            if (matrix[i][j] === 0) {
+                matrix[i][0] = 0;
+                matrix[0][j] = 0;
+            }
+        }
+    }
+    for (let i = 1; i < n; i ++) {
+        for (let j = 1; j < c; j ++) {
+            if (matrix[i][0] === 0 || matrix[0][j] === 0) {
+                matrix[i][j] = 0;
+            }
+        }
+    }
+    
+    if (matrix[0][0] === 0) {
+        for (let i = 0; i < c; i ++) {
+            matrix[0][i] = 0;
+        }
+    }
+    
+    if (firstCol) {
+        for (let i = 0; i < n; i ++) {
+            matrix[i][0] = 0;
+        }
+    }
+
+};
+
+var setZeroes = function(matrix) {
+    /*
         iterate through the matrix when we find
         0 check the neighbors and if it is zero explore
         its neighbors and mark all values to be 0 as stars '*',
