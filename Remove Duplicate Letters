@@ -1,0 +1,30 @@
+// O(N) - time, space
+
+function removeDuplicateLetters(str) {
+   let map = new Map();
+   let set = new Set();
+   let stack = [];
+   for (let char of str) {
+     map.set(char, map.get(char) + 1 || 1);
+   }
+
+   for (let char of str) {
+     map.set(char, map.get(char) - 1);
+     if (set.has(char)) continue;
+
+     if (stack.length === 0) {
+        stack.push(char);
+        set.add(char);
+     } else {
+          while (stack.length > 0 
+              && stack[stack.length - 1] > char 
+              && map.get(stack[stack.length - 1]) > 0) {
+              set.delete(stack[stack.length - 1]);
+              stack.pop();
+           }
+           stack.push(char);
+           set.add(char);
+          } 
+     }
+     return stack.join('');
+   }
