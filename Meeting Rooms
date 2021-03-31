@@ -1,4 +1,5 @@
 // O(NlogN) - time, O(1) - space
+Given an array of meeting time intervals where intervals[i] = [starti, endi], determine if a person could attend all meetings.
 
 var canAttendMeetings = function(intervals) {
     intervals.sort((a, b) => a[0] - b[0]);
