@@ -1,0 +1,21 @@
+// O(N) time, space
+
+var findDuplicateSubtrees = function(root) {
+    /*
+        we could have done the bfs but it would be hard for us to 
+        find duplicates, so I will go with dfs approach, we need to 
+        create a set where we will be storing the keys, we can't store
+        just the subtree, we need to modify it
+    */
+    let res = [];
+    let map = new Map();
+    function getDuplicates(node) {
+        if (!node) return '#';
+        let key = node.val + ',' + getDuplicates(node.left) + ',' + getDuplicates(node.right);
+        map.set(key, map.get(key) + 1 || 1);
+        if (map.get(key) === 2) res.push(node);
+        return key;
+    }
+    getDuplicates(root);
+    return res;
+};
