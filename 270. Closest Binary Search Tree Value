@@ -1,0 +1,26 @@
+Given the root of a binary search tree and a target value, return the value in the BST that is closest to the target.
+Input: root = [4,2,5,1,3], target = 3.714286
+Output: 4
+
+// O(N) - time, O(1) - space
+
+var closestValue = function(root, target) {
+    /*
+        create variable closest and difference, 
+        do preorder dfs and check if the dif between
+        them is lesser if so change dif and closest
+    */
+    let closest;
+    let difference = Infinity;
+    function dfs(node) {
+        if (node === null) return;
+        if (difference > Math.abs(node.val - target)) {
+            difference = Math.abs(node.val - target);
+            closest = node.val;
+        }
+        dfs(node.left);
+        dfs(node.right);
+    }
+    dfs(root);
+    return closest;
+};
