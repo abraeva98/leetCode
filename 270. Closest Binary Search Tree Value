@@ -2,7 +2,46 @@ Given the root of a binary search tree and a target value, return the value in t
 Input: root = [4,2,5,1,3], target = 3.714286
 Output: 4
 
-// O(N) - time, space
+// O(H) - time O(1) - space
+var closestValue = function(root, target) {
+    let closest;
+    let difference = Infinity;
+    let node = root;
+    while (node !== null) {
+        let diff = Math.abs(node.val - target);
+        if (diff < difference) {
+            difference = diff;
+            closest = node.val;
+        }
+        if (target < node.val) {
+            node = node.left;
+        } else {
+            node = node.right;
+        }
+    }
+    return closest;
+};
+
+var closestValue = function(root, target) {
+    let closest;
+    let difference = Infinity;
+    
+    function dfs(node) {
+        if (node === null) return;
+        if (Math.abs(node.val - target) < difference) {
+            difference = Math.abs(node.val - target);
+            closest = node.val;
+        }
+        if (target < node.val) {
+            dfs(node.left)
+        } else {
+            dfs(node.right);
+        }
+    }
+    
+    dfs(root);
+    return closest;
+};
 
 var closestValue = function(root, target) {
     /*
