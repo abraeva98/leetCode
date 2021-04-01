@@ -1,0 +1,40 @@
+// O(NM) - time, space
+
+Given a non-empty 2D array grid of 0's and 1's, an island is a group of 1's (representing land) connected 4-directionally (horizontal or vertical.) You may assume all four edges of the grid are surrounded by water.
+
+Count the number of distinct islands. An island is considered to be the same as another if and only if one island can be translated (and not rotated or reflected) to equal the other.
+
+
+var numDistinctIslands = function(grid) {
+    /*
+        iterate through the grid if we encounter 1,
+        explore the neighbors, add all the valid 1 neighbors
+        in an array, create a translation function that will store
+        the island in a map, on each iteration add the current to the key
+    */
+    let res = 0;
+    let set = new Set();
+    for (let i = 0; i < grid.length; i ++) {
+        for (let j = 0; j < grid[0].length; j ++) {
+            if (grid[i][j] === 1) {
+                let key = createKey(grid, i, j, '');
+                if (!set.has(key)) res ++;
+                set.add(key);
+            }
+        }
+    }
+    return res;
+};
+
+function createKey(grid, i, j, key) {
+    if (i < 0 || i >= grid.length || j < 0 || j >= grid[0].length || grid[i][j] === 0) {
+        return '#';
+    }
+    key += grid[i][j] + ',';
+    grid[i][j] = 0;
+    key += createKey(grid, i + 1, j, key) 
+        + createKey(grid, i - 1, j, key) 
+        + createKey(grid, i, j + 1, key) 
+        + createKey(grid, i, j - 1, key);
+    return key;
+}
