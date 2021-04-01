@@ -24,16 +24,10 @@ var inorderSuccessor = function(node) {
         }
         return node;
     } else {
-        if (node.parent) {
-            if (node.parent.val > node.val) {
-                return node.parent;
-            } else {
-                while (node.parent && node.parent.val < node.val) {
-                    node = node.parent;
-                }
-                return node.parent;
-            }
+        while (node.parent && node.parent.val < node.val) {
+            node = node.parent;
         }
+        return node.parent;
     }
     return null;
 };
