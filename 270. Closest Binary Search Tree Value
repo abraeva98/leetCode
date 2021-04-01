@@ -2,7 +2,7 @@ Given the root of a binary search tree and a target value, return the value in t
 Input: root = [4,2,5,1,3], target = 3.714286
 Output: 4
 
-// O(N) - time, O(1) - space
+// O(N) - time, space
 
 var closestValue = function(root, target) {
     /*
