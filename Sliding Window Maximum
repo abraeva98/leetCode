@@ -1,0 +1,36 @@
+// O(N) - time, space
+
+function maxSlidingWindow(nums, k) {
+  /*
+    1) iterate through the array
+    2) create a queue array that will store curr max val index
+    at index 0, if the curr number is greater than last element in
+    the array pop the elements until it is not and then add curr idx
+    to the array
+    3) create a counter element equal to k, decrement it on each iteration
+    if counter is equal to 0,
+    it is time for us to add the first element to the result array
+    4) shift the val from the array when the idx at first is less than
+    curr idx - k
+  */
+   let res = [];
+   let maxVals = [];
+   maxVals = [0];
+   for (let i = 1; i < k; i ++) {
+       while (nums[maxVals[maxVals.length - 1]] < nums[i]) {
+           maxVals.pop();
+       }
+       maxVals.push(i);
+   }
+   res.push(nums[maxVals[0]]);
+
+   for (let i = k; i < nums.length; i ++) {
+       if (Math.abs(maxVals[0] - i) >= k) maxVals.shift();
+       while (nums[maxVals[maxVals.length - 1]] < nums[i]) {
+           maxVals.pop();
+       }
+       maxVals.push(i);
+       res.push(nums[maxVals[0]]);
+   }
+   return res;
+}
