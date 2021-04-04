@@ -1,0 +1,32 @@
+// O(MN) - time, space
+
+var hasPath = function(maze, start, destination) {
+    /*
+    1) start by the start point, you will have 4 possible moves to make,
+       iterate through the moves
+    2) on each move you need to create a while loop (until you hit a wall(1)),
+       if there is not more moves to take, return and explore the previous possible moves
+    3) if at any time you stopped check if you are at target destination, if so return true
+    4) after you explored all the scenarios return false
+    */
+    let moves = [[0, 1], [0, -1], [1, 0], [-1, 0]];
+    let visited = new Set();
+    let result = false;
+    function recurse(row, col) {
+        if (visited.has(`${row}-${col}`)) return false;
+        if (row === destination[0] && col === destination[1]) return true;
+        visited.add(`${row}-${col}`);
+        
+        for (let [r, c] of moves) {
+            let nr = row + r;
+            let nc = col + c;
+            while (nr >= 0 && nc >= 0 && nr < maze.length && nc < maze[0].length && maze[nr][nc] !== 1) {
+                nr += r;
+                nc += c;
+            }
+            if (recurse(nr - r, nc - c)) return true;
+        }
+        return false;
+    }
+    return recurse(start[0], start[1]);
+};
