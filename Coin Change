@@ -1,6 +1,6 @@
 // O(NM) - time, O(N) - space
 
-var coinChange = function(coins, amount) {
+const coinChange = function(coins, amount) {
     /*
         create a dp from 0 to amount,
         iterate through coins and of each coin
