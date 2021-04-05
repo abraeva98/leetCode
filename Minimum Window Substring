@@ -1,0 +1,45 @@
+// O(S + T) - time, space
+
+var minWindow = function(s, t) {
+    /*
+        create an object for fast look ups and frequency of letters in t,
+        create two pointers, expand right pointer until we have all the letters of t
+        in the s substring, expand the left pointer until we have all the letters, if otherwise happened
+        expand the right, do so until left is lesser than right
+        a: 1, b: 1, c: 1
+        s = "ADOBECODEBANC", t = "ABC" let substring = [l, r, l - r + 1]
+        [B, A,C] stack length and t length are equal 
+    */
+    if (s === t) return s;
+    let match = 0;
+    let required = new Map();
+    for (let char of t) {
+        if (!required.has(char)) {
+            match ++;
+            required.set(char, 0);
+        } 
+        required.set(char, required.get(char) + 1);
+    }
+    
+    let seen = new Map();
+    let slow = 0;
+    let shortest = [-1, -1, Infinity];
+
+    for (let fast = 0; fast < s.length; fast ++) {
+        if (required.has(s[fast])) {
+            seen.set(s[fast], seen.get(s[fast]) + 1 || 1);
+            if (seen.get(s[fast]) === required.get(s[fast])) match --;
+        }
+        while (match === 0) {
+            if (shortest[2] > fast - slow + 1) {
+                shortest = [slow, fast, fast - slow + 1];
+            }
+            if (seen.has(s[slow])) {
+                seen.set(s[slow], seen.get(s[slow]) - 1);
+                if (seen.get(s[slow]) < required.get(s[slow])) match ++;
+            }
+            slow ++;
+        }
+    }
+    return shortest[2] === Infinity ? '' :s.substring(shortest[0], shortest[1] + 1);
+};
