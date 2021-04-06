@@ -1,0 +1,9 @@
+var titleToNumber = function(columnTitle) {
+    let res = 0;
+    let n = columnTitle.length;
+    for (let i = 0; i < n; i ++) {
+        res *= 26;
+        res += columnTitle.charCodeAt(i) - 64;
+    }
+    return res;
+};
