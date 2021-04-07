@@ -1,0 +1,15 @@
+// O(N) - time, space
+
+var maxDepth = function(root) {
+    let max = 0;
+    function recurse(node, depth) {
+        if (node === null) {
+            max = Math.max(depth, max);
+            return;
+        }
+        recurse(node.left, depth + 1);
+        recurse(node.right, depth + 1);
+    }
+    recurse(root, 0);
+    return max;
+};
