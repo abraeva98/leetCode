@@ -1,0 +1,26 @@
+// O(N) - time, O(H) - space
+
+var maxPathSum = function(root) {
+    /*
+        let's do DFS postorder, left, right, val,
+        create two variables for the right and left child,
+        we only add children if val + children is greater than 
+        val itself, we can also check if add left child will decrease the
+        val or not, if we have no choice but abandon children, change the max val
+    */
+    let maxVal = -Infinity;
+    
+    function recurse(node) {
+        if (node === null) {
+            return 0;
+        }
+        let left = Math.max(recurse(node.left), 0);
+        let right = Math.max(recurse(node.right), 0);
+        let currMax = node.val + left + right;
+        maxVal = Math.max(maxVal, currMax);
+        return Math.max(left, right) + node.val;
+    }
+    
+    recurse(root);
+    return maxVal;
+};
