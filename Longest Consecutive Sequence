@@ -1,0 +1,51 @@
+ // O(N) - time, space
+ 
+ var longestConsecutive = function(nums) {
+    /*
+        create a hashMap with all the numbers and find
+        the smallest number, iterate through the array
+        and check if we can find hashMap[i + 1], increment
+        the length while we can, compare the result 
+        to the maxLength
+    */
+    let set = new Set();
+    for (let num of nums) {
+        set.add(num);
+    }
+
+    let maxLength = 0;
+
+    for (let num of nums) {
+        if (!set.has(num - 1)) {
+            let currLength = 1;
+            let currNum = num + 1;
+            while (set.has(currNum)) {
+                currLength ++;
+                currNum ++;
+            }
+            maxLength = Math.max(currLength, maxLength); 
+        }
+    }
+    return maxLength;
+};
+ 
+ 
+ 
+ var longestConsecutive = function(nums) {
+    let set = new Set();
+    for (let num of nums) {
+        set.add(num);
+    }
+    
+    let maxLength = 0;
+    for (let num of nums) {
+        let currLength = 1;
+        let currNum = num + 1;
+        while (set.has(currNum)) {
+            currLength ++;
+            currNum ++;
+        }
+        maxLength = Math.max(currLength, maxLength);
+    }
+    return maxLength;
+};
