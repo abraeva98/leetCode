@@ -1,0 +1,42 @@
+// O(V + E) - time, space
+
+var canFinish = function(numCourses, prerequisites) {
+    /*
+        create a hashMap of courses and its prerequisites,
+        a - course, b - prerequisites, if all the prequisites
+        are visited we can take this course, else visit them
+    */
+    if (prerequisites.length === 0) return true;
+    
+    let requirement = new Map();
+    for (let [course, prerequisite] of prerequisites) {
+        if (!requirement.has(course)) {
+            requirement.set(course, []);
+        }
+        requirement.get(course).push(prerequisite);
+    }
+
+    let taken = new Set();
+    let visiting = new Set();
+    for (let [course, prerequisite] of prerequisites) {
+        if (hasCycle(course)) return false;
+    }
+    
+    function hasCycle(course) {
+        if (taken.has(course)) return false;
+        if (visiting.has(course)) return true;
+        
+        let mustBeTaken = requirement.get(course);
+        if (!mustBeTaken) return false;
+        visiting.add(course);
+        
+        for (let key of mustBeTaken) {
+           if (hasCycle(key)) return true;
+        }
+        visiting.delete(course);
+        taken.add(course);
+        return false;
+     }
+    
+    return true;
+};
