@@ -1,0 +1,46 @@
+// O(V+E) - time, space
+
+var findOrder = function(numCourses, deps) {
+	let prerequisites = new Map();
+	for (let [first, second] of deps) {
+		if (prerequisites.has(first)) {
+			prerequisites.get(first).push(second);
+		} else {
+			prerequisites.set(first, [second])
+		}
+	}
+
+	let visited = new Set();
+	let visiting = new Set();
+	let result = [];
+
+	for (let i = 0; i < numCourses; i ++) {
+		if (isCycle(i)) return [];
+	}
+	
+	function isCycle(job) {
+    if (visiting.has(job)) return true;
+		if (visited.has(job)) return false;
+		
+		let tasks = prerequisites.get(job);
+
+		if (!tasks) {
+			visited.add(job);
+			result.push(job);
+			return;
+		}
+		visiting.add(job);
+		
+		for (let task of tasks) {
+			  if (isCycle(task)) {
+                  return true;
+              }
+		}
+		visiting.delete(job);
+		visited.add(job);
+		result.push(job);
+        return false;
+	}
+
+	return result;
+}
