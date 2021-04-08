@@ -1,0 +1,72 @@
+O(C) - time, O(1) - space
+
+var alienOrder = function(words) {
+    /*
+       ["wrt","wrf","er","ett","rftt"]
+       Alphabet:
+          'w' => [ 'e' ],
+          'r' => [ 't' ],
+          't' => [ 'f' ],
+          'f' => [],
+          'e' => [ 'r' ]
+       [w, e, r, f, t]
+       create an alphabet of order, w comes before e, e comes before r and so on,
+       if the first word is longer than the second and it includes all letters from the second, 
+       it means that the input is wrong so we have to return empty string,
+       we are comparing two letters at the time, and if we found first missmatching letter, 
+       we add it to the alphabet
+       after the alphabet is created iterate through it, and pass elements to the result
+       array, if recursive function returns false return ''
+    */
+    let alphabet = new Map();
+    
+    for (let word of words) {
+        for (let letter of word) {
+            alphabet.set(letter, []);
+        }
+    }
+
+    for (let i = 0; i < words.length - 1; i ++) {
+        let first = words[i];
+        let second = words[i + 1];
+        if (first.length > second.length && first.startsWith(second)) return '';
+        let minLength = Math.min(first.length, second.length);
+        for (let j = 0; j < minLength; j ++) {
+            if (first[j] !== second[j]) {
+                alphabet.get(first[j]).push(second[j]);
+                break;
+            } 
+        }
+    }
+
+    let res = [];
+    let visited = new Set();
+    let visiting = new Set();
+    
+    for (let [key, val] of alphabet) {
+        if (!recurse(key)) return '';
+    }
+    
+    function recurse(letter) {
+        if (visiting.has(letter)) return false;
+        if (visited.has(letter)) return true;
+        
+        let comesBefore = alphabet.get(letter);
+        if (comesBefore.length === 0) {
+            res.push(letter);
+            visited.add(letter);
+            return true;
+        }
+        visiting.add(letter);
+        
+        for (let char of comesBefore) {
+            if (!recurse(char)) return false;
+        }
+        visiting.delete(letter);
+        res.push(letter);
+        visited.add(letter);
+        return true;
+    }
+    
+    return res.reverse().join('');
+};
