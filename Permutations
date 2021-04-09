@@ -1,4 +1,4 @@
-// O(N) - time, space
+// O(N * N!) - time, space
 
 function permute(array) {
 	if (array.length === 0) return array;
