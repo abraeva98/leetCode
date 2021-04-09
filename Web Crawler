@@ -1,0 +1,72 @@
+// O(N) - time, space
+
+var crawl = function(startUrl, htmlParser) {
+    let seen = new Set();
+    let result = [];
+    let hostname = startUrl.split('/')[2];
+    
+    function recurse(url) {
+        if (seen.has(url)) return result;
+        seen.add(url);
+        let currHost = url.split('/')[2];
+        
+        if (hostname === currHost) {
+            result.push(url);
+            let neighbors = htmlParser.getUrls(url);
+            for (let neighbor of neighbors) {
+                recurse(neighbor);
+            }
+        }
+    }
+    recurse(startUrl);
+    return result;
+};
+
+var crawl = function(startUrl, htmlParser) {
+    let hostname = startUrl.split('/')[2];
+    let seen = new Set();
+    seen.add(startUrl);
+    let result = [startUrl];
+    
+    function recurse(url) {
+        if (!url) return result;
+        let neighbors = htmlParser.getUrls(url);
+        
+        for (let neighbor of neighbors) {
+            let curr = neighbor.split('/')[2];
+            if (!seen.has(neighbor) && hostname === curr) {
+                    seen.add(neighbor);
+                    result.push(neighbor);
+                    recurse(neighbor);
+                }
+            }
+    
+    }
+    recurse(startUrl);
+    return result;
+};
+
+var crawl = function(startUrl, htmlParser) {
+    let hostname = startUrl.split('/')[2];
+    let seen = new Set();
+    let result = new Set();
+    result.add(startUrl);
+    
+    function recurse(url) {
+        if (seen.has(url)) return;
+        seen.add(url);
+        let currHost = url.split('/')[2];
+        
+        if (hostname === currHost) {
+            result.add(url);
+            let neighbors = htmlParser.getUrls(url);
+            for (let neighbor of neighbors) {
+                recurse(neighbor);
+            }
+        }
+    
+    }
+    
+    recurse(startUrl);
+    return [...result];
+};
