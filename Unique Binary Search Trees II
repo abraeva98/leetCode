@@ -1,0 +1,30 @@
+var generateTrees = function(n) {
+    /*
+        iterate from 1 to n, try to build a tree,
+        putting current as a root node, if curr doesn't have
+        left or right child return false
+    */
+    return buildBST(1, n);
+    
+    function buildBST(start, end) {
+        let tree = [];
+        if (start > end) return [null];
+        
+        for (let i = start; i <= end; i ++) {
+            
+            let left = buildBST(start, i - 1);
+            let right = buildBST(i + 1, end);
+            
+            for (let l = 0; l < left.length; l ++) {
+                for (let r = 0; r < right.length; r ++) {
+                    let node = new ListNode(i);
+                    node.left = left[l];
+                    node.right = right[r];
+                    tree.push(node);
+                }
+            }
+            
+        }
+        return tree;
+    }
+};
