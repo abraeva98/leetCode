@@ -1,0 +1,28 @@
+// O(N) - time, space
+
+function permute(array) {
+	if (array.length === 0) return array;
+	let res = [];
+	
+	let visited = new Set();
+	for (let i = 0; i < array.length; i ++) {
+		backtrack(array[i], [array[i]]);
+	}
+	
+	function backtrack(num, arr) {
+		if (visited.has(num)) return;
+		if (arr.length === array.length) {
+			res.push(arr);
+			return;
+		}
+		
+		for (let i = 0; i < array.length; i ++) {
+			visited.add(num);
+			let newArr = [...arr, array[i]];
+			backtrack(array[i], newArr);
+			visited.delete(num);
+		}
+	}
+	
+	return res;
+}
