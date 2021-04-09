@@ -1,0 +1,15 @@
+// O(N) - time, space
+
+var lowestCommonAncestor = function(root, p, q) {
+    function findVal(node) {
+        if (node === null) return null;
+        if (node === p || node === q) return node;
+
+        let left = findVal(node.left);
+        let right = findVal(node.right);
+        
+        if (left && right) return node;
+        return left || right;
+     }
+    return findVal(root);
+};
