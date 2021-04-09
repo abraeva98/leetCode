@@ -1,0 +1,20 @@
+// O(N^2) - time, O(N) - space
+
+var numTrees = function(n) {
+    let map = new Map();
+    function recurse(n) {
+       let count = 0;
+       if (n === 0 || n === 1) return 1;
+       for (let i = 1; i <= n; i ++) {
+           if (!map.has(i - 1)) {
+               map.set(i - 1, recurse(i - 1));
+           }
+           if (!map.has(n - i)) {
+               map.set(n - i, recurse(n - i));
+           }
+           count += map.get(i - 1) * map.get(n - i);
+       }
+       return count;
+    }
+    return recurse(n);
+};
