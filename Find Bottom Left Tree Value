@@ -1,0 +1,15 @@
+// O(N) - time, O(1) - space 
+
+function findBottomLeftValue(root) {
+  let lastEl = [-Infinity, 0];
+
+  function deepest(node, level) {
+    if (node === null) return;
+    if (lastEl[0] < level) lastEl = [level, node.val];
+    deepest(node.left, level + 1);
+    deepest(node.right, level + 1);
+  }
+
+  deepest(root, 0);
+  return lastEl[1];
+}
