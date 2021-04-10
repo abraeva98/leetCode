@@ -1,0 +1,15 @@
+var sumEvenGrandparent = function(root) {
+    let sum = 0;
+    
+    function findEven(node, parent, grandparent) {
+        if (node === null) return;
+        if (grandparent !== null && grandparent.val % 2 === 0) {
+            sum += node.val;
+        }
+        findEven(node.left, node, parent);
+        findEven(node.right, node, parent);
+    }
+    
+    findEven(root, null, null);
+    return sum;
+};
