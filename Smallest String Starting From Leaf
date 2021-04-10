@@ -1,0 +1,23 @@
+// O(N) - time, space
+
+function smallestFromLeaf(root) {
+  let alphabet = 'abcdefghijklmnopqrstuvwxyz';
+  let smallest;
+  function DFS(node, str) {
+    if (node === null) {
+      return;
+    }
+    let toLetter = alphabet[node.val];
+    str = toLetter + str;
+    
+    if (!node.right && !node.left) {
+        smallest = (!smallest || smallest > str) ? str : smallest
+    }
+      
+    DFS(node.left, str);
+    DFS(node.right, str);
+  }
+
+  DFS(root, '')
+  return smallest;
+}
