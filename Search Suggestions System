@@ -1,0 +1,56 @@
+var suggestedProducts = function(products, searchWord) {
+    /*
+        1) sort products in lexicographical order
+        2) iterate through the search word and on each letter 
+        create a substring key in a hashmap
+        3) iterate through the products and add all matching words 
+        to the hashmap
+    */
+    products.sort();
+    let res = [];
+    let substring = '';
+    for (let letter of searchWord) {
+        substring += letter;
+        let temp = [];
+        for (let word of products) {
+            if (word.startsWith(substring)) {
+                temp.push(word);
+            }
+            if (temp.length === 3) break;
+        }
+        res.push(temp);
+    }
+    return res;
+};
+
+
+
+var suggestedProducts = function(products, searchWord) {
+    /*
+        1) sort products in lexicographical order
+        2) iterate through the search word and on each letter 
+        create a substring key in a hashmap
+        3) iterate through the products and add all matching words 
+        to the hashmap
+    */
+    let map = new Map();
+    let substring = '';
+    for (let letter of searchWord) {
+        substring += letter;
+        map.set(substring, []);
+    }
+    for (let word of products) {
+        let substring = '';
+        for (let letter of word) {
+            substring += letter;
+            if (map.has(substring)) {
+                map.get(substring).push(word);
+            }
+        }
+    }
+    let res = [];
+    for (let [key, val] of map) {
+        res.push(val.sort((a, b) => a.localeCompare(b)).slice(0, 3));
+    }
+    return res;
+};
