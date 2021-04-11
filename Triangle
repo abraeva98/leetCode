@@ -1,0 +1,14 @@
+var minimumTotal = function(triangle) {
+    /*
+        iterate through the array from the last 
+        row - 1 and check which one to pick
+        at row - 1 col or at col + 1, return triangle at 0
+    */
+    let n = triangle.length;
+    for (let row = n - 2; row >= 0; row --) {
+        for (let col = 0; col <= row; col ++) {
+            triangle[row][col] += Math.min(triangle[row + 1][col], triangle[row + 1][col + 1]);
+        }
+    }
+    return triangle[0][0];
+};
