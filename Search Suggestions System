@@ -1,3 +1,32 @@
+// O(M) - time, space
+
+var suggestedProducts = function(products, searchWord) {
+    /*
+        sort the array, implement the trie DS, traverse through the
+        products array and build the trie, 
+    */
+    products.sort();
+    let trie = {};
+    
+    for (let product of products) {
+        let node = trie;
+        for (let letter of product) {
+            if (!(letter in node)) {
+                node[letter] = {'*': []};
+            }
+            if (node[letter]['*'].length < 3) node[letter]['*'].push(product);
+            node = node[letter];
+        }
+    }
+    
+    let res = [];
+    for (let char of searchWord) {
+        if (trie) trie = trie[char];
+        res.push(!trie ? [] : trie['*']);
+    }
+    return res;
+ };
+
 var suggestedProducts = function(products, searchWord) {
     /*
         1) sort products in lexicographical order
