@@ -1,0 +1,10 @@
+// O(N) - time, O(1) - space
+
+var getDecimalValue = function(head) {
+    let num = '';
+    while (head !== null) {
+        num =  num * 2 + head.val;
+        head = head.next;
+    }
+    return num;
+};
