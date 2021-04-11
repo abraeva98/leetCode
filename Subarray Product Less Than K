@@ -1,0 +1,27 @@
+// O(N) - time, O(1) - space
+
+var numSubarrayProductLessThanK = function(nums, k) {
+    /*
+        use sliding window approach iterate through the
+        nums array, mutliply on each num and if the product
+        is less than k increment the total, if it is larger,
+        divide by the left pointer and move it
+    */
+    if (k <= 1) return 0;
+    let product = 1;
+    let total = 0;
+    let left = 0;
+    
+    for (let i = 0; i < nums.length; i ++) {
+        product *= nums[i];
+        
+        while (product >= k) {
+            product /= nums[left];
+            left ++;
+        }
+        
+        total += i - left + 1;
+    }
+    
+    return total;
+};
