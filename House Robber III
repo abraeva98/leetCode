@@ -1,0 +1,20 @@
+// O(N) - time, space
+
+var rob = function(root) {
+    /*
+        DFS traversal return [rob, not-rob],
+        rob: children[not-tob] + node.val, not-rob: max left + max right
+        compare and take the max
+    */
+    function DFS(node) {
+        if (node === null) {
+            return [0, 0];
+        }
+        let left = DFS(node.left);
+        let right = DFS(node.right);
+        return [left[1] + right[1] + node.val, 
+                Math.max(left[0], left[1]) + Math.max(right[0], right[1])];
+    }
+    let res = DFS(root);
+    return Math.max(res[0], res[1]);
+};
