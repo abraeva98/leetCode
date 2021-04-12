@@ -1,0 +1,21 @@
+// O(N) - time, O(1) - space
+
+var rob = function(nums) {
+    if (nums.length === 0) return 0;
+    if (nums.length === 1) return nums[0];
+    let n = nums.length;
+    let r1 = findMax(0, n - 1, nums);
+    let r2 = findMax(1, n, nums);
+    return Math.max(r1, r2);
+};
+
+function findMax(start, end, nums) {
+    let oneBack = 0, twoBack = 0
+    
+    for (let i = start; i < end; i ++) {
+        let temp = oneBack;
+        oneBack = Math.max(nums[i] + twoBack, oneBack);
+        twoBack = temp;
+    }
+    return oneBack;
+}
