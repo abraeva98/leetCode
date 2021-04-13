@@ -1,0 +1,24 @@
+var NestedIterator = function(nestedList) {
+    this.list = [];
+    this.index = -1;
+    
+    const flatten = nestedList => {
+        for (let item of nestedList) {
+            if (item.isInteger()) {
+                this.list.push(item.getInteger());
+            } else {
+                flatten(item.getList())
+            }
+        }
+    }
+    flatten(nestedList);
+};
+
+NestedIterator.prototype.hasNext = function() {
+    return this.index < this.list.length  - 1;
+};
+
+NestedIterator.prototype.next = function() {
+    this.index ++;
+    return this.list[this.index];
+};
