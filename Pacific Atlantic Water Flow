@@ -34,6 +34,7 @@ var pacificAtlantic = function(heights) {
 };
 
 function buildConnections(i, j, ocean, grid) {
+    if (ocean[i][j]) return;
     ocean[i][j] = true;
     let dir = [[1, 0], [-1, 0], [0, 1], [0, -1]];
     for (let [x, y] of dir) {
