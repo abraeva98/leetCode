@@ -1,0 +1,49 @@
+// O(M*N) - time, space
+
+var pacificAtlantic = function(heights) {
+    /*
+        create two copies of heights array and iterate through heights
+        twice building an array of booleans, true if you can reach an ocean
+        from this point false otherwise,
+        when we have two arrays ready, iterate through the third one and 
+        only mark the ones with true in both array
+    */
+    let n = heights.length;
+    let m = heights[0].length;
+    let pacific = new Array(n).fill(0).map(() => new Array(m).fill(false));
+    let atlantic = new Array(n).fill(0).map(() => new Array(m).fill(false));
+    let res = [];
+    
+    for (let i = 0; i < n; i ++) {
+        buildConnections(i, 0, pacific, heights);
+        buildConnections(i, m-1, atlantic, heights);
+    }
+    
+    for (let i = 0; i < m; i ++) {
+        buildConnections(0, i, pacific, heights);
+        buildConnections(n-1, i, atlantic, heights);
+    }
+
+    for (let i = 0; i < n; i ++) {
+        for (let j = 0; j < m; j ++) {
+            if (atlantic[i][j] && pacific[i][j]) res.push([i, j]);
+        }
+    }
+    
+    return res;
+};
+
+function buildConnections(i, j, ocean, grid) {
+    ocean[i][j] = true;
+    let dir = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+    for (let [x, y] of dir) {
+        let row = i + y;
+        let col = j + x;
+        
+        if (row < 0 || col < 0 || row >= grid.length || col >= grid[0].length) continue;
+        if (ocean[row][col]) continue;
+        if (grid[row][col] < grid[i][j]) continue;
+        
+        buildConnections(row, col, ocean, grid);
+    }
+}
