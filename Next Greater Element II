@@ -1,5 +1,22 @@
-// O(N^2) - time, O(1) - space
+// O(N) - time, space
 
+var nextGreaterElements = function(nums) {
+    let stack = [];
+    let n = nums.length;
+    let res = new Array(n).fill(-1);
+    for (let i = 0; i < n * 2; i ++) {
+        if (stack.length > 0 && nums[stack[stack.length - 1]] < nums[i % n]) {
+            while (nums[stack[stack.length - 1]] < nums[i % n]) {
+                let idx = stack.pop();
+                res[idx] = nums[i % n]
+            }
+        }
+        stack.push(i % n);
+    }
+    return res;
+};
+
+// O(N^2) - time, O(N) - space
 var nextGreaterElements = function(nums) {
     /*
         brute force: create a nested for loop and check for each el
