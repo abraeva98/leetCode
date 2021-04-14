@@ -1,4 +1,28 @@
 // O(N+M) - time, space
+var nextGreaterElement = function(nums1, nums2) {
+    let res = new Array(nums1.length).fill(-1);
+    let map = new Map();
+    for (let i = 0; i < nums1.length; i ++) {
+        map.set(nums1[i], i);
+    }
+    let idx = 0;
+    let stack = [];
+    for (let i = 0; i < nums2.length; i ++) {
+        if (stack.length > 0 && nums2[stack[stack.length - 1]] < nums2[i]) {
+            while (nums2[stack[stack.length - 1]] < nums2[i]) {
+                let idx = stack.pop();
+                if (map.has(nums2[idx])) {
+                    let resIdx = map.get(nums2[idx]);
+                    res[resIdx] = nums2[i];
+                }
+            }
+        }
+        stack.push(i);
+    }
+    return res;
+};
+
+
 
 var nextGreaterElement = function(nums1, nums2) {
     /*
