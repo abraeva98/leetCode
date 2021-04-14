@@ -1,0 +1,29 @@
+// O(N + M) - time, O(N) - space
+
+var cloneGraph = function(node) {
+    /*
+        we need to create a deep copy of the graph,
+        all nodes in the graph are connected,
+        we can do it by traversing the graph and its neighbors,
+        arrays are passed by reference, so we can only make use of val
+        and call recursive function on neighbors
+    */
+    let visited = new Map();
+    
+    function createCopy(node) {
+        if (node === null) return node;
+        if (visited.has(node)) return visited.get(node); 
+
+        let neighbors = [];
+        let graph = new Node(node.val, neighbors);
+        visited.set(node, graph);
+        
+        for (let neighbor of node.neighbors) {
+            neighbors.push(createCopy(neighbor));
+        }
+
+        return graph;
+    }
+    
+    return createCopy(node);
+};
