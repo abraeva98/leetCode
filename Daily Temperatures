@@ -1,5 +1,27 @@
 // O(N) - time, O(N) - space
 var dailyTemperatures = function(T) {
+    let stack = [];
+    let n = T.length;
+    let res = new Array(n).fill(0);
+    
+    for (let i = 0; i < n; i ++) {
+        let temperature = T[i];
+        if (stack.length > 0 && T[stack[stack.length - 1]] < temperature) {
+            while (T[stack[stack.length - 1]] < temperature) {
+                let idx = stack.pop();
+                res[idx] = i - idx;
+            }
+        }
+        stack.push(i);
+    }
+    
+    return res;
+};
+
+
+
+
+var dailyTemperatures = function(T) {
     /*
         we will use a stack of indeses for this problem, 
         we will iterate from end of the array and 
