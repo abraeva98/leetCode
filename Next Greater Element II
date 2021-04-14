@@ -1,0 +1,25 @@
+// O(N^2) - time, O(1) - space
+
+var nextGreaterElements = function(nums) {
+    /*
+        brute force: create a nested for loop and check for each el
+        in an array
+    */
+    let n = nums.length;
+    let res = [];
+    for (let i = 0; i < nums.length; i ++) {
+        let next = i + 1;
+        let greater = -1;
+        while (next !== i) {
+            if (nums[next] > nums[i]) {
+                greater = nums[next];
+                break;
+            }
+            if (next < n) next ++;
+            next %= n;
+        }
+        res.push(greater);
+    }
+    
+    return res;
+};
