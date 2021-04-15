@@ -1,0 +1,20 @@
+// O(N * 2^n) - time, O(N) - space
+
+var subsets = function(nums) {
+    /*
+        let's call a recursive function and make each 
+        number stand first and compute all possible scenarios
+    */
+    let res = [];
+    recurse(0, []);
+    
+    function recurse(idx, arr) {
+        res.push(arr);
+        for (let i = idx; i < nums.length; i ++) {
+            let num = nums[i];
+            let newArr = [...arr, num];
+            recurse(i + 1, newArr);
+         }
+    }
+    return res;
+};
