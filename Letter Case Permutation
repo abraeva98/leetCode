@@ -1,0 +1,31 @@
+var letterCasePermutation = function(S) {
+    /*
+        use a backtracking approach to solve this problem,
+        we will call a helper recursive function to create 
+        permutations of the string, 
+        "a1b2" -> won't change the first letter, if the rest of 
+        the string has a letter we will change it to be uppercase,
+        if it doesn't return true
+    */
+    let list = [];
+    let lettersIdx = [];
+    let arrayOfLetters = S.split('');
+    for (let i = 0; i < S.length; i ++) {
+        if (isNaN(S[i])) {
+            arrayOfLetters[i] = S[i].toLowerCase();
+            lettersIdx.push(i);
+        }
+    }
+    
+    function recurse(array, idx) {
+        list.push(array.join(''));
+        for (let i = idx; i < lettersIdx.length; i ++) {
+            let copy = [...array];
+            copy[lettersIdx[i]] = S[lettersIdx[i]].toUpperCase();
+            recurse(copy, i + 1);
+        }
+    }
+
+    recurse(arrayOfLetters, 0);
+    return list;
+};
