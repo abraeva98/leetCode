@@ -1,0 +1,24 @@
+var subsetsWithDup = function(nums) {
+    /*
+        start by declaring a recursive function, declare
+        a visited set, if we had curr number as a first num, 
+        return and don't consider it
+    */
+    nums.sort((a, b)=> a - b);
+    let subsets = [];
+    let visited = new Set();
+    recurse(0, []);
+    
+
+    function recurse(idx, arr) {
+        subsets.push(arr);
+        for (let i = idx; i < nums.length; i ++) {
+            if (i > idx && nums[i - 1] === nums[i]) continue;
+            arr.push(nums[i]);
+            recurse(i + 1, [...arr]);
+            arr.pop();
+        }
+    }
+    
+    return subsets;
+};
