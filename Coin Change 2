@@ -1,0 +1,20 @@
+// O(N * amount) - time, O(amount) - space
+
+var change = function(amount, coins) {
+    /*
+        for this problem I will use dp approach,
+        I will create an array the length is equal to amount we
+        need to create, we will take each coin and try to create
+        a change with it, changing the dp on each iteration
+    */
+    let dp = new Array(amount + 1).fill(0);
+    dp[0] = 1;
+    for (let coin of coins) {
+        for (let i = 0; i <= amount; i ++) {
+            if (coin <= i) {
+                dp[i] += dp[i - coin];
+            }
+        }
+    }
+    return dp[amount];
+};
