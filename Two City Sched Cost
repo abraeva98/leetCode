@@ -1,4 +1,41 @@
 var twoCitySchedCost = function(costs) {
+    /*
+        check the difference between two cities,
+        choose the ones with the greater difference first,
+        than add the ones with the missing city
+    */
+    let city1 = 0, city2 = 0;
+    let total = 0;
+    let maxPeople = costs.length / 2;
+
+    costs.sort((a, b) => Math.abs(b[0] - b[1]) - Math.abs(a[0] - a[1]));
+
+    for (let cost of costs) {
+        if (cost[0] < cost[1]) {
+            if (city1 < maxPeople) {
+                city1 ++;
+                total += cost[0];
+            } else {
+                city2 ++;
+                total += cost[1];
+            }
+        } else {
+             if (city2 < maxPeople) {
+                city2 ++;
+                total += cost[1];
+            } else {
+                city1 ++;
+                total += cost[0];
+            }
+        }
+    }
+    
+    return total;
+};
+
+
+
+var twoCitySchedCost = function(costs) {
 
     costs.sort((a, b) => (a[0] - a[1]) - (b[0] - b[1]));
     
