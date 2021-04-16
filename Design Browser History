@@ -1,3 +1,39 @@
+// linked list
+var BrowserHistory = function(homepage) {
+    this.history = {
+        homepage: homepage,
+        back: null,
+        next: null,
+    }
+};
+
+BrowserHistory.prototype.visit = function(url) {
+    this.history.next = {
+        homepage: url,
+        back: this.history,
+        next: null
+    }
+    this.history = this.history.next;
+};
+
+BrowserHistory.prototype.back = function(steps) {
+    while (this.history.back && steps > 0) {
+        steps --;
+        this.history = this.history.back;
+    }
+    return this.history.homepage;
+};
+
+BrowserHistory.prototype.forward = function(steps) {
+    while (this.history.next && steps > 0) {
+        steps --;
+        this.history = this.history.next;
+    }
+    return this.history.homepage;
+};
+
+
+// 2 solution
 var BrowserHistory = function(homepage) {
     this.browserHistory = [homepage];
     this.current = 0;
