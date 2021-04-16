@@ -4,6 +4,30 @@ the left and the right side of the deleted substring to
 concatenate together.
 
 var removeDuplicates = function(s, k) {
+    let stack = [];
+    let count = [];
+    for (let i = 0; i < s.length; i ++) {
+        if (stack.length > 0 && stack[stack.length - 1] === s[i]) {
+            count[count.length - 1] += 1;
+            if (count[count.length - 1] === k) {
+                stack.pop();
+                count.pop();
+            }
+        } else {
+            count.push(1);
+            stack.push(s[i]);
+        }
+    }
+    
+    let res = [];
+    for (let i = 0; i < stack.length; i ++) {
+        res.push(stack[i].repeat(count[i]));
+    }
+    
+    return res.join('');
+};
+
+var removeDuplicates = function(s, k) {
     s = s.split('')
     let stack = [];
     for (let i = 0; i < s.length; i ++) {
