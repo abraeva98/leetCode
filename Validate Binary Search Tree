@@ -1,3 +1,18 @@
+function isValidBST(tree) {
+  function recurse(node, max, min) {
+    if (node === null) return true;
+    if (max !== null && max <= node.val ||
+        min !== null && min >= node.val) {
+          return false;
+        }
+    const left = recurse(node.left, node.val, min);
+    const right = recurse(node.right, max, node.val);
+    return left && right;
+  }
+  return recurse(tree, null, null);
+}
+
+
 var isValidBST = function(root, low = null, high = null) {
     /* We need to check if the given nodes children 
        are meeting the condition. If there are
