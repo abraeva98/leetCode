@@ -1,4 +1,46 @@
 var unhappyFriends = function(n, preferences, pairs) {
+    /*
+        create a hashMap with the preferences for a faster look ups,
+        traverse through pairs and compare, increment the count if current
+        friend ranks some other friend higher than his pair and that other friend
+        ranks current higher than his pair
+    */
+    let happyMap = new Map();
+    for (let pair of pairs) {
+        happyMap.set(pair[0], pair[1]);
+        happyMap.set(pair[1], pair[0]);
+    }
+    
+    let ranks = new Map();
+    for (let i = 0; i < n; i ++) {
+        ranks.set(i, new Map());
+        for (let j = 0; j < n - 1; j ++) {
+            ranks.get(i).set(preferences[i][j], j);
+        }
+    }
+    
+    let unhappy = 0;
+    for (let i = 0; i < n; i ++) {
+        let pair = happyMap.get(i);
+        let preference = ranks.get(i).get(pair);
+        if (preference === 0) continue;
+        for (let j = 0; j < n - 1; j ++) {
+            let currFriend = preferences[i][j];
+            let friendPair = happyMap.get(currFriend);
+            let friendPreference = ranks.get(currFriend).get(friendPair);
+            if (ranks.get(i).get(currFriend) < preference &&
+                ranks.get(currFriend).get(i) < friendPreference) {
+                unhappy ++;
+                break;
+            }
+        }
+    }
+    
+    return unhappy;
+};
+
+
+var unhappyFriends = function(n, preferences, pairs) {
     let happyMap = new Array(n);
     for (let [i, j] of pairs) {
         happyMap[i] = preferences[i].indexOf(j);
