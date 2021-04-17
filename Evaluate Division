@@ -13,6 +13,50 @@
 // queries are: a / c = ?, b / a = ?, a / e = ?, a / a = ?, x / x = ?
 // return: [6.0, 0.5, -1.0, 1.0, -1.0 ]
 
+
+var calcEquation = function(equations, values, queries) {
+    let map = new Map();
+    let n = equations.length;
+    
+    for (let i = 0; i < n; i ++) {
+        let equation = equations[i];
+        if (!map.has(equation[0])) {
+            map.set(equation[0], [])
+        }
+        if (!map.has(equation[1])) {
+            map.set(equation[1], [])
+        }
+        map.get(equation[0]).push([equation[1], values[i]]);
+        map.get(equation[1]).push([equation[0], 1 / values[i]]);
+    }
+    
+    let res = [];
+    for (let [dividend, divisor] of queries) {
+        if (!map.has(dividend) || !map.has(divisor)) {
+            res.push(-1);
+            continue;
+        }
+        let ans = calculate(dividend, dividend, divisor, map, new Set(), 1);
+        res.push(ans);
+    }
+    
+    return res;
+}
+
+
+function calculate(current, start, target, graph, visited, answer) {
+    if (current === target) return answer;
+    visited.add(current);
+    
+    let computations = graph.get(current);
+    for (let i = 0; i < computations.length; i ++) {
+        if (!visited.has(computations[i][0])) {
+            let res = calculate(computations[i][0], start, target, graph, visited, answer * computations[i][1]);
+            if (res !== -1) return res;
+        }
+    }
+    return -1;
+}
 const calcEquation = function(equations, values, queries) {
     let graph = {};
     let result = []
