@@ -1,4 +1,22 @@
 // O(N) time, O(logN) space
+var triangleNumber = function(nums) {
+    nums.sort((a, b) => a - b);
+    let triangles = 0;
+    let n = nums.length; 
+    for (let i = n - 1; i >= 2; i --) {
+        let left = 0;
+        let right = i - 1;
+        while (left < right) {
+            if (nums[left] + nums[right] > nums[i]) {
+                triangles += right - left;
+                right --;
+            } else {
+                left ++;
+            }
+        }
+    }
+    return triangles;
+};
 
 var triangleNumber = function(nums) {
     nums.sort((a, b) => a - b);
