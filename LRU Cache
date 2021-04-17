@@ -1,6 +1,76 @@
 var LRUCache = function(capacity) {
     this.capacity = capacity;
     this.map = new Map();
+    this.head = null;
+    this.tail = null;
+};
+
+LRUCache.prototype.get = function(key) {
+    if (!this.map.has(key)) {
+        return -1;
+    }
+    let node = this.map.get(key);
+
+    if (node.prev) node.prev.next = node.next;
+    if (node.next) node.next.prev = node.prev || node.next.prev;
+    
+    if (this.tail === node) {
+        this.tail = node.prev || node;
+    }
+    
+    node.prev = null;
+    if (this.head && this.head !== node) {
+        node.next = this.head;
+        this.head.prev = node;
+    }
+
+    this.head = node;
+    
+    return node.val;
+};
+
+LRUCache.prototype.put = function(key, value) {
+   if (this.map.has(key)) {
+       let node = this.map.get(key);
+       node.val = value;
+       this.get(key);
+   } else {
+       let doublyLinkedList = {
+            key,
+            val: value,
+            prev: null,
+            next: null
+        }
+   
+        this.map.set(key, doublyLinkedList);
+    
+        if (this.head) {
+            this.head.prev = doublyLinkedList;
+            doublyLinkedList.next = this.head;
+        } 
+       
+        this.head = doublyLinkedList;
+        if (!this.tail) this.tail = doublyLinkedList;
+   }
+    
+   if (this.capacity < this.map.size) {
+       let removedKey = this.tail.key;
+       
+       if (this.tail.prev) {
+           this.tail.prev.next = null;
+           this.tail = this.tail.prev;
+           this.map.get(removedKey).prev = null;
+       }
+
+       this.map.delete(removedKey);
+   }
+};
+
+
+// 2nd solution
+var LRUCache = function(capacity) {
+    this.capacity = capacity;
+    this.map = new Map();
 };
 
 LRUCache.prototype.get = function(key) {
