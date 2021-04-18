@@ -2,6 +2,27 @@ You are given two non-empty linked lists representing two non-negative integers.
 
 You may assume the two numbers do not contain any leading zero, except the number 0 itself.
 
+var addTwoNumbers = function(l1, l2) {
+  let sumList = new ListNode();
+  let sum = sumList;
+  let carrier = 0;
+
+  while (l1 || l2) {
+     let currSum = (l1 ? l1.val : 0) + (l2 ? l2.val : 0) + carrier;
+     carrier = Math.floor(currSum / 10);
+     sum.next = new ListNode(currSum % 10);
+     sum = sum.next;
+     if (l1) l1 = l1.next;
+     if (l2) l2 = l2.next;
+  }
+  if (carrier > 0) sum.next = new ListNode(carrier);
+  return sumList.next;
+}
+
+
+
+
+
 function ListNode(val) {
   this.val = val;
   this.next = null;
