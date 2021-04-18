@@ -1,5 +1,56 @@
 Given a string s, find the length of the longest substring without repeating characters.
+var lengthOfLongestSubstring = function(s) {
+    let map = new Set();
+    const n = s.length;
+    let counter = 0;
+    let maxCounter = 0;
+    let left = 0;
+    
+    for (let i = 0; i < n; i ++) {
+        while (map.has(s[i])) {
+            map.delete(s[left]);
+            left ++;
+        }
+        map.add(s[i]);
+        maxCounter = Math.max(maxCounter, i - left + 1);
+    }
+    
+    return maxCounter;
+};
 
+
+var lengthOfLongestSubstring = function(s) {
+    /*
+        iterate through s and create a hashtable,
+        if hashtable is 0 or doesn't exist, add one to it
+        and increment the pointer, if it is greater than 1
+        then take left pointer and move from left to right 
+        until we got rid of that letter
+    */
+    let map = new Map();
+    const n = s.length;
+    let counter = 0;
+    let maxCounter = 0;
+    let left = 0;
+    
+    for (let i = 0; i < n; i ++) {
+        if (!map.has(s[i]) || map.get(s[i]) === 0) {
+            map.set(s[i], 1);
+            counter ++;
+            maxCounter = Math.max(maxCounter, counter);
+        } else {
+            while (map.get(s[i]) !== 0) {
+                map.set(s[left], 0);
+                left ++;
+                counter --;
+            }
+            map.set(s[i], 1);
+            counter ++;
+        }
+    }
+    
+    return maxCounter;
+};
 
 var lengthOfLongestSubstring = function(s) {
     let maximum = 0;
