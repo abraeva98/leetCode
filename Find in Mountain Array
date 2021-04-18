@@ -1,0 +1,53 @@
+// O(logN) - time, O(1) - space
+
+var findInMountainArray = function(target, mountainArr) {
+    let length = mountainArr.length();
+    let start = 0;
+    let end = length - 1;
+    let peakIdx = -1;
+
+    while (start < end) {
+        let middleIdx = start + Math.floor((end - start) / 2);
+        let middle = mountainArr.get(middleIdx);
+        let left = mountainArr.get(middleIdx - 1);
+        let right = mountainArr.get(middleIdx + 1);
+        
+        if (middle < left) {
+            end = middleIdx - 1;
+        } else if (middle < right) {
+            start = middleIdx + 1;
+        } else {
+            peakIdx = middleIdx;
+            break;
+        }
+    }
+    peakIdx = peakIdx === -1 ? start : peakIdx;
+    
+    let left = 0;
+    let right = peakIdx;
+    while (left <= right) {
+        let middleIdx = left + Math.floor((right - left) / 2);
+        let middle = mountainArr.get(middleIdx);
+        if (target === middle) return middleIdx;
+        if (target < middle) {
+            right = middleIdx - 1;
+        } else if (target > middle) {
+            left = middleIdx + 1;
+        }
+    }
+    
+    left = peakIdx + 1;
+    right = length - 1;
+    while (left <= right) {
+        let middleIdx = left + Math.floor((right - left) / 2);
+        let middle = mountainArr.get(middleIdx);
+        if (target === middle) return middleIdx;
+        if (target > middle) {
+            right = middleIdx - 1;
+        } else if (target < middle) {
+            left = middleIdx + 1;
+        }
+    }
+    
+    return -1;
+};
