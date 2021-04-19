@@ -1,0 +1,28 @@
+var minimumSwap = function(s1, s2) {
+    /*
+    1) count how many missmatching x and y we have in each string
+    2) if the sum of x or y from both string is odd, it means we won't be able
+    to make strings equal 
+    3) first, try to create pairs 'xx' and 'yy' since it only takes one step
+    to make them equal
+    4) if we still have pairs left, they are 'xy' and 'yx' so check how many of this we have
+    and multiply by 2, because it takes two steps to make them equal
+    */
+    let x1 = 0, x2 = 0, y1 = 0, y2 = 0;
+    
+    for (let i = 0; i < s1.length; i ++) {
+        if (s1[i] === s2[i]) continue;
+        
+        if (s1[i] === 'x') {
+            x1 ++;
+            y2 ++;
+        } else if (s2[i] === 'x') {
+            y1 ++;
+            x2 ++;
+        }
+    }
+
+    if ((x1 + x2) % 2 !== 0 || (y1 + y2) % 2 !== 0) return -1;
+
+    return Math.floor((x1 / 2)) + Math.floor((y1 / 2)) + (x1 % 2) * 2;
+};
