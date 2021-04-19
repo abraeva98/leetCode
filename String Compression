@@ -7,6 +7,21 @@ Otherwise, append the character followed by the group's length.
 The compressed string s should not be returned separately, but instead be stored in the input character array chars. 
 Note that group lengths that are 10 or longer will be split into multiple characters in chars.
 
+var compress = function(chars) {
+    for (let i = 0; i < chars.length - 1; i ++) {
+        if (chars[i] === chars[i + 1]) {
+            let right = i + 1;
+            while (chars[i] === chars[right]) {
+                right ++;
+            }
+            let len = right - i;
+            chars.splice(i + 1, len - 1, ...len.toString().split(''));
+            i += len.toString().length;
+        } 
+    }
+
+    return chars.length;
+};
 
 var compress = function(chars) {
     let start = 0, end = 0;
