@@ -1,5 +1,30 @@
 // time O(NlogN), space O(N)
 
+const minMeetingRooms = (times) => {
+    let start = [];
+    let end = [];
+    for (let time of times) {
+        start.push(time[0]);
+        end.push(time[1]);
+    }
+    
+    start.sort((a, b) => a - b);
+    end.sort((a, b) => a - b);
+    
+    let rooms = 0;
+    let min = 0;
+    let j = 0;
+    for (let i = 0; i < start.length; i ++) {
+        if (start[i] < end[j]) {
+            rooms ++;
+            min = Math.max(rooms, min)
+        } else if (start[i] >= end[j]) {
+            j ++;
+        }
+    }
+    return min;
+}
+
 var minMeetingRooms = function(intervals) {
     /* 
         sort the input array by start times in the ascending order
