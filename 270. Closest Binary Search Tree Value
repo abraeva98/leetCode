@@ -3,7 +3,7 @@ Input: root = [4,2,5,1,3], target = 3.714286
 Output: 4
 
 // O(H) - time O(1) - space
-var closestValue = function(root, target) {
+const closestValue = function(root, target) {
     let closest;
     let difference = Infinity;
     let node = root;
