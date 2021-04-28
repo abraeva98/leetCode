@@ -1,0 +1,52 @@
+var orangesRotting = function(grid) {
+    /*
+        iterate through the grid, if the rotten orange is found,
+        then change its non empty neighbors to -1, have a flag variable
+        responsible for the changes made, if no changes made, iterate through the
+        grid and check any of them are equal to 1 if so return -1, otherwise return 
+        minutes,
+        if changes are made call grid recursively
+    */
+    return findNeighbors(grid, 0)
+};
+
+
+function findNeighbors(grid, minutes) {
+    let needMoreTime = false;
+    
+    for (let i = 0; i < grid.length; i ++) {
+        for (let j = 0; j < grid[0].length; j ++) {
+            if (grid[i][j] === 2) {
+                let up = infect(i + 1, j, grid);
+                let down = infect(i - 1, j, grid);
+                let left = infect(i, j - 1, grid);
+                let right = infect(i, j + 1, grid);
+                if (up || down || left || right) needMoreTime = true;
+            }
+        }
+    }
+    
+    for (let i = 0; i < grid.length; i ++) {
+        for (let j = 0; j < grid[0].length; j ++) {
+            if (grid[i][j] === -1) grid[i][j] = 2;
+        }
+    }
+
+    if (needMoreTime) {
+        return findNeighbors(grid, minutes + 1)
+    }
+
+    for (let i = 0; i < grid.length; i ++) {
+        for (let j = 0; j < grid[0].length; j ++) {
+            if (grid[i][j] === 1) return -1;
+        }
+    }
+    return minutes;
+}
+
+
+function infect(i, j, grid) {
+    if (i < 0 || i >= grid.length || j < 0 || j >= grid[0].length || grid[i][j] === 0 || grid[i][j] === 2) return false;
+    grid[i][j] = -1;
+    return true;
+}
