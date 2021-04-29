@@ -1,23 +1,13 @@
 var maxSubArray = function(nums) {
-    // create variable that will store temperate sum of nums
-  let tempSum = nums[0];
-    // final sum
-  let sum = nums[0];
-    // start iterating from the first index
+    let sum = nums[0];
+    let max = nums[0];
     for (let i = 1; i < nums.length; i ++) {
-        // we compare if current number is greater than current sum plus current number
-        if (nums[i] > tempSum + nums[i]) {
-            // if it is current sum will be equal to the number
-            tempSum = nums[i]
+        if (sum + nums[i] < nums[i]) {
+            sum = nums[i];
         } else {
-            // if it is not, it means that we move on to the next number and we add current number to the current sum
-            tempSum = tempSum + nums[i]
+            sum += nums[i];
         }
-        // lastly, we check if current sum is greater than final sum, if it is we reassign it to the temporary sum
-        if (tempSum > sum) {
-            sum = tempSum
-        }
+        max = Math.max(max, sum);
     }
-  return sum;
-}
-// maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4])
+    return max;
+};
