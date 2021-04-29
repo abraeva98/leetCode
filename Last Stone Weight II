@@ -1,0 +1,21 @@
+var lastStoneWeightII = function(stones) {
+    const sum = stones.reduce((acc, stone) => acc + stone, 0);
+    const half = Math.floor(sum / 2);
+    let maxSum = 0;
+    let dp = new Array(half + 1);
+    dp[0] = true;
+
+    for (let stone of stones) {
+        let temp = dp.slice();
+        for (let j = stone; j <= half; j ++) {
+            if (dp[j - stone]) {
+                temp[j] = true;
+                maxSum = Math.max(maxSum, j);
+                if (maxSum === half) return sum - maxSum * 2;                
+            }
+        }
+        dp = temp;
+    }
+    
+    return sum - maxSum * 2;
+};
