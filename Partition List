@@ -1,0 +1,28 @@
+var partition = function(head, x) {
+    /*
+        create two linked lists, values that are smaller
+        goes to the first and greater goes to the last,
+        when no more nodes left, join the linked list
+    */
+    let listSmaller = new ListNode();
+    let smaller = listSmaller;
+    let listGreater = new ListNode();
+    let greater = listGreater;
+    
+    let node = head;
+    while (node !== null) {
+        if (node.val < x) {
+            smaller.next = node;
+            smaller = smaller.next;
+        } else {
+            greater.next = node;
+            greater = greater.next;
+        }
+        node = node.next;
+    }
+    
+    greater.next = null;
+    smaller.next = listGreater.next;
+
+    return listSmaller.next;
+}
