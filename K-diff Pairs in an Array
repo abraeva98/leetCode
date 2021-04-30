@@ -1,0 +1,14 @@
+var findPairs = function(nums, k) {
+    let pairs = 0;
+    let hashMap = new Map();
+    for (let num of nums) {
+        hashMap.set(num, hashMap.get(num) + 1 || 1);
+    }
+        
+    for (let [key, val] of hashMap) {
+        if (k > 0 && hashMap.has(k + key)) pairs ++;
+        if (k === 0 && hashMap.get(key) >= 2) pairs ++;
+    }
+    
+    return pairs;
+};
