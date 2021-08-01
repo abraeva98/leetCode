@@ -1,0 +1,20 @@
+var customSortString = function(order, s) {
+    let hashMap = new Map();
+    
+    for (let char of s) {
+        hashMap.set(char, hashMap.get(char) + 1 || 1);
+    }
+    
+    let sorted = [];
+    for (let char of order) {
+        let times = hashMap.get(char);
+        sorted.push(char.repeat(times));
+        hashMap.delete(char);
+    }
+    
+    for (let [key, val] of hashMap) {
+        sorted.push(key.repeat(val));
+    }
+    
+    return sorted.join('');
+};
