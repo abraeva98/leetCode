@@ -1,0 +1,20 @@
+var tupleSameProduct = function(nums) {
+    /*
+        create a hashTable of a product of two,
+        iterate the hashMap and find the corresponding 
+        products
+    */
+    let hashMap = new Map();
+    let tuples = 0;
+    
+    for (let i = 0; i < nums.length - 1; i ++) {
+        for (let j = i + 1; j < nums.length; j ++) {
+            let product = nums[i] * nums[j];
+            if (hashMap.has(product)) {
+                tuples += hashMap.get(product) * 8;
+            } 
+            hashMap.set(product, hashMap.get(product) + 1 || 1);
+        }
+    }
+    return tuples;
+};
