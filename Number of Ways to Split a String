@@ -1,0 +1,37 @@
+var numWays = function(s) {
+    let totalSum = 0;
+    for (let num of s) {
+        totalSum += Number(num);
+    }
+    if (totalSum === 0) {
+        let n = s.length;
+        return ((n - 1) * (n - 2) / 2) % ((10 ** 9) + 7);
+    }
+
+    if (totalSum % 3 !== 0) return 0;
+    const target = totalSum / 3;
+    
+    let preffix = 0;
+    let suffix = s.length - 1;
+    let currSum = 0;
+    
+    while (currSum !== target && preffix < s.length - 2) {
+        currSum += Number(s[preffix]);
+        preffix ++;
+    }
+    currSum = 0;
+    while (currSum !== target && suffix >= 2) {
+        currSum += Number(s[suffix]);
+        suffix --;
+    }
+    let start = preffix;
+
+    while (s[start] == 0 && start < s.length - 2) {
+        start ++;
+    }
+    let end = suffix;
+    while (s[end] == 0 && end >= 2) {
+        end --;
+    }
+    return (start - preffix + 1) * (suffix - end + 1) % (10 ** 9 + 7);
+};
