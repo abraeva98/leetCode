@@ -1,0 +1,14 @@
+var findLucky = function(arr) {
+    let largest = -1;
+    let map = new Map();
+    
+    for (let num of arr) {
+        map.set(num, map.get(num) + 1 || 1);
+    }
+    for (let [key, val] of map) {
+        if (key === val) {
+            largest = Math.max(largest, val);
+        }
+    }
+    return largest;
+};
