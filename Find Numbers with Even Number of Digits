@@ -1,0 +1,13 @@
+var findNumbers = function(nums) {
+    /*
+     1) iterate through the array
+     2) check if the current number's length is even
+     3) if so increment the counter 
+     4) return the counter 
+    */
+    let counter = 0;
+    for (let num of nums) {
+        if (num.toString().length % 2 === 0) counter ++;
+    }
+    return counter;
+};
