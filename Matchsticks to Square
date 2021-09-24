@@ -1,0 +1,32 @@
+var makesquare = function(matchsticks) {
+    /*
+         Square has four equal sides, this rule gives us a hint.
+         If the sum of all sides modulo 4 (sides) is not 0, return false.
+         Divide sum to 4, get the target num, use backtracking to compute 
+         each side
+    */
+    let sum = 0;
+    for (let matchstick of matchsticks) {
+        sum += matchstick;
+    }
+    if (sum % 4 !== 0) return false;
+    let target = sum / 4;
+    
+    matchsticks = matchsticks.sort();
+    return backtrack([0, 0, 0, 0], 0); 
+    
+    function backtrack(sides, index) {
+        if (index === matchsticks.length) {
+            if (sides[0] === target && sides[1] === target && sides[2] === target && sides[3] === target) return true;
+            else return false;
+        }
+            
+        for (let i = 0; i < 4; i ++) {
+            if (sides[i] + matchsticks[index] > target) continue;
+            sides[i] += matchsticks[index];
+            if (backtrack(sides, index + 1)) return true;
+            sides[i] -= matchsticks[index];
+        }
+        return false;
+    }
+};
