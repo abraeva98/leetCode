@@ -1,0 +1,29 @@
+var fourSum = function(nums, target) {
+    let map = [];
+    nums.sort((a, b) => a - b);
+
+    for (let i = 0; i < nums.length; i ++) {
+        for (let j = i + 1; j < nums.length; j ++) {
+            let left = j + 1;
+            let right = nums.length - 1;
+            let sum = nums[i] + nums[j];
+            while (left < right) {
+                let curr = sum + nums[left] + nums[right];
+                if (curr === target) {
+                    let sequence = [nums[i], nums[j], nums[left], nums[right]];
+                    map.push(sequence);
+                    while (nums[left] === nums[left + 1]) left ++;
+                    while (nums[right] === nums[right - 1]) right --;
+                    left ++;
+                    right --;
+                } else {
+                    if (curr > target) right --;
+                    if (curr < target) left ++;
+                }
+            }
+            while(nums[j] === nums[j + 1]) j ++;
+        }
+        while(nums[i] === nums[i + 1]) i ++;
+    }
+    return map;
+};
