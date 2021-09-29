@@ -1,0 +1,28 @@
+var longestSubstring = function(s, k) {
+    let maxUnique = new Set(s).size;
+
+    let maxSubstring = 0;
+    for (let currUnique = 1; currUnique <= maxUnique; currUnique ++) {
+        let start = 0, end = 0, unique = 0, atLeastK = 0, map = new Map();
+        
+        while (end < s.length) {
+            map.set(s[end], map.get(s[end]) + 1 || 1);
+            if (map.get(s[end]) === 1) unique ++;
+            if (map.get(s[end]) === k) atLeastK ++;
+            
+            while (unique > currUnique) {
+                map.set(s[start], map.get(s[start]) - 1);
+                if (map.get(s[start]) === 0) unique --;
+                if (map.get(s[start]) === k - 1) atLeastK --;
+                start ++;
+            }
+            
+            if (unique === currUnique && unique === atLeastK) {
+                maxSubstring = Math.max(maxSubstring, end - start + 1);
+            }
+            
+            end ++;
+        }
+    }
+    return maxSubstring;
+};
