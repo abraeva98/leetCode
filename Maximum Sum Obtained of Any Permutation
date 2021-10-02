@@ -1,0 +1,18 @@
+var maxSumRangeQuery = function(nums, requests) {
+    let frequency = new Array(nums.length).fill(0);
+    let modulo = 10**9 + 7;
+    nums.sort((a, b) => a - b);
+    
+    for (let request of requests) {
+        for (let i = request[0]; i <= request[1]; i ++) {
+            frequency[i] ++;
+        }
+    }
+    frequency.sort((a, b) => b - a);
+    let sum = 0;
+
+    for (let val of frequency) {
+        sum += val * nums.pop();
+    }
+    return sum % modulo;
+};
