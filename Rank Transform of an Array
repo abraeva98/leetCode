@@ -1,0 +1,15 @@
+var arrayRankTransform = function(arr) {
+    let sorted = arr.slice().sort((a, b) => a - b);
+    let map = new Map();
+    let idx = 1;
+    for(let i = 0; i < sorted.length; i ++) {
+        if (!map.has(sorted[i])) {
+            map.set(sorted[i], idx);
+            idx ++;
+        }  
+    }
+    for (let i = 0; i < arr.length; i ++) {
+        arr[i] = map.get(arr[i]);
+    }
+    return arr;
+};
