@@ -1,0 +1,20 @@
+var sortedSquares = function(nums) {
+    let arr = new Array(nums.length);
+    let left = 0;
+    let right = nums.length - 1;
+    let insertIdx = nums.length - 1;
+    
+    while (left <= right) {
+        let num1 = nums[left] ** 2;
+        let num2 = nums[right] ** 2;
+        if (num1 < num2) {
+            arr[insertIdx] = num2;
+            right --;
+        } else {
+            arr[insertIdx] = num1;
+            left ++;
+        }
+        insertIdx --;
+    }
+    return arr;
+};
