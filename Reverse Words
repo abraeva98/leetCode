@@ -1,0 +1,17 @@
+var reverseWords = function(s) {
+    let arr = s.split(' ');
+    for (let i = 0; i < arr.length; i ++) {
+        let left = 0;
+        let right = arr[i].length - 1;
+        let word = arr[i].split('');
+        while (left < right) {
+            let temp = word[right];
+            word[right] = word[left];
+            word[left] = temp;
+            right --;
+            left ++;
+        }
+        arr[i] = word.join('')
+    }
+    return arr.join(' ');
+};
