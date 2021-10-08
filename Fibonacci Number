@@ -1,0 +1,12 @@
+var fib = function(n, map = {}) {
+    if (n === 0 || n === 1) return n;
+    let dp = new Array();
+    dp[0] = 0;
+    dp[1] = 1;
+    let idx = 2;
+    while (idx <= n) {
+        dp[idx] = dp[idx - 1] + dp[idx - 2];
+        idx ++;
+    }
+    return dp[n];
+};
