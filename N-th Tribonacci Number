@@ -1,0 +1,7 @@
+var tribonacci = function(n) {
+    let sequence = [0, 1, 1];
+    for (let i = 3; i <= n; i ++) {
+        sequence[i] = sequence[i - 1] + sequence[i - 2] + sequence[i - 3];
+    }
+    return sequence[n];
+};
