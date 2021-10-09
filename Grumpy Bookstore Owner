@@ -1,0 +1,28 @@
+var maxSatisfied = function(customers, grumpy, minutes) {
+    let sum = 0;
+    let secretSum = 0;
+    
+    for (let i = 0; i < minutes; i ++) {
+        if (grumpy[i] === 0) sum += customers[i];
+        secretSum += customers[i];
+    }
+    
+    let maxSum = [sum, secretSum];
+    let total = 0;
+    
+    for (let start = 0; start < customers.length; start ++) {
+        if (grumpy[start] === 0) {
+            sum -= customers[start];
+            total += customers[start];
+        }
+        let end = start + minutes;
+        if (grumpy[end] === 0) sum += customers[end];
+        secretSum = secretSum - customers[start] + customers[end];
+        
+        if (maxSum[1] - maxSum[0] < secretSum - sum) {
+            maxSum = [sum, secretSum]
+        }
+    }
+
+    return total - maxSum[0] + maxSum[1];
+};
