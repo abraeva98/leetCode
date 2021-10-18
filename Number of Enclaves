@@ -1,0 +1,39 @@
+var numEnclaves = function(grid) {
+    let n = grid.length;
+    let m = grid[0].length;
+    for (let j = 0; j < m; j ++) {
+        if (grid[0][j] === 1) findAdjacent(grid, 0, j);
+    }
+    
+    for (let i = 0; i < n; i ++) {
+        if (grid[i][m - 1] === 1) findAdjacent(grid, i, m - 1);
+    }
+    
+    for (let j = 0; j < m; j ++) {
+        if (grid[n - 1][j] === 1) findAdjacent(grid, n - 1, j);
+    }
+    
+    for (let i = 0; i < n; i ++) {
+        if (grid[i][0] === 1) findAdjacent(grid, i, 0);
+    }
+    let land = 0;
+    for (let i = 0; i < n; i ++) {
+        for (let j = 0; j < m; j ++){
+            if (grid[i][j] === 1) land ++;
+        }
+    }
+    return land;
+};
+
+function findAdjacent(grid, i, j) {
+    if (i < 0 || i >= grid.length || j < 0 || j >= grid[0].length) {
+        return;
+    }
+    if (grid[i][j] === 1) {
+        grid[i][j] = -1;
+        findAdjacent(grid, i - 1, j);
+        findAdjacent(grid, i, j - 1);
+        findAdjacent(grid, i + 1, j);
+        findAdjacent(grid, i, j + 1);
+    }
+}
