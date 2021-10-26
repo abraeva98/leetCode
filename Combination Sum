@@ -1,0 +1,21 @@
+var combinationSum = function(candidates, target) {
+    let result = [];
+    
+    function recurse(candidates, res, target, idx) {
+        if (target === 0) {
+            result.push([...res]);
+            return;
+        }
+        if (target < 0) return;
+
+        for (let i = idx; i < candidates.length; i ++) {
+             res.push(candidates[i]);
+             target -= candidates[i];
+             recurse(candidates, res, target, i);
+             res.pop();
+             target += candidates[i];
+        }
+    }
+    recurse(candidates, [], target, 0)
+    return result;
+};
