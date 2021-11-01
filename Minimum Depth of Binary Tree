@@ -1,0 +1,16 @@
+var minDepth = function(root) {
+    if (root === null) return 0;
+    let minDepth = Infinity;
+    
+    function recurse(node, depth) {
+        if (!node.left && !node.right) {
+            minDepth = Math.min(minDepth, depth);
+            return;
+        }
+        if (node.left) recurse(node.left, depth + 1);
+        if (node.right) recurse(node.right, depth + 1);
+    }
+    
+    recurse(root, 1);
+    return minDepth;
+};
