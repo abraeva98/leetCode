@@ -1,0 +1,17 @@
+var combine = function(n, k) {
+    let combinations = [];
+    
+    function recurse(idx, set) {
+        if (set.length === k) {
+            combinations.push([...set]);
+            return;
+        }
+        for (let i = idx; i <= n; i ++) {
+            set.push(i);
+            recurse(i + 1, set);
+            set.pop();
+        }
+    }
+    recurse(1, [])
+    return combinations;
+};
