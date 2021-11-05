@@ -1,0 +1,22 @@
+var nodesBetweenCriticalPoints = function(head) {
+    let node = head;
+    let minDistance = [-1, -1];
+    let idx = 1;
+    let critical = [];
+    let min = Infinity;
+    
+    while(node && node.next && node.next.next) {
+        idx ++;
+        if ((node.val < node.next.val && node.next.val > node.next.next.val) ||
+            (node.val > node.next.val && node.next.val < node.next.next.val)) {
+            if(critical.length > 0 && idx - critical[critical.length - 1] < min) {
+                minDistance[0] = [idx - critical[critical.length - 1]];                
+                min = idx - critical[critical.length - 1]
+            }
+            critical.push(idx);          
+        } 
+        node = node.next;
+    }
+    if (minDistance[0] !== -1) minDistance[1] = critical[critical.length - 1] - critical[0];
+    return minDistance;
+};
