@@ -1,0 +1,25 @@
+var romanToInt = function(s) {
+    symbols = {
+    "I": 1,
+    "V": 5,
+    "X": 10,
+    "L": 50,
+    "C": 100,
+    "D": 500,
+    "M": 1000
+    };
+    let i = 0;
+    let total = 0;
+    
+    while (i < s.length) {
+        if(symbols[s[i]] < symbols[s[i + 1]]) {
+            total += symbols[s[i + 1]] - symbols[s[i]];
+            i += 2;
+        } else {
+            total += symbols[s[i]];
+            i ++;
+        }
+    }
+    
+    return total;
+};
