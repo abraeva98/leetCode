@@ -1,0 +1,27 @@
+var lengthOfLongestSubstringKDistinct = function(s, k) {
+    if (k === 0) return 0;
+    let unique = 0;
+    let largest = -Infinity;
+    let n = s.length;
+    let hashMap = new Map();
+    
+    let left = 0;
+    let right = 0;
+    
+    while(right < n) {
+        if(unique === k && !hashMap.has(s[right]) || unique > k) {
+            hashMap.set(s[left], hashMap.get(s[left]) - 1);
+            if (hashMap.get(s[left]) === 0) {
+                unique --;
+                hashMap.delete(s[left]);
+            }
+            left ++;
+            } else {
+                if(!hashMap.has(s[right])) unique ++;
+                hashMap.set(s[right], hashMap.get(s[right]) + 1 || 1);
+                right ++;
+            }
+        largest = Math.max(largest, right - left);
+        }
+    return largest;
+    }
