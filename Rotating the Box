@@ -1,0 +1,26 @@
+var rotateTheBox = function(box) {
+    let rotated = new Array();
+    for (let i = 0; i < box[0].length; i ++) rotated.push([]);
+    
+    for (let i = 0; i < box.length; i ++) {
+        let stone = 0;
+        for (let j = 0; j < box[i].length; j ++) {
+            if (box[i][j] === ".") {
+                let temp = box[i][j];
+                box[i][j] = box[i][stone];
+                box[i][stone] = temp;
+                stone ++;
+            } else if (box[i][j] === "*"){
+               stone = j + 1;
+            }
+        }
+    }
+
+    for (let i = 0; i < box.length; i ++) {
+        for (let j = box[i].length - 1; j >= 0; j --) {
+            rotated[j].unshift(box[i][j]);
+        }
+    }
+
+    return rotated;
+};
