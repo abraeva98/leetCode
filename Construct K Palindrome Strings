@@ -1,0 +1,15 @@
+var canConstruct = function(s, k) {
+    if (s.length < k) return false;
+    
+    let hashMap = new Map();
+    for (let letter of s) {
+        hashMap.set(letter, hashMap.get(letter) + 1 || 1);
+    }
+
+    let curr = 0;
+    for (let [key, val] of hashMap) {
+        if (val % 2 === 1) curr ++;
+    }
+    
+    return curr <= k;
+};
