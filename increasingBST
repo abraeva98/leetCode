@@ -1,0 +1,17 @@
+var increasingBST = function(root) {    
+    let ans = [];
+    function traverse(root) {
+        if(root.left) traverse(root.left);
+        ans.push(root.val);
+        if(root.right) traverse(root.right);
+    }
+    traverse(root);
+    let treeRoot = new TreeNode();
+    let tree = treeRoot;
+    for(let node of ans) {
+        tree.right = new TreeNode(node);
+        tree = tree.right;
+    }
+    
+    return treeRoot.right;
+};
