@@ -1,0 +1,32 @@
+var distinctDifferenceArray = function(nums) {
+    let res = [];
+    let n = nums.length;
+    let suffix = new Set();
+    let distinctSuffix = new Array(n + 1).fill(0);
+    for(i = n - 1; i >= 0; i--){
+        if(!suffix.has(nums[i])){
+            suffix.add(nums[i]);  
+            distinctSuffix[i] = distinctSuffix[i + 1] + 1;
+        } else {
+            distinctSuffix[i] = distinctSuffix[i + 1];
+        }
+    }
+    let prefix = new Set();
+    let distinctPrefix = new Array(n).fill(0);
+    for(let i = 0; i < n; i ++){
+        if(i == 0){
+            distinctPrefix[i] = 1;
+            prefix.add(nums[i]);
+        } else if(!prefix.has(nums[i])){
+            prefix.add(nums[i]);
+            distinctPrefix[i] = distinctPrefix[i - 1] + 1;
+         } else {
+            distinctPrefix[i] = distinctPrefix[i - 1];
+         }
+    }
+    
+    for(i = 0; i < n; i++){
+        res.push(distinctPrefix[i] - distinctSuffix[i + 1]);
+    }
+    return res;
+};
