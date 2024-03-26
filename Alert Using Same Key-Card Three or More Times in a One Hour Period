@@ -1,0 +1,22 @@
+var alertNames = function(keyName, keyTime) {
+    const mapTimeByName = {};
+    const res = [];
+
+    for(let i = 0; i < keyName.length; i ++){
+        if(!mapTimeByName[keyName[i]])
+            mapTimeByName[keyName[i]] = [];
+        const [HH, MM] = keyTime[i].split(":");
+        mapTimeByName[keyName[i]].push(HH * 60 + 1 * MM);
+    }
+
+    for(let name in mapTimeByName){
+        const timesCardUsed = mapTimeByName[name].sort((a, b) => a - b);     
+        for(let i = 0; i < timesCardUsed.length - 2; i ++) {
+            if(timesCardUsed[i + 2] - timesCardUsed[i] <= 60) {
+                res.push(name);
+                break;
+            }
+        }
+    }
+    return res.sort();
+};
