@@ -1,0 +1,39 @@
+var restoreArray = function(adjacentPairs) {
+    const pairs = {};
+    for(let pair of adjacentPairs){
+        if(!pairs[pair[0]]) {
+            pairs[pair[0]] = [];
+        }
+        pairs[pair[0]].push(pair[1]);
+        if(!pairs[pair[1]]) {
+            pairs[pair[1]] = [];
+        }
+        pairs[pair[1]].push(pair[0]);
+    }
+
+    const edge = [];
+    for(let key in pairs){
+        if(pairs[key].length == 1){
+            edge.push(key);
+        }
+    }
+    const resLength = Object.keys(pairs).length;
+    for(let i = 0; i < edge.length; i ++){
+        let prev = edge[i];
+        let curr = pairs[prev];
+        let res = [prev, curr];
+
+        while(pairs[curr] && res.length != resLength) {
+            const [neighbor1, neighbor2] = pairs[curr];
+            const temp = curr;
+            curr = neighbor1 == prev ? neighbor2 : neighbor1;
+            prev = temp;
+            res.push(curr);
+        }
+        
+        if(res.length == resLength){
+            return res;
+        }
+    }
+    return [];
+};
