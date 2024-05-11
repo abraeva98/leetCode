@@ -1,0 +1,16 @@
+var increasingTriplet = function(nums) {
+    let low = Infinity;
+    let mid = Infinity;
+    let high = Infinity;
+    
+    for(let num of nums){
+        if(num <= low){
+            low = num;
+        } else if(num <= mid){
+            mid = num;
+        }else if(num < high){
+            return true;
+        }
+    }
+    return false;
+};
